@@ -5,7 +5,7 @@ module.exports = {
   },
   beansprouts_db: {
     url: process.env.MONGOLAB_URI,
-    connector: "mongodb"
+    connector: "mongodb",
     name: "beansprouts_db",
   }
 }
