@@ -2,9 +2,6 @@
   "db": {
     "name": "db",
     "connector": "memory"
-  },
-  "beansprouts_db": {
-    "uri" : process.env.MONGOLAB_URI,
-    "connector": "mongodb"
   }
+
 }
