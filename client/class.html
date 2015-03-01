@@ -1,10 +1,25 @@
 <div>
-  <div ng-repeat="student in students">
-    {{ student.name }}
-    <button class="btn" type="submit" ng-click="checkInPre(student.id)" ng-disabled="!(student.status == 'checked out')"> Check In </button>
-    <button class="btn" type="submit" ng-click="checkInAfter(student.id)" ng-disabled="(student.status == 'checked in after')"> Check In </button>
-    <button class="btn" type="submit" ng-click="checkOut(student.id)" ng-disabled="(student.status == 'checked out')"> Check Out </button>
-  </div>
+  <table class="table">
+    <tr ng-repeat="student in students">
+      <td class="col-md-2">
+        {{ student.name }}
+      </td>
+      <td class="col-md-2">
+      </td>
+      <td class="col-md-2">
+        <button class="btn" type="submit" ng-click="checkInPre(student.id)" ng-disabled="!(student.status == 'checked out')"> Check In </button>
+      </td>
+      <td class="col-md-2">
+        <button class="btn" type="submit" ng-click="checkInAfter(student.id)" ng-disabled="(student.status == 'checked in after')"> Check In </button>
+      </td>
+      <td class="col-md-2">
+        <button class="btn" type="submit" ng-click="checkOut(student.id)" ng-disabled="(student.status == 'checked out')"> Check Out </button>
+      </td>
+      <td class="col-md-2">
+        {{ getStatus(student) }}
+      </td>
+    </tr>
+  </table>
 
 
   <input type="text" ng-model="name" placeholder="Name">

@@ -1,45 +1,14 @@
-<html>
-<head>
-
-
-  <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-</head>
-
-
-<body class="main">
-
-  <div class="container vertical-align">
-
-    <div class="row">
-      <h1 class="col-md-4 text-center  col-md-offset-4"> Get Ready To Log In </h1>
+<div>
+  <form class="col-md-4 text-center col-md-offset-4" ng-submit="logIn()">
+    <div class="form-group">
+      <input type="text" class="form-control" name="email" placeholder="Enter Email" ng-model="email">
     </div>
-
-    <div class="row">
-
-      <form class="col-md-4 text-center col-md-offset-4" method="post">
-        <div class="form-group">
-          <input type="text" class="form-control" name="email" placeholder="Enter Email">
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" name="password" placeholder="Password">
-        </div>
-        <input type="submit" value="Sign In" class="btn btn-primary pull-right" formaction="/api/teachers/login">
-        <input type="submit" value="Register" class="btn btn-primary pull-left" formaction="/api/teachers">
-      </form>
+    <div class="form-group">
+      <input type="password" class="form-control" name="password" placeholder="Enter Password" ng-model="password">
     </div>
-
-  </div>
-
-</body>
-
-</html>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary pull-right" ng-click="logIn(email, password)"> Log In </button>
+      <button type="submit" class="btn btn-primary pull-left" formaction="register(email, password)s"> Register </button>
+    </div>
+  </form>
+</div>

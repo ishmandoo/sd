@@ -1,7 +1,18 @@
-var app = angular.module("beansprouts_app", ['ngRoute', 'controllers']);
+var app = angular.module("beansprouts_app", ['ngRoute', 'controllers', 'ngCookies']);
+
+app.run(['$http', '$cookieStore', function($http, $cookieStore){
+  var token = $cookieStore.get("authToken") || {}
+  if (token){
+    $http.defaults.headers.common.authorization = token;
+  }
+}]);
 
 app.config(function($routeProvider){
   $routeProvider
+  .when('/login',{
+    templateUrl: 'login.html',
+    controller: "loginController"
+  })
   .when('/classes',{
     templateUrl: 'classes.html',
     controller: "classListController"
@@ -11,7 +22,7 @@ app.config(function($routeProvider){
     controller: "studentListController"
   })
   .otherwise({
-    templateUrl: 'classes.html',
-    controller: "classListController"
+    templateUrl: 'login.html',
+    controller: "loginController"
   })
 });

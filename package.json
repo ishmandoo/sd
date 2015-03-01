@@ -1,6 +1,9 @@
 {
   "name": "beansprouts_app",
   "version": "1.0.0",
+  "engines": {
+    "node": "0.12.x"
+  },
   "main": "server/server.js",
   "scripts": {
     "pretest": "jshint ."

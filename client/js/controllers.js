@@ -10,6 +10,30 @@ controllers.controller("classListController", ["$scope", "$http", function($scop
   });
 }]);
 
+controllers.controller("loginController", ["$scope", "$http", "$location", "$window", "$cookieStore", function($scope, $http, $location, $window, $cookieStore){
+  $scope.logIn = function(email, password){
+    $http.post('/api/teachers/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
+    .success(function(data, status, headers, config)
+    {
+      $http.defaults.headers.common.authorization = data.id;
+      $cookieStore.put("authToken", data.id);
+      console.log("logged in");
+      $location.path("classes");
+
+    });
+  }
+
+  $scope.register = function(email, password){
+    $http.post('/api/teachers/', {email:$scope.email, password:$scope.password})
+    .success(function(data, status, headers, config)
+    {
+      $window.sessionStorage.token = data.token;
+      console.log("registered")
+      $location.path("classes")
+    });
+  }
+}]);
+
 controllers.controller("studentListController", ["$scope", "$http", "$routeParams", function($scope, $http, $routeParams){
 
 
@@ -51,6 +75,18 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     .success(function(student){
       $scope.getStudents();
     });
+  }
+
+  $scope.getStatus = function(student) {
+    if (student.status == "checked out"){
+      return "Checked Out";
+    } else if (student.status == "checked in pre"){
+      return "Checked In Preschool";
+    } else if (student.status == "checked in after"){
+      return "Checked In After School";
+    } else {
+      return "";
+    }
   }
 
   $scope.getStudents();
