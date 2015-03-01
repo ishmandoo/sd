@@ -4,7 +4,7 @@ module.exports = {
     connector: "memory"
   },
   beansprouts_db: {
-    url: process.ENV.MONGOLAB_URI,
+    url: process.env.MONGOLAB_URI,
     connector: "mongodb"
   }
 }
