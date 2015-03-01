@@ -2,6 +2,9 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "beansprouts_db": {
+    "name": "beansprouts_db",
+    "connector": "mongodb"
   }
-
 }
