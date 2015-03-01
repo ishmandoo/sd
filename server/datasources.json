@@ -4,9 +4,6 @@
     "connector": "memory"
   },
   "beansprouts_db": {
-    "port": process.env.PORT || 27017,
-    "database": "beansprouts_db",
-    "name": "beansprouts_db",
     "uri" : process.env.MONGOLAB_URI,
     "connector": "mongodb"
   }
