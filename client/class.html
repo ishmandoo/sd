@@ -26,13 +26,13 @@
       <td class="col-sm-2">
       </td>
       <td class="col-sm-2">
-        <button class="btn btn-primary checkInPre {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkInPre(student.id)" ng-disabled="!(student.status == 'checked out')"> Check In </button>
+        <button class="btn btn-lg btn-primary checkInPre {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkInPre(student.id)" ng-disabled="!(student.status == 'checked out')"> Check In </button>
       </td>
       <td class="col-sm-2">
-        <button class="btn btn-primary checkInAfter {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkInAfter(student.id)" ng-disabled="(student.status == 'checked in after')"> Check In </button>
+        <button class="btn btn-lg btn-primary checkInAfter {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkInAfter(student.id)" ng-disabled="(student.status == 'checked in after')"> Check In </button>
       </td>
       <td class="col-sm-2">
-        <button class="btn btn-primary checkOut {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkOut(student.id)" ng-disabled="(student.status == 'checked out')"> Check Out </button>
+        <button class="btn btn-lg btn-primary checkOut {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkOut(student.id)" ng-disabled="(student.status == 'checked out')"> Check Out </button>
       </td>
       <td class="col--2">
         {{ getStatus(student) }}
