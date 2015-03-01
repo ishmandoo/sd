@@ -1,9 +1,11 @@
 var app = angular.module("beansprouts_app", ['ngRoute', 'controllers', 'ngCookies']);
 
-app.run(['$http', '$cookieStore', function($http, $cookieStore){
+app.run(['$http', '$cookieStore', '$location', function($http, $cookieStore, $location){
   var token = $cookieStore.get("authToken") || {}
   if (token){
     $http.defaults.headers.common.authorization = token;
+  } else {
+    $location.path("login");
   }
 }]);
 

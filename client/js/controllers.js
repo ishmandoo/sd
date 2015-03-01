@@ -36,7 +36,6 @@ controllers.controller("loginController", ["$scope", "$http", "$location", "$win
 
 controllers.controller("studentListController", ["$scope", "$http", "$routeParams", function($scope, $http, $routeParams){
 
-
   $scope.students = {};
   $scope.name = "";
 
@@ -48,15 +47,17 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   }
 
   $scope.newStudent = function() {
-    console.log($scope.name);
     $http.post('/api/classes/'+$routeParams.id+'/students', {name:$scope.name, status:"checked out", last_action_date:new Date()})
     .success(function(student){
       $scope.students.push(student);
       $scope.name = "";
+      $('button').button('reset');
     });
   };
 
   $scope.checkInPre = function(studentId) {
+    var btn = $('.checkInPre.'+studentId);
+    btn.button('loading');
     $http.post('/api/students/checkinpre', {studentId:studentId})
     .success(function(student){
       $scope.getStudents();
@@ -64,6 +65,8 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   }
 
   $scope.checkInAfter = function(studentId) {
+    var btn = $('.checkInAfter.'+studentId);
+    btn.button('loading');
     $http.post('/api/students/checkinafter', {studentId:studentId})
     .success(function(student){
       $scope.getStudents();
@@ -71,6 +74,8 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   }
 
   $scope.checkOut = function(studentId) {
+    var btn = $('.checkOut.'+studentId);
+    btn.button('loading');
     $http.post('/api/students/checkOut', {studentId:studentId})
     .success(function(student){
       $scope.getStudents();
