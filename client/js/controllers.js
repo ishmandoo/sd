@@ -2,12 +2,26 @@ var controllers = angular.module('controllers', []);
 
 controllers.controller("classListController", ["$scope", "$http", function($scope, $http){
 
-  $scope.classes = {};
+  $scope.pre_classes = {};
+  $scope.after_classes = {};
+  $scope.pick_up_locs = {};
 
-  $http.get('/api/classes')
+  $http.get("/api/classes?filter={\"where\":{\"class_type\":\"pre\"}}")
   .success(function(classes){
-    $scope.classes = classes;
+    $scope.pre_classes = classes;
   });
+
+  $http.get("/api/classes?filter={\"where\":{\"class_type\":\"after\"}}")
+  .success(function(classes){
+    $scope.after_classes = classes;
+  });
+
+  $http.get("/api/classes?filter={\"where\":{\"class_type\":\"pickup\"}}")
+  .success(function(classes){
+    $scope.pick_up_locs = classes;
+  });
+
+
 }]);
 
 controllers.controller("loginController", ["$scope", "$http", "$location", "$window", "$cookieStore", function($scope, $http, $location, $window, $cookieStore){
@@ -55,19 +69,10 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     });
   };
 
-  $scope.checkInPre = function(studentId) {
-    var btn = $('.checkInPre.'+studentId);
+  $scope.checkIn = function(studentId) {
+    var btn = $('.checkIn.'+studentId);
     btn.button('loading');
-    $http.post('/api/students/checkinpre', {studentId:studentId})
-    .success(function(student){
-      $scope.getStudents();
-    });
-  }
-
-  $scope.checkInAfter = function(studentId) {
-    var btn = $('.checkInAfter.'+studentId);
-    btn.button('loading');
-    $http.post('/api/students/checkinafter', {studentId:studentId})
+    $http.post('/api/students/checkin', {studentId:studentId, classId:$routeParams.id})
     .success(function(student){
       $scope.getStudents();
     });
@@ -76,7 +81,7 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.checkOut = function(studentId) {
     var btn = $('.checkOut.'+studentId);
     btn.button('loading');
-    $http.post('/api/students/checkOut', {studentId:studentId})
+    $http.post('/api/students/checkout', {studentId:studentId})
     .success(function(student){
       $scope.getStudents();
     });

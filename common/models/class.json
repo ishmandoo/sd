@@ -7,6 +7,10 @@
     "name": {
       "type": "string",
       "required": true
+    },
+    "class_type": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],

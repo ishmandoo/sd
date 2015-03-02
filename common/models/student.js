@@ -1,31 +1,20 @@
 module.exports = function(Student) {
 
-  Student.checkInPre = function(studentId, cb) {
+  Student.checkIn = function(studentId, classId, cb) {
     Student.findById(studentId, function(err, student) {
-      student.status = "checked in pre";
-      student.save();
-      cb(null, "success");
+      Student.app.models.Class.findById(classId, function(err, classObj){
+        student.status = "checked in " + classObj.class_type;
+        student.save();
+        cb(null, "success");
+      });
     });
   }
 
-  Student.remoteMethod('checkInPre',{
-    accepts: {arg: 'studentId', type: 'string'},
+  Student.remoteMethod('checkIn',{
+    accepts: [{arg: 'studentId', type: 'string'},
+              {arg: 'classId', type: 'string'}],
     returns: {arg: 'result', type: 'string'},
-    http: {path: '/checkinpre', verb: 'post'}
-  });
-
-  Student.checkInAfter = function(studentId, cb) {
-    Student.findById(studentId, function(err, student) {
-      student.status = "checked in after";
-      student.save();
-      cb(null, "success");
-    });
-  }
-
-  Student.remoteMethod('checkInAfter',{
-    accepts: {arg: 'studentId', type: 'string'},
-    returns: {arg: 'result', type: 'string'},
-    http: {path: '/checkinafter', verb: 'post'}
+    http: {path: '/checkin', verb: 'post'}
   });
 
   Student.checkOut = function(studentId, cb) {

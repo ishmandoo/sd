@@ -1,9 +1,40 @@
 <div class="col-sm-6 col-sm-offset-3">
-  <div class="list-group">
-    <div ng-repeat="class in classes" class="list-group-item">
-      <a href="#/class/{{class.id}}" > {{ class.name }}
-        <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
-      </a>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      Preschool Classes
+    </div>
+    <div class="list-group">
+      <div ng-repeat="class in pre_classes" class="list-group-item">
+        <a href="#/class/{{class.id}}" > {{ class.name }}
+          <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      After-School Classes
+    </div>
+    <div class="list-group">
+      <div ng-repeat="class in after_classes" class="list-group-item">
+        <a href="#/class/{{class.id}}" > {{ class.name }}
+          <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      After-School Pickup Locations
+    </div>
+    <div class="list-group">
+      <div ng-repeat="class in pick_up_locs" class="list-group-item">
+        <a href="#/class/{{class.id}}" > {{ class.name }}
+          <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
