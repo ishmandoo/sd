@@ -27,7 +27,7 @@
         <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkIn(student.id)" ng-disabled="(student.status == 'checked in after')" ng-show="(class.class_type=='after') || (class.class_type=='pickup')"> Check In </button>
       </td>
       <td class="col-sm-2">
-        <button class="btn btn-lg btn-primary checkOut {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkOut(student.id)" ng-disabled="(student.status == 'checked out')"> Check Out </button>
+        <button class="btn btn-lg btn-primary checkOut {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkOut(student.id)" ng-disabled="(student.status == 'checked out')" ng-hide="class.class_type=='pickup'"> Check Out </button>
       </td>
       <td class="col--2">
         {{ getStatus(student) }}
