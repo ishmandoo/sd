@@ -9,6 +9,21 @@ app.run(['$http', '$cookieStore', '$location', function($http, $cookieStore, $lo
   }
 }]);
 
+app.factory('httpResponseInterceptor',['$q','$location',function($q,$location){
+  return {
+    'responseError': function(rejection) {
+      if (rejection.status == 401){
+        $location.path('/login');
+      }
+    }
+  }
+}]);
+
+app.config(['$httpProvider',function($httpProvider) {
+  $httpProvider.interceptors.push('httpResponseInterceptor');
+}]);
+
+
 app.config(function($routeProvider){
   $routeProvider
   .when('/login',{
