@@ -16,9 +16,8 @@
   "validations": [],
   "relations": {
     "students": {
-      "type": "hasMany",
-      "model": "student",
-      "foreignKey": ""
+      "type": "hasAndBelongsToMany",
+      "model": "student"
     }
   },
   "acls": [

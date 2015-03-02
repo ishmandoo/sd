@@ -52,6 +52,14 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
 
   $scope.students = {};
   $scope.name = "";
+  $scope.class = "";
+
+  $scope.getClass = function () {
+    $http.get('/api/classes/'+$routeParams.id+'/')
+    .success(function(classObj){
+      $scope.class = classObj;
+    });
+  }
 
   $scope.getStudents = function (){
     $http.get('/api/classes/'+$routeParams.id+'/students')
@@ -100,4 +108,5 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   }
 
   $scope.getStudents();
+  $scope.getClass();
 }]);

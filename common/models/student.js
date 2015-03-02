@@ -3,7 +3,11 @@ module.exports = function(Student) {
   Student.checkIn = function(studentId, classId, cb) {
     Student.findById(studentId, function(err, student) {
       Student.app.models.Class.findById(classId, function(err, classObj){
-        student.status = "checked in " + classObj.class_type;
+        if (classObj.class_type == "pickup"){
+          student.status = "checked in after";
+        } else {
+          student.status = "checked in " + classObj.class_type;
+        }
         student.save();
         cb(null, "success");
       });

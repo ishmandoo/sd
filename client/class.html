@@ -20,10 +20,11 @@
       <td class="col-sm-2">
         {{ student.name }}
       </td>
-      <td class="col-sm-2">
+      <td class="col-sm-4">
       </td>
       <td class="col-sm-2">
-        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkIn(student.id)" ng-disabled="!(student.status == 'checked out')"> Check In </button>
+        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkIn(student.id)" ng-disabled="!(student.status == 'checked out')" ng-show="class.class_type=='pre'"> Check In </button>
+        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkIn(student.id)" ng-disabled="(student.status == 'checked in after')" ng-show="(class.class_type=='after') || (class.class_type=='pickup')"> Check In </button>
       </td>
       <td class="col-sm-2">
         <button class="btn btn-lg btn-primary checkOut {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkOut(student.id)" ng-disabled="(student.status == 'checked out')"> Check Out </button>
