@@ -41,5 +41,9 @@
   "log": {
     "dataSource": "beansprouts_db",
     "public": true
+  },
+  "admin": {
+    "dataSource": "beansprouts_db",
+    "public": true
   }
 }

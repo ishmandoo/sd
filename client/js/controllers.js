@@ -1,5 +1,34 @@
 var controllers = angular.module('controllers', []);
 
+
+controllers.controller("testController", ["$scope", "$http", function($scope, $http){
+
+  $scope.options = [];
+  $scope.text = "";
+
+/*
+  $scope.updateOptions = function() {
+    if ($scope.text.length >= 2){
+      $http.get("/api/students?filter={\"where\":{\"name\": {\"like\" : \"" + $scope.text + "\"}}}")
+      .success(function(options){
+        $scope.options = options;
+      });
+    } else {
+      $scope.options = [];
+    }
+  }
+*/
+  $scope.getOptions = function() {
+    return $http.get("/api/students?filter={\"where\":{\"name\": {\"like\" : \"" + $scope.text + "\"}}}")
+    .then(function(response){
+        return response.data;
+    });
+  };
+
+
+
+}]);
+
 controllers.controller("classListController", ["$scope", "$http", function($scope, $http){
 
   $scope.pre_classes = {};
@@ -25,16 +54,30 @@ controllers.controller("classListController", ["$scope", "$http", function($scop
 }]);
 
 controllers.controller("loginController", ["$scope", "$http", "$location", "$window", "$cookieStore", function($scope, $http, $location, $window, $cookieStore){
-  $scope.logIn = function(email, password){
-    $http.post('/api/teachers/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
-    .success(function(data, status, headers, config)
-    {
-      $http.defaults.headers.common.authorization = data.id;
-      $cookieStore.put("authToken", data.id);
-      console.log("logged in");
-      $location.path("classes");
+  $scope.adminCheckBox = true;
 
-    });
+  $scope.logIn = function(email, password){
+    if ($scope.adminCheckBox) {
+      $http.post('/api/admins/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
+      .success(function(data, status, headers, config)
+      {
+        $http.defaults.headers.common.authorization = data.id;
+        $cookieStore.put("authToken", data.id);
+        console.log("logged in admin");
+        $location.path("admin");
+
+      });
+    } else {
+        $http.post('/api/teachers/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
+        .success(function(data, status, headers, config)
+      {
+        $http.defaults.headers.common.authorization = data.id;
+        $cookieStore.put("authToken", data.id);
+        console.log("logged in");
+        $location.path("classes");
+
+      });
+    }
   }
 
   $scope.register = function(email, password){

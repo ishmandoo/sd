@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Edit Class</div>
+  <div class="panel-body">
+  <form class="form-inline" ng-submit="logIn()">
+    <label> Class Name </label>
+    <input type="text" class="form-control" name="className" placeholder="Name" ng-model="classObj.name">
+    <label> Class Type </label>
+    <select class="form-control" ng-model="classObj.class_type">
+      <option value = "pre"> Preschool Class </option>
+      <option value = "after"> After-School Class </option>
+      <option value = "pickup"> Pickup Location </option>
+    </select>
+    <br>
+    <button type="submit" class="btn btn-success" ng-click="update()"> Update </button>
+  </form>
+
+</div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Add/Remove Students</div>
+  <div class="panel-body">
+
+  <form class="form-inline">
+
+    <label> Add Student </label>
+    <div> </div>
+    <input type="text" class="form-control"  ng-model="newStudent.name" typeahead="student.name for student in getAutoCompleteStudents()" typeahead-min-length=3>
+    <button type="submit" class="btn btn-success" ng-click="addStudent()" ng-disabled="(newStudent.name != autoCompleteStudents[0].name) || (autoCompleteStudents.length != 1) || (newStudent.name.length < 3)"> <span class="glyphicon glyphicon-plus-sign"> </span> </button>
+
+  </form>
+
+
+
+  <table class="table">
+
+    <tr ng-repeat="student in studentList"> <td>
+      {{student.name}} <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeStudent(student)"> </span> </a>
+    </td> </tr>
+  </table>
+
+
+</div>
+</div>

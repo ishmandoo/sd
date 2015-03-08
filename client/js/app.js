@@ -1,4 +1,4 @@
-var app = angular.module("beansprouts_app", ['ngRoute', 'controllers', 'ngCookies']);
+var app = angular.module("beansprouts_app", ['ngRoute', 'controllers', 'ngCookies', 'ui.bootstrap']);
 
 app.run(['$http', '$cookieStore', '$location', function($http, $cookieStore, $location){
   var token = $cookieStore.get("authToken") || {}
@@ -37,6 +37,22 @@ app.config(function($routeProvider){
   .when('/class/:id',{
     templateUrl: 'class.html',
     controller: "studentListController"
+  })
+  .when('/admin',{
+    templateUrl: 'admin.html',
+    controller: "adminController"
+  })
+  .when('/admin/class/:id',{
+    templateUrl: 'edit_class.html',
+    controller: "editClassController"
+  })
+  .when('/admin/teacher/:id',{
+    templateUrl: 'edit_teacher.html',
+    controller: "editTeacherController"
+  })
+  .when('/admin/student/:id',{
+    templateUrl: 'edit_student.html',
+    controller: "editStudentController"
   })
   .otherwise({
     templateUrl: 'login.html',
