@@ -30,7 +30,7 @@
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Enter Password" ng-model="teacher.password">
           <span class="input-group-btn">
-            <button type="submit" class="btn btn-success" ng-click="addTeacher()">&nbsp<span class="glyphicon glyphicon-plus-sign" ng-disabled="(teacher.password1 != teacher.password2)"></span>&nbsp</button>
+            <button type="submit" class="btn btn-success" ng-click="addTeacher()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
           </span>
         </div>
         <table class="table">
@@ -50,7 +50,7 @@
       <div class="panel-heading">Students</div>
       <div class="panel-body">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Enter New Student Name" ng-model="class.name">
+          <input type="text" class="form-control" placeholder="Enter New Student Name" ng-model="student.name">
           <span class="input-group-btn">
             <button type="submit" class="btn btn-success" ng-click="addStudent()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
           </span>

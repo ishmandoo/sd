@@ -54,30 +54,28 @@ controllers.controller("classListController", ["$scope", "$http", function($scop
 }]);
 
 controllers.controller("loginController", ["$scope", "$http", "$location", "$window", "$cookieStore", function($scope, $http, $location, $window, $cookieStore){
-  $scope.adminCheckBox = true;
+  $scope.adminCheckBox = false;
 
   $scope.logIn = function(email, password){
-    if ($scope.adminCheckBox) {
+    $http.post('/api/teachers/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
+    .success(function(data, status, headers, config) {
+      $http.defaults.headers.common.authorization = data.id;
+      $cookieStore.put("authToken", data.id);
+      console.log("logged in");
+      $location.path("classes");
+
+    });
+  }
+
+  $scope.logInAdmin = function(email, password){
       $http.post('/api/admins/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
-      .success(function(data, status, headers, config)
-      {
-        $http.defaults.headers.common.authorization = data.id;
-        $cookieStore.put("authToken", data.id);
-        console.log("logged in admin");
-        $location.path("admin");
+      .success(function(data, status, headers, config) {
+      $http.defaults.headers.common.authorization = data.id;
+      $cookieStore.put("authToken", data.id);
+      console.log("logged in admin");
+      $location.path("admin");
 
-      });
-    } else {
-        $http.post('/api/teachers/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
-        .success(function(data, status, headers, config)
-      {
-        $http.defaults.headers.common.authorization = data.id;
-        $cookieStore.put("authToken", data.id);
-        console.log("logged in");
-        $location.path("classes");
-
-      });
-    }
+    });
   }
 
   $scope.register = function(email, password){

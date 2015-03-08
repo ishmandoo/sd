@@ -30,7 +30,7 @@ angular.module("beansprouts_app")
   }
 
   $scope.getStudentList = function(){
-    $http.get('/api/students')
+    $http.get('/api/students?filter={\"order\":\"name ASC\"}')
     .success(function(data){
       $scope.studentData = data;
     });
