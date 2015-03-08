@@ -7,8 +7,7 @@ angular.module("beansprouts_app")
   $scope.teacher = {};
   $scope.class = {};
   $scope.student.name = "";
-  $scope.teacherEmail = "";
-  $scope.teacherPassword = "";
+  $scope.teacher.password = "";
   $scope.class.name = "";
   $scope.class.type = "pre";
 

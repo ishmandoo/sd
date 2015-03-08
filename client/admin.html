@@ -2,15 +2,15 @@
 
   <div class="col-md-4 col-sm-12">
     <div class="panel panel-default">
-      <div class="panel-heading">Students</div>
+      <div class="panel-heading">Classes</div>
       <div class="panel-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Enter New Class Name" ng-model="class.name">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-success" ng-click="addClass()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+          </span>
+        </div>
         <table class="table">
-          <tr> <td>
-            <form class="form-inline">
-              <input type="text" class="form-control" placeholder="Enter Name" ng-model="class.name">
-              <button type="submit" class="btn btn-success" ng-click="addClass()"> <span class="glyphicon glyphicon-plus-sign"> </span> </button>
-            </form>
-          </td> </tr>
           <tr ng-repeat="class in classData">
             <td>
               <a href="/#/admin/class/{{class.id}}"> {{class.name}}  </a>
@@ -26,14 +26,14 @@
     <div class="panel panel-default">
       <div class="panel-heading">Teachers</div>
       <div class="panel-body">
+        <input type="text" class="form-control" placeholder="Enter Email" ng-model="teacher.email">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Enter Password" ng-model="teacher.password">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-success" ng-click="addTeacher()">&nbsp<span class="glyphicon glyphicon-plus-sign" ng-disabled="(teacher.password1 != teacher.password2)"></span>&nbsp</button>
+          </span>
+        </div>
         <table class="table">
-          <tr> <td>
-            <form class="form">
-              <input type="text" class="form-control" placeholder="Enter Email" ng-model="teacher.email">
-              <input type="password" class="form-control" placeholder="Enter Password" ng-model="teacher.password">
-              <button type="submit" class="btn btn-success" ng-click="addTeacher()"> <span class="glyphicon glyphicon-plus-sign"> </span> </button>
-            </form>
-          </td> </tr>
           <tr ng-repeat="teacher in teacherData">
             <td>
               <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.email}}  </a>
@@ -47,17 +47,15 @@
 
   <div class="col-md-4 col-sm-12">
     <div class="panel panel-default">
-      <div class="panel-heading">Classes</div>
+      <div class="panel-heading">Students</div>
       <div class="panel-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Enter New Student Name" ng-model="class.name">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-success" ng-click="addStudent()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+          </span>
+        </div>
         <table class="table">
-          <tr> <td>
-            <form class="form-inline">
-              <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="Enter Name" ng-model="student.name">
-              </div>
-              <button type="submit" class="btn btn-success" ng-click="addStudent()"> <span class="glyphicon glyphicon-plus-sign"> </span> </button>
-            </form>
-          </td> </tr>
           <tr ng-repeat="student in studentData">
             <td>
               <a href="/#/admin/student/{{student.id}}"> {{student.name}}  </a>
