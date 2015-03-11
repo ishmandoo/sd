@@ -13,7 +13,12 @@ app.factory('httpResponseInterceptor',['$q','$location',function($q, $location){
   return {
     'responseError': function(rejection) {
       if (rejection.status == 401){
-        $location.path('/login');
+        console.log($location.path());
+        if (($location.path()=="")||($location.path()=="/login")){
+          return $q.reject(rejection);
+        } else {
+          $location.path('/login');
+        }
       }
       return $q.reject(rejection);
     }

@@ -59,18 +59,15 @@ controllers.controller("loginController", ["$scope", "$http", "$location", "$win
   $scope.logIn = function(username, password){
     $http.post('/api/teachers/login/', {username:$scope.username, password:$scope.password, ttl:60*10*1000}).
     success(function(data, status, headers, config) {
-      console.log("test")
       $http.defaults.headers.common.authorization = data.id;
       $cookieStore.put("authToken", data.id);
       console.log("logged in");
       $location.path("classes");
     }).
     error(function(data, status, headers, config){
-      console.log("test")
       $scope.loginFailed = true;
     });
 
-    console.log("test")
   }
 
   $scope.logInAdmin = function(username, password){
