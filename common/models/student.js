@@ -45,14 +45,27 @@ module.exports = function(Student) {
       teacherId: ctx.req.accessToken.userId,
       classId: ctx.req.body.classId
     };
-
     var log = Student.app.models.Log.create(data, function(err, logObj){
-
     });
 
 
     next();
   };
+
+  Student.observe('before delete', function(ctx, next) {
+    console.log('deleting student');
+    console.log(ctx);
+
+
+    Student.app.models.Class.find(function(err, classes){
+      for (var i in classes) {
+        classes[i].students.destroy(ctx.where.id, function(err){
+          console.log(err);
+          next();
+        });
+      }
+    });
+  });
 
 
   Student.afterRemote("checkIn", logHook);
