@@ -1,3 +1,8 @@
+<div class="input-group has-feedback col-md-12 ">
+    <input type="text" class="form-control" placeholder="Search" ng-model="searchText" aria-describedby="basic-addon2">
+    <span class="form-control-feedback glyphicon glyphicon-search"></span>
+</div>
+<br>
 
 
   <div class="col-md-4 col-sm-12">
@@ -13,7 +18,7 @@
           </div>
         </form>
         <table class="table">
-          <tr ng-repeat="class in classData">
+          <tr ng-repeat="class in classData | filter:searchText">
             <td>
               <a href="/#/admin/class/{{class.id}}"> {{class.name}}  </a>
               <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="deleteClass(class)"> </span> </a>
@@ -39,7 +44,7 @@
           </div>
         </form>
         <table class="table">
-          <tr ng-repeat="teacher in teacherData">
+          <tr ng-repeat="teacher in teacherData  | filter:searchText">
             <td>
               <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.email}}  </a>
               <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="deleteTeacher(teacher)"> </span> </a>
@@ -63,7 +68,7 @@
           </div>
         </form>
         <table class="table">
-          <tr ng-repeat="student in studentData">
+          <tr ng-repeat="student in studentData  | filter:searchText">
             <td>
               <a href="/#/admin/student/{{student.id}}"> {{student.name}}  </a>
               <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="deleteStudent(student)"> </span> </a>
