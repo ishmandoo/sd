@@ -3,6 +3,8 @@ angular.module("beansprouts_app")
 
   $scope.classObj = {};
   $scope.studentList = [];
+  $scope.autoCompleteList = [];
+  $scope.studentIndex = 0;
 
   $scope.newStudent = {name:""};
 
@@ -18,7 +20,7 @@ angular.module("beansprouts_app")
 
   $scope.addStudent = function(){
     if($routeParams.id){
-      $http.put('/api/classes/'+$routeParams.id+'/students/rel/'+$scope.autoCompleteStudents[0].id)
+      $http.put('/api/classes/'+$routeParams.id+'/students/rel/'+$scope.autoCompleteStudents[$scope.studentIndex].id)
       .success(function(student){
         $scope.getStudentList();
         $scope.newStudent.name = "";
@@ -33,6 +35,18 @@ angular.module("beansprouts_app")
         $scope.getStudentList();
       });
     }
+  }
+
+  $scope.invalidStudent = function() {
+    if($scope.newStudent.name.length >= 3){
+      for(var i =0; i < $scope.autoCompleteStudents.length; i++){
+        if($scope.newStudent.name == $scope.autoCompleteStudents[i].name){
+          $scope.studentIndex = i;
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   $scope.getAutoCompleteStudents = function() {

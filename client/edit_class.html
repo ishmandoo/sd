@@ -29,7 +29,11 @@
     <div class="input-group">
       <input type="text" class="form-control"  ng-model="newStudent.name" typeahead="student.name for student in getAutoCompleteStudents()" typeahead-min-length=3>
       <span class="input-group-btn">
-        <button type="submit" class="btn btn-success" ng-click="addStudent()" ng-disabled="(newStudent.name != autoCompleteStudents[0].name) || (autoCompleteStudents.length != 1) || (newStudent.name.length < 3)">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+        <button type="submit" class="btn btn-success" ng-click="addStudent()" ng-disabled="invalidStudent()">
+          &nbsp
+          <span class="glyphicon glyphicon-plus-sign"></span>
+          &nbsp
+        </button>
       </span>
     </div>
 
