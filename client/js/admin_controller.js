@@ -46,11 +46,12 @@ angular.module("beansprouts_app")
   }
 
   $scope.addTeacher = function() {
-    $http.post('/api/teachers/', {email:$scope.teacher.email, password:$scope.teacher.password})
+    $http.post('/api/teachers/', {email:$scope.teacher.email, password:$scope.teacher.password, username:$scope.teacher.username})
     .success(function(teacher){
       $scope.teacherData.push(teacher);
       $scope.teacher.email = "";
       $scope.teacher.password = "";
+      $scope.teacher.username = "";
     });
   }
 
@@ -58,7 +59,7 @@ angular.module("beansprouts_app")
     console.log($scope.student.name);
     $http.post('/api/students/', {name:$scope.student.name, status:"checked out", last_action_date:new Date()})
     .success(function(student){
-      $scope.studentData.push(student);
+      $scope.getStudentList();
       $scope.student.name = "";
     });
   }

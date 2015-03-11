@@ -56,8 +56,8 @@ controllers.controller("classListController", ["$scope", "$http", function($scop
 controllers.controller("loginController", ["$scope", "$http", "$location", "$window", "$cookieStore", function($scope, $http, $location, $window, $cookieStore){
   $scope.adminCheckBox = false;
 
-  $scope.logIn = function(email, password){
-    $http.post('/api/teachers/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
+  $scope.logIn = function(username, password){
+    $http.post('/api/teachers/login/', {username:$scope.username, password:$scope.password, ttl:60*10*1000})
     .success(function(data, status, headers, config) {
       $http.defaults.headers.common.authorization = data.id;
       $cookieStore.put("authToken", data.id);
@@ -67,8 +67,8 @@ controllers.controller("loginController", ["$scope", "$http", "$location", "$win
     });
   }
 
-  $scope.logInAdmin = function(email, password){
-      $http.post('/api/admins/login/', {email:$scope.email, password:$scope.password, ttl:60*10*1000})
+  $scope.logInAdmin = function(username, password){
+      $http.post('/api/admins/login/', {username:$scope.username, password:$scope.password, ttl:60*10*1000})
       .success(function(data, status, headers, config) {
       $http.defaults.headers.common.authorization = data.id;
       $cookieStore.put("authToken", data.id);
@@ -78,8 +78,8 @@ controllers.controller("loginController", ["$scope", "$http", "$location", "$win
     });
   }
 
-  $scope.register = function(email, password){
-    $http.post('/api/teachers/', {email:$scope.email, password:$scope.password})
+  $scope.register = function(username, password){
+    $http.post('/api/teachers/', {username:$scope.username, password:$scope.password})
     .success(function(data, status, headers, config)
     {
       $window.sessionStorage.token = data.token;
@@ -130,7 +130,7 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.checkOut = function(studentId) {
     var btn = $('.checkOut.'+studentId);
     btn.button('loading');
-    $http.post('/api/students/checkout', {studentId:studentId})
+    $http.post('/api/students/checkout', {studentId:studentId, classId:$routeParams.id})
     .success(function(student){
       $scope.getStudents();
     });

@@ -21,7 +21,7 @@ module.exports = function(Student) {
     http: {path: '/checkin', verb: 'post'}
   });
 
-  Student.checkOut = function(studentId, cb) {
+  Student.checkOut = function(studentId, classId, cb) {
     Student.findById(studentId, function(err, student) {
       student.status = "checked out";
       student.save();
@@ -30,10 +30,32 @@ module.exports = function(Student) {
   }
 
   Student.remoteMethod('checkOut',{
-    accepts: {arg: 'studentId', type: 'string'},
+    accepts: [{arg: 'studentId', type: 'string'},
+              {arg: 'classId', type: 'string'}],
     returns: {arg: 'result', type: 'string'},
     http: {path: '/checkout', verb: 'post'}
   });
 
+  var logHook = function( ctx, modelInstance, next) {
+
+    var data = {
+      date : new Date(),
+      event : ctx.req.path,
+      studentId: ctx.req.body.studentId,
+      teacherId: ctx.req.accessToken.userId,
+      classId: ctx.req.body.classId
+    };
+
+    var log = Student.app.models.Log.create(data, function(err, logObj){
+
+    });
+
+
+    next();
+  };
+
+
+  Student.afterRemote("checkIn", logHook);
+  Student.afterRemote("checkOut", logHook);
 
 };

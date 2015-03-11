@@ -7,7 +7,7 @@
       "type": "string",
       "required": true
     },
-    "time": {
+    "date": {
       "type": "date",
       "required": true
     }
@@ -15,17 +15,17 @@
   "validations": [],
   "relations": {
     "student": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "student",
       "foreignKey": ""
     },
     "teacher": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "teacher",
       "foreignKey": ""
     },
     "class": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "class",
       "foreignKey": ""
     }

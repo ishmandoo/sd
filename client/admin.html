@@ -4,12 +4,14 @@
     <div class="panel panel-default">
       <div class="panel-heading">Classes</div>
       <div class="panel-body">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Enter New Class Name" ng-model="class.name">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-success" ng-click="addClass()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
-          </span>
-        </div>
+        <form>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter New Class Name" ng-model="class.name">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-success" ng-click="addClass()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+            </span>
+          </div>
+        </form>
         <table class="table">
           <tr ng-repeat="class in classData">
             <td>
@@ -26,13 +28,16 @@
     <div class="panel panel-default">
       <div class="panel-heading">Teachers</div>
       <div class="panel-body">
-        <input type="text" class="form-control" placeholder="Enter Email" ng-model="teacher.email">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Enter Password" ng-model="teacher.password">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-success" ng-click="addTeacher()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
-          </span>
-        </div>
+        <form>
+          <input type="text" class="form-control" placeholder="Enter Username" ng-model="teacher.username">
+          <input type="text" class="form-control" placeholder="Enter Email" ng-model="teacher.email">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter Password" ng-model="teacher.password">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-success" ng-click="addTeacher()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+            </span>
+          </div>
+        </form>
         <table class="table">
           <tr ng-repeat="teacher in teacherData">
             <td>
@@ -46,15 +51,17 @@
   </div>
 
   <div class="col-md-4 col-sm-12">
-    <div class="panel panel-default">
+    <div class="panel panel-default" >
       <div class="panel-heading">Students</div>
       <div class="panel-body">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Enter New Student Name" ng-model="student.name">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-success" ng-click="addStudent()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
-          </span>
-        </div>
+        <form>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter New Student Name" ng-model="student.name">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-success" ng-click="addStudent()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+            </span>
+          </div>
+        </form>
         <table class="table">
           <tr ng-repeat="student in studentData">
             <td>
