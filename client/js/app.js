@@ -9,12 +9,13 @@ app.run(['$http', '$cookieStore', '$location', function($http, $cookieStore, $lo
   }
 }]);
 
-app.factory('httpResponseInterceptor',['$q','$location',function($q,$location){
+app.factory('httpResponseInterceptor',['$q','$location',function($q, $location){
   return {
     'responseError': function(rejection) {
       if (rejection.status == 401){
         $location.path('/login');
       }
+      return $q.reject(rejection);
     }
   }
 }]);

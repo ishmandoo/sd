@@ -54,17 +54,23 @@ controllers.controller("classListController", ["$scope", "$http", function($scop
 }]);
 
 controllers.controller("loginController", ["$scope", "$http", "$location", "$window", "$cookieStore", function($scope, $http, $location, $window, $cookieStore){
-  $scope.adminCheckBox = false;
+  $scope.loginFailed = false;
 
   $scope.logIn = function(username, password){
-    $http.post('/api/teachers/login/', {username:$scope.username, password:$scope.password, ttl:60*10*1000})
-    .success(function(data, status, headers, config) {
+    $http.post('/api/teachers/login/', {username:$scope.username, password:$scope.password, ttl:60*10*1000}).
+    success(function(data, status, headers, config) {
+      console.log("test")
       $http.defaults.headers.common.authorization = data.id;
       $cookieStore.put("authToken", data.id);
       console.log("logged in");
       $location.path("classes");
-
+    }).
+    error(function(data, status, headers, config){
+      console.log("test")
+      $scope.loginFailed = true;
     });
+
+    console.log("test")
   }
 
   $scope.logInAdmin = function(username, password){
@@ -75,6 +81,9 @@ controllers.controller("loginController", ["$scope", "$http", "$location", "$win
       console.log("logged in admin");
       $location.path("admin");
 
+    })
+    .error(function(data, status, headers, config){
+      $scope.loginFailed = true;
     });
   }
 

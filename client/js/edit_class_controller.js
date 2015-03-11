@@ -1,5 +1,5 @@
 angular.module("beansprouts_app")
-.controller("editClassController", ["$scope", "$http", "$routeParams", function($scope, $http, $routeParams){
+.controller("editClassController", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location){
 
   $scope.classObj = {};
   $scope.studentList = [];
@@ -11,6 +11,7 @@ angular.module("beansprouts_app")
       $http.put('/api/classes/'+$routeParams.id, {name:$scope.classObj.name, class_type: $scope.classObj.class_type})
       .success(function(classObj){
         $scope.classObj = classObj;
+        $location.path("admin");
       });
     }
   }
