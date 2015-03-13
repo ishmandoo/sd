@@ -108,7 +108,7 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9","0"];
 
 
-  jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
+  /*jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
     this.each(function() {
       //$(this).css("position","relative");
       for (var x=1; x<=intShakes; x++) {
@@ -119,7 +119,7 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     });
     return this;
   };
-
+*/
   $scope.pinButton = function(number, pin) {
     $scope.pin = $scope.pin.concat(number);
     if ($scope.pin.length >= 4) {
@@ -127,11 +127,9 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
         $scope.pinpad.callback($scope.pinpad.student.id);
       }
       else{
-
-        $(".modal-content").shake(3,7,350);
+        //$(".modal-content").shake(3,7,350);
       }
       $scope.pin="";
-
     }
   }
 
