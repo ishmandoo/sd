@@ -19,17 +19,50 @@
         {{ student.name }}
       </td>
       <td class="col-sm-3">
-        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkIn(student.id)" ng-disabled="!(student.status == 'checked out')" ng-show="class.class_type=='pre'"> Check In </button>
-        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkIn(student.id)" ng-disabled="(student.status == 'checked in after')" ng-show="(class.class_type=='after') || (class.class_type=='pickup')"> Check In </button>
+        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(student, checkIn)" ng-disabled="!(student.status == 'checked out')" ng-show="class.class_type=='pre'"> Check In </button>
+        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(student, checkIn)" ng-disabled="(student.status == 'checked in after')" ng-show="(class.class_type=='after') || (class.class_type=='pickup')"> Check In </button>
       </td>
       <td class="col-sm-3">
-        <button class="btn btn-lg btn-primary checkOut {{student.id}}" data-loading-text="loading" type="submit" ng-click="checkOut(student.id)" ng-disabled="(student.status == 'checked out')" ng-hide="class.class_type=='pickup'"> Check Out </button>
+        <button class="btn btn-lg btn-primary checkOut {{student.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(student, checkOut)" ng-disabled="(student.status == 'checked out')" ng-hide="class.class_type=='pickup'"> Check Out </button>
       </td>
       <td class="col-sm-3">
         {{ getStatus(student) }}
       </td>
     </tr>
   </table>
+
+<!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".pin-modal">Small modal</button> -->
+
+<style>
+.modal-content
+{
+  /* Fallback for web browsers that don't support RGBa */
+  background-color: rgb(0, 0, 0);
+  /* RGBa with 0.6 opacity */
+  background-color: rgba(0, 0, 0, 0.6);
+0
+}
+
+
+
+
+</style>
+
+
+
+  <div class="modal fade pin-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content text-center">
+        <div class="modal-header">
+          <div class="modal-title" style="color:#FFFFFF;">
+            Please Enter PIN
+          </div>
+        </div>
+        <h1 class="text-center" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
+          <button class="btn btn-lg btn-success col-md-4" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-click="pinButton(number)"><h1>{{number}}</h1></button>
+      </div>
+    </div>
+  </div>
 
   <!--
   <input type="text" ng-model="name" placeholder="Name">

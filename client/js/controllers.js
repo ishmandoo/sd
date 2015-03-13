@@ -100,6 +100,48 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.students = {};
   $scope.name = "";
   $scope.class = "";
+  $scope.pinpad = {};
+
+  $scope.modal = false;
+
+  $scope.pin ="";
+  $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9","0"];
+
+
+  jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
+    this.each(function() {
+      //$(this).css("position","relative");
+      for (var x=1; x<=intShakes; x++) {
+        $(this).animate({left:(intDistance*-1)}, (((intDuration/intShakes)/4)))
+        .animate({left:intDistance}, ((intDuration/intShakes)/2))
+        .animate({left:0}, (((intDuration/intShakes)/4)));
+      }
+    });
+    return this;
+  };
+
+  $scope.pinButton = function(number, pin) {
+    $scope.pin = $scope.pin.concat(number);
+    if ($scope.pin.length >= 4) {
+      if($scope.pin == $scope.pinpad.student.pin){
+        $scope.pinpad.callback($scope.pinpad.student.id);
+      }
+      else{
+
+        $(".modal-content").shake(3,7,350);
+      }
+      $scope.pin="";
+
+    }
+  }
+
+  $scope.startPinPad = function(student, callback){
+    $scope.pin="";
+    $scope.pinpad.student = student
+    $scope.pinpad.callback = callback
+    $(".pin-modal").modal('show');
+
+  }
 
   $scope.getClass = function () {
     $http.get('/api/classes/'+$routeParams.id+'/')
@@ -130,6 +172,8 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     $http.post('/api/students/checkin', {studentId:studentId, classId:$routeParams.id})
     .success(function(student){
       $scope.getStudents();
+      $(".pin-modal").modal('hide');
+
     });
   }
 
@@ -139,6 +183,8 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     $http.post('/api/students/checkout', {studentId:studentId, classId:$routeParams.id})
     .success(function(student){
       $scope.getStudents();
+      $(".pin-modal").modal('hide');
+
     });
   }
 

@@ -7,7 +7,7 @@ angular.module("beansprouts_app")
   $scope.endDate = new Date("4/1/2015");
 
   $scope.update = function(){
-    var query = {name:$scope.student.name}
+    var query = {name:$scope.student.name, pin:$scope.student.pin}
     $http.put('/api/students/'+$routeParams.id, query)
     .success(function(classObj){
       $scope.classObj = classObj;
