@@ -1,5 +1,5 @@
 var app = angular.module("test_app", ['ngRoute',
-                              'ngCookies', 'ui.bootstrap', 'ngTouch']);
+                              'ngCookies', 'ui.bootstrap']);
 
 mycount = 0
 
@@ -74,7 +74,7 @@ $scope.inc = function(){
 $scope.incbare = function(){
 
   mycount++;
-  console.log(mycount);  
+  console.log(mycount);
   document.getElementById('mynum').innerHTML= mycount;
 
 }
