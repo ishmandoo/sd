@@ -4,19 +4,22 @@
 
 
     <!-- Angular -->
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/fastclick/lib/fastclick.js" ></script>
+    <script src="/bower_components/jquery/jquery.min.js"></script>
+  <!--  <script src="/bower_components/fastclick/lib/fastclick.js" ></script>
     <script>
       $(function() {
       FastClick.attach(document.body);
       });
-    </script>
+    </script> -->
 
 
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+  <!--  <script src="/bower_components/jquery-ui/ui/jquery.ui.core.js"></script>
+    <script src="/bower_components/jquery-mobile/js/jquery.mobile.js"></script> -->
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 
 
     <script src="/bower_components/angular/angular.js"></script>
@@ -124,7 +127,7 @@
                   </div>
                 </div>
                 <h1 class="text-center" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
-                  <button class="btn btn-lg btn-success col-md-4 pinbutton" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-click="pinButton(number)"><h1>{{number}}</h1></button>
+                  <button class="btn btn-lg btn-success col-md-4 pinbutton" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-value="number"><h1>{{number}}</h1></button>
               </div>
             </div>
           </div>
