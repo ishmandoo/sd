@@ -40,8 +40,8 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
   };
 
   $scope.pinButton = function(number) {
-    console.log(number);
-    console.log("BUDDO");
+    //console.log(number);
+    //console.log("BUDDO");
     $scope.pin = $scope.pin.concat(number);
     if ($scope.pin.length >= 4) {
       if($scope.pin == $scope.pinpad.student.pin){
@@ -56,6 +56,20 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
       }
       $scope.pin="";
     }
+  }
+
+  $scope.pinCheck = function(pin){
+    if(pin == $scope.pinpad.student.pin){
+      //$scope.pinpad.callback($scope.pinpad.student.id);
+      console.log("correct pin");
+      $(".pin-modal").modal('hide');
+      $scope.goodpin = true;
+    }
+    else{
+      $(".modal-content").shake(3,7,350);
+      $scope.goodpin = false;
+    }
+
   }
 
 /*  $( document ).on( "vclick", ".pinbutton", function() {

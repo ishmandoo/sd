@@ -33,6 +33,7 @@
 
     });
 
+    tfePinPad = {pin:""};
 
    $( document ).on( "vclick", ".pinbutton", function() {
       //console.log("yo")
@@ -42,15 +43,33 @@
       //console.log(this);
       //console.log(angular.element('.pinbutton').scope());
       //console.log(this.scope());
-      var scope = angular.element('.pinbutton').scope().$parent;
-      console.log(scope);
-      console.log(scope.pinpad);
-      console.log(this.value);
-      scope.pinButton(this.value);
-      scope.$apply();
+      //var scope = angular.element('.pinbutton').scope().$parent;
+      //console.log(scope);
+      //console.log(scope.pinpad);
+      //console.log(this.value);
+      //scope.pinButton(this.value);
+      //scope.$apply();
       //scope.$apply(function(){scope.pinButton(this.value)});
       //scope.$apply(function(){scope.pin="12"})
       //pinButton(this.value);
+
+
+        //console.log(number);
+        //console.log("BUDDO");
+        tfePinPad.pin = tfePinPad.pin.concat(this.value);
+        $(".pinPanel").html(tfePinPad.pin + " ")
+        if (tfePinPad.pin.length >= 4) {
+          var scope = angular.element('.pinbutton').scope().$parent;
+          scope.pinCheck(tfePinPad.pin);
+          scope.$apply();
+          tfePinPad.pin="";
+        }
+
+
+
+
+
+
     });
     </script>
 
@@ -126,7 +145,7 @@
                     Please Enter PIN
                   </div>
                 </div>
-                <h1 class="text-center" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
+                <h1 class="text-center pinPanel" style="color:#FFFFFF;" >&nbsp;</h1>
                   <button class="btn btn-lg btn-success col-md-4 pinbutton" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-value="number"><h1>{{number}}</h1></button>
               </div>
             </div>
@@ -144,7 +163,7 @@
                       Please Enter PIN
                     </div>
                   </div>
-                  <h1 class="text-center" >&nbsp;{{pin}}&nbsp;</h1>
+                  <h1 class="text-center pinPanel" >&nbsp;</h1>
                     <button class="btn btn-lg btn-success col-md-4 pinbutton" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-value="number"><h1>{{number}}</h1></button>
                 </div>
               </div>
