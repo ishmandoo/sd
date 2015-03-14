@@ -1,34 +1,5 @@
 var controllers = angular.module('controllers', []);
 
-
-controllers.controller("testController", ["$scope", "$http", function($scope, $http){
-
-  $scope.options = [];
-  $scope.text = "";
-
-/*
-  $scope.updateOptions = function() {
-    if ($scope.text.length >= 2){
-      $http.get("/api/students?filter={\"where\":{\"name\": {\"like\" : \"" + $scope.text + "\"}}}")
-      .success(function(options){
-        $scope.options = options;
-      });
-    } else {
-      $scope.options = [];
-    }
-  }
-*/
-  $scope.getOptions = function() {
-    return $http.get("/api/students?filter={\"where\":{\"name\": {\"like\" : \"" + $scope.text + "\"}}}")
-    .then(function(response){
-        return response.data;
-    });
-  };
-
-
-
-}]);
-
 controllers.controller("classListController", ["$scope", "$http", function($scope, $http){
 
   $scope.pre_classes = {};
