@@ -25,6 +25,8 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
   $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9","0"];
 
 
+
+
   jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
     this.each(function() {
       //$(this).css("position","relative");
@@ -37,7 +39,9 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
     return this;
   };
 
-  $scope.pinButton = function(number, pin) {
+  $scope.pinButton = function(number) {
+    console.log(number);
+    console.log("BUDDO");
     $scope.pin = $scope.pin.concat(number);
     if ($scope.pin.length >= 4) {
       if($scope.pin == $scope.pinpad.student.pin){
@@ -53,6 +57,18 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
       $scope.pin="";
     }
   }
+
+/*  $( document ).on( "vclick", ".pinbutton", function() {
+    //console.log("yo")
+    //mycount++;
+    //$("#mynum").html( mycount);
+    //document.getElementById('mynum').innerHTML= mycount;
+    //console.log(this);
+    //console.log(this.scope());
+    //var scope = angular.element('.pinbutton').scope()
+    //scope.$apply(function(){scope.pinButton(this.value)});
+    $scope.pinButton(this.value);
+  }); */
 
   $scope.startPinPad = function(student, callback){
     $scope.pin="";

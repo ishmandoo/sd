@@ -12,10 +12,45 @@
       });
     </script>
 
+
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 
+
     <script src="/bower_components/angular/angular.js"></script>
+    <script>
+
+    $( document ).on( "vclick", "#mytap", function() {
+      console.log("yo")
+      mycount++;
+      //$("#mynum").html( mycount);
+      document.getElementById('mynum').innerHTML= mycount;
+
+    });
+
+
+   $( document ).on( "vclick", ".pinbutton", function() {
+      //console.log("yo")
+      //mycount++;
+      //$("#mynum").html( mycount);
+      //document.getElementById('mynum').innerHTML= mycount;
+      //console.log(this);
+      //console.log(angular.element('.pinbutton').scope());
+      //console.log(this.scope());
+      var scope = angular.element('.pinbutton').scope().$parent;
+      console.log(scope);
+      console.log(scope.pinpad);
+      console.log(this.value);
+      scope.pinButton(this.value);
+      scope.$apply();
+      //scope.$apply(function(){scope.pinButton(this.value)});
+      //scope.$apply(function(){scope.pin="12"})
+      //pinButton(this.value);
+    });
+    </script>
+
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
     <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
@@ -57,15 +92,9 @@
 
         <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" id="mytap"> jquery </button>
 
-        <script>
 
-        $( document ).on( "vclick", "#mytap", function() {
-          console.log("yo")
-          mycount++;
-          //$("#mynum").html( mycount);
-          document.getElementById('mynum').innerHTML= mycount;
-        });
-        </script>
+
+
 
         <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number">
 
@@ -95,7 +124,7 @@
                   </div>
                 </div>
                 <h1 class="text-center" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
-                  <button class="btn btn-lg btn-success col-md-4" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-click="pinButton(number)"><h1>{{number}}</h1></button>
+                  <button class="btn btn-lg btn-success col-md-4 pinbutton" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-click="pinButton(number)"><h1>{{number}}</h1></button>
               </div>
             </div>
           </div>
@@ -113,7 +142,7 @@
                     </div>
                   </div>
                   <h1 class="text-center" >&nbsp;{{pin}}&nbsp;</h1>
-                    <button class="btn btn-lg btn-success col-md-4" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-click="pinButton(number)"><h1>{{number}}</h1></button>
+                    <button class="btn btn-lg btn-success col-md-4 pinbutton" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-value="number"><h1>{{number}}</h1></button>
                 </div>
               </div>
             </div>
