@@ -71,6 +71,13 @@ $scope.inc = function(){
   $scope.count++;
 
 }
+$scope.incbare = function(){
+
+  mycount++;
+  console.log(mycount);  
+  document.getElementById('mynum').innerHTML= mycount;
+
+}
 
 
 }])
