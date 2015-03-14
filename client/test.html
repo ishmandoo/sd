@@ -12,6 +12,9 @@
       });
     </script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
@@ -52,6 +55,17 @@
         <div id="mynum"></div>
         <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" ng-click="incbare()"> Check In </button>
 
+        <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" id="mytap"> jquery </button>
+
+        <script>
+
+        $( document ).on( "vclick", "#mytap", function() {
+          console.log("yo")
+          mycount++;
+          //$("#mynum").html( mycount);
+          document.getElementById('mynum').innerHTML= mycount;
+        });
+        </script>
 
         <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number">
 
