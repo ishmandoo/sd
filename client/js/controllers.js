@@ -72,6 +72,7 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.name = "";
   $scope.class = "";
   $scope.pinpad = {};
+  $scope.pin="";
 
   $scope.modal = false;
 

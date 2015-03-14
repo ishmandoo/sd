@@ -10,9 +10,13 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
   $scope.name = "";
   $scope.class = "";
   $scope.pinpad = {};
+  $scope.pin="";
+ $scope.goodpin = false;
+
 
   $scope.craig = {pin: "1234"};
   $scope.modal = false;
+  $scope.pinpad.student = $scope.craig;
 
   $scope.pin ="";
   $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9","0"];
@@ -37,9 +41,11 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
         //$scope.pinpad.callback($scope.pinpad.student.id);
         console.log("correct pin");
         $(".pin-modal").modal('hide');
+        $scope.goodpin = true;
       }
       else{
         $(".modal-content").shake(3,7,350);
+        $scope.goodpin = false;
       }
       $scope.pin="";
     }

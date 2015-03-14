@@ -35,7 +35,7 @@
 
 
         <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" ng-click="startPinPad(craig, checkIn)"> Check In </button>
-
+         Is good pin? {{goodpin}}
 
         <style>
         .modal-content
@@ -67,6 +67,24 @@
               </div>
             </div>
           </div>
+
+
+
+
+
+            <div class="" tabindex="-1" role="dialog">
+              <div class="">
+                <div class="text-center">
+                  <div class="">
+                    <div class="">
+                      Please Enter PIN
+                    </div>
+                  </div>
+                  <h1 class="text-center" >&nbsp;{{pin}}&nbsp;</h1>
+                    <button class="btn btn-lg btn-success col-md-4" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-click="pinButton(number)"><h1>{{number}}</h1></button>
+                </div>
+              </div>
+            </div>
 
       </div>
     </div>
