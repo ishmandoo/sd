@@ -1,6 +1,8 @@
 var app = angular.module("test_app", ['ngRoute',
                               'ngCookies', 'ui.bootstrap', 'ngTouch']);
 
+mycount = 0
+
 app.controller("testController", ["$scope", "$http", function($scope,$http){
 
   $scope.students = {};
