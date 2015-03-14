@@ -12,6 +12,7 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
   $scope.pinpad = {};
   $scope.pin="";
  $scope.goodpin = false;
+ $scope.count = 0;
 
 
   $scope.craig = {pin: "1234"};
@@ -63,6 +64,11 @@ app.controller("testController", ["$scope", "$http", function($scope,$http){
 
   }
 
+$scope.inc = function(){
+
+  $scope.count++;
+
+}
 
 
 }])
