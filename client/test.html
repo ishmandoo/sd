@@ -1,8 +1,17 @@
 <html ng-app='test_app'>
   <head>
 
+
+
     <!-- Angular -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/fastclick/lib/fastclick.js" ></script>
+    <script>
+      $(function() {
+      FastClick.attach(document.body);
+      });
+    </script>
+
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
@@ -17,7 +26,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="res/style.css">
 
@@ -45,7 +54,7 @@
 
 
         <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number">
-        
+
         <style>
         .modal-content
         {
