@@ -35,7 +35,7 @@
 
     tfePinPad = {pin:""};
 
-   $( document ).on( "vclick", ".pinbutton", function() {
+   $( document ).on( "tap", ".pinbutton", function() {
       //console.log("yo")
       //mycount++;
       //$("#mynum").html( mycount);
@@ -57,14 +57,14 @@
         //console.log(number);
         //console.log("BUDDO");
         tfePinPad.pin = tfePinPad.pin.concat(this.value);
-        $(".pinPanel").html(tfePinPad.pin + " ")
+
         if (tfePinPad.pin.length >= 4) {
           var scope = angular.element('.pinbutton').scope().$parent;
           scope.pinCheck(tfePinPad.pin);
           scope.$apply();
           tfePinPad.pin="";
         }
-
+        $(".pinPanel").html(tfePinPad.pin + "&nbsp")
 
 
 
