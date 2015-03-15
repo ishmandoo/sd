@@ -21,8 +21,11 @@
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 
+<!--
 
     <script src="/bower_components/angular/angular.js"></script>
+
+  -->
     <script>
 
     $( document ).on( "vclick", "#mytap", function() {
@@ -59,9 +62,9 @@
         tfePinPad.pin = tfePinPad.pin.concat(this.value);
 
         if (tfePinPad.pin.length >= 4) {
-          var scope = angular.element('.pinbutton').scope().$parent;
-          scope.pinCheck(tfePinPad.pin);
-          scope.$apply();
+          //var scope = angular.element('.pinbutton').scope().$parent;
+          //scope.pinCheck(tfePinPad.pin);
+          //scope.$apply();
           tfePinPad.pin="";
         }
         $(".pinPanel").html(tfePinPad.pin + "&nbsp")
@@ -72,13 +75,15 @@
 
     });
     </script>
-
+<!--
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
     <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
-    <!--<script src="/bower_components/angular-touch/angular-touch.js"></script> -->
 
-    <script src="/js/test.js"></script
+  -->
+    <!--<script src="/bower_components/angular-touch/angular-touch.js"></script>
+
+    <script src="/js/test.js"></script> -->
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
