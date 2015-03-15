@@ -14,19 +14,18 @@
         Status
       </th>
     </tr>
-    <tr ng-repeat="student in students">
+    <tr ng-repeat="seat in seatList">
       <td class="col-sm-3">
-        {{ student.name }}
+        {{ seat.student.name }}
       </td>
       <td class="col-sm-3">
-        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(student, checkIn)" ng-disabled="!(student.status == 'checked out')" ng-show="class.class_type=='pre'"> Check In </button>
-        <button class="btn btn-lg btn-primary checkIn {{student.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(student, checkIn)" ng-disabled="(student.status == 'checked in after')" ng-show="(class.class_type=='after') || (class.class_type=='pickup')"> Check In </button>
+        <button class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in"> Check In </button>
       </td>
       <td class="col-sm-3">
-        <button class="btn btn-lg btn-primary checkOut {{student.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(student, checkOut)" ng-disabled="(student.status == 'checked out')" ng-hide="class.class_type=='pickup'"> Check Out </button>
+        <button class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'"> Check Out </button>
       </td>
       <td class="col-sm-3">
-        {{ getStatus(student) }}
+        {{ getStatus(seat.checked_in) }}
       </td>
     </tr>
   </table>

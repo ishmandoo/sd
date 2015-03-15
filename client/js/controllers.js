@@ -31,25 +31,79 @@ controllers.controller("testController", ["$scope", "$http", function($scope, $h
 
 controllers.controller("classListController", ["$scope", "$http", function($scope, $http){
 
-  $scope.pre_classes = {};
-  $scope.after_classes = {};
-  $scope.pick_up_locs = {};
+  $scope.pre_classes = [];
+  $scope.after_classes = [];
+  $scope.pick_up_locs = [];
+
+  var weekday = new Array(7);
+  weekday[0]=  "sunday";
+  weekday[1] = "monday";
+  weekday[2] = "tuesday";
+  weekday[3] = "wednesday";
+  weekday[4] = "thursday";
+  weekday[5] = "friday";
+  weekday[6] = "saturday";
+  var today = new Date();
+  var dayOfWeek = weekday[today.getDay()];
+
+
+  $scope.getAttendanceFraction = function(classList){
+    var day_of_week_where_obj = {}
+    day_of_week_where_obj["days_of_week.monday"] = true;
+
+
+    console.log(classList);
+
+    for (var i = 0; i < classList.length; i++){
+
+      (function(index){
+        $http({
+          url: '/api/seats/count',
+          method: "GET",
+          params: {
+            where:{ and:[{classId:classList[index].id},day_of_week_where_obj] }
+          }
+        })
+        .success(function(res){
+            classList[index].totalStudents = res.count;
+
+        });
+
+        $http({
+          url: '/api/seats/count',
+          method: "GET",
+          params: {
+            where:{ and:[{classId:classList[index].id}, {checked_in:true}, day_of_week_where_obj] }
+          }
+        })
+        .success(function(res){
+          (function(i){
+            classList[index].totalCheckedIn = res.count;
+          }(i))
+        });
+
+
+      })(i)
+    }
+  }
 
   $http.get("/api/classes?filter={\"where\":{\"class_type\":\"pre\"}}")
   .success(function(classes){
     $scope.pre_classes = classes;
+    $scope.getAttendanceFraction($scope.pre_classes);
   });
 
   $http.get("/api/classes?filter={\"where\":{\"class_type\":\"after\"}}")
   .success(function(classes){
     $scope.after_classes = classes;
+    $scope.getAttendanceFraction($scope.after_classes);
   });
 
   $http.get("/api/classes?filter={\"where\":{\"class_type\":\"pickup\"}}")
   .success(function(classes){
     $scope.pick_up_locs = classes;
+    $scope.getAttendanceFraction($scope.pick_up_locs);
   });
-
 
 }]);
 
@@ -97,7 +151,7 @@ controllers.controller("loginController", ["$scope", "$http", "$location", "$win
 
 controllers.controller("studentListController", ["$scope", "$http", "$routeParams", function($scope, $http, $routeParams){
 
-  $scope.students = {};
+  $scope.seatList = {};
   $scope.name = "";
   $scope.class = "";
   $scope.pinpad = {};
@@ -107,8 +161,19 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.pin ="";
   $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9","0"];
 
+  var weekday = new Array(7);
+  weekday[0]=  "sunday";
+  weekday[1] = "monday";
+  weekday[2] = "tuesday";
+  weekday[3] = "wednesday";
+  weekday[4] = "thursday";
+  weekday[5] = "friday";
+  weekday[6] = "saturday";
+  var today = new Date();
+  var dayOfWeek = weekday[today.getDay()];
 
-  /*jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
+
+  jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
     this.each(function() {
       //$(this).css("position","relative");
       for (var x=1; x<=intShakes; x++) {
@@ -119,23 +184,23 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     });
     return this;
   };
-*/
+
   $scope.pinButton = function(number, pin) {
     $scope.pin = $scope.pin.concat(number);
     if ($scope.pin.length >= 4) {
-      if($scope.pin == $scope.pinpad.student.pin){
-        $scope.pinpad.callback($scope.pinpad.student.id);
+      if($scope.pin == $scope.pinpad.seat.student.pin){
+        $scope.pinpad.callback($scope.pinpad.seat.id);
       }
       else{
-        //$(".modal-content").shake(3,7,350);
+        $(".modal-content").shake(3,7,350);
       }
       $scope.pin="";
     }
   }
 
-  $scope.startPinPad = function(student, callback){
+  $scope.startPinPad = function(seat, callback){
     $scope.pin="";
-    $scope.pinpad.student = student
+    $scope.pinpad.seat = seat
     $scope.pinpad.callback = callback
     $(".pin-modal").modal('show');
 
@@ -148,56 +213,54 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     });
   }
 
-  $scope.getStudents = function (){
-    $http.get('/api/classes/'+$routeParams.id+'/students')
-    .success(function(students){
-      $scope.students = students;
+  $scope.getSeats = function (){
+    var day_of_week_where_obj = {}
+    day_of_week_where_obj["days_of_week.monday"] = true;
+
+    $http({
+      url: '/api/seats/',
+      method: "GET",
+      params: {
+        filter:{
+          where:{ and:[{classId:$routeParams.id},day_of_week_where_obj] },
+          include:{relation:'student'}
+        }
+      }
+    })
+    .success(function(seatList){
+      $scope.seatList = seatList;
     });
   }
 
-  $scope.newStudent = function() {
-    $http.post('/api/classes/'+$routeParams.id+'/students', {name:$scope.name, status:"checked out", last_action_date:new Date()})
-    .success(function(student){
-      $scope.students.push(student);
-      $scope.name = "";
-      $('button').button('reset');
-    });
-  };
-
-  $scope.checkIn = function(studentId) {
-    var btn = $('.checkIn.'+studentId);
+  $scope.checkIn = function(seatId) {
+    var btn = $('.checkIn.'+seatId);
     btn.button('loading');
-    $http.post('/api/students/checkin', {studentId:studentId, classId:$routeParams.id})
-    .success(function(student){
-      $scope.getStudents();
+    $http.post('/api/seats/checkin', {seatId:seatId})
+    .success(function(){
+      $scope.getSeats();
+      $(".pin-modal").modal('hide');
+    });
+  }
+
+  $scope.checkOut = function(seatId) {
+    var btn = $('.checkOut.'+seatId);
+    btn.button('loading');
+    $http.post('/api/seats/checkout', {seatId:seatId})
+    .success(function(){
+      $scope.getSeats();
       $(".pin-modal").modal('hide');
 
     });
   }
 
-  $scope.checkOut = function(studentId) {
-    var btn = $('.checkOut.'+studentId);
-    btn.button('loading');
-    $http.post('/api/students/checkout', {studentId:studentId, classId:$routeParams.id})
-    .success(function(student){
-      $scope.getStudents();
-      $(".pin-modal").modal('hide');
-
-    });
-  }
-
-  $scope.getStatus = function(student) {
-    if (student.status == "checked out"){
-      return "Checked Out";
-    } else if (student.status == "checked in pre"){
-      return "Checked In Preschool";
-    } else if (student.status == "checked in after"){
-      return "Checked In After School";
+  $scope.getStatus = function(checked_in) {
+    if (checked_in){
+      return "Checked In";
     } else {
-      return "";
+      return "Checked Out";
     }
   }
 
-  $scope.getStudents();
+  $scope.getSeats();
   $scope.getClass();
 }]);

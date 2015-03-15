@@ -54,9 +54,8 @@ module.exports = function(Student) {
 
   Student.observe('before delete', function(ctx, next) {
     console.log('deleting student');
-    console.log(ctx);
 
-
+/*
     Student.app.models.Class.find(function(err, classes){
       for (var i in classes) {
         classes[i].students.destroy(ctx.where.id, function(err){
@@ -65,6 +64,15 @@ module.exports = function(Student) {
         });
       }
     });
+    */
+
+    Student.app.models.Seat.find({where:{studentId:Student.id}}, function(err, seats){
+      for (var i in seats) {
+        seats[i].destroy();
+      }
+      next();
+    });
+  });
   });
 
 

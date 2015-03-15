@@ -2,9 +2,17 @@ angular.module("beansprouts_app")
 .controller("editStudentController", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location){
 
   $scope.student = {};
+  $scope.seatList = [];
   $scope.logList = [];
   $scope.startDate = new Date("1/1/2015");
   $scope.endDate = new Date("4/1/2015");
+
+
+  $scope.classIndex = 0;
+
+  $scope.autoCompleteClasses = {};
+
+  $scope.newClass = {name:""};
 
   $scope.update = function(){
     var query = {name:$scope.student.name, pin:$scope.student.pin}
@@ -15,23 +23,83 @@ angular.module("beansprouts_app")
     });
   }
 
-
+  $scope.updateSeat = function(seat, day_of_week) {
+    seat.days_of_week[day_of_week] = !seat.days_of_week[day_of_week];
+    $http.put('/api/seats/'+seat.id, {days_of_week:seat.days_of_week})
+    .success(function(classObj){
+    });
+  }
 
 
   $scope.updateLogs = function(){
     $http({
       url: '/api/logs/',
       method: "GET",
-      params: {filter:
-      {where:{and : [{studentId:$routeParams.id}, {date:{gt:$scope.startDate}}, {date:{lt:$scope.endDate}}]},
-        order:'date DESC',
-        limit:10}
+      params:{
+        filter:{
+          where:{
+            and : [{studentId:$routeParams.id}, {date:{gt:$scope.startDate}}, {date:{lt:$scope.endDate}}]
+          },
+          include:{},
+          order:'date DESC',
+          limit:10
         }
+      }
     })
     .success(function(logs){
       $scope.logList = logs;
     });
   }
+
+  $scope.addClass = function(){
+    if($routeParams.id){
+      $http.put('/api/students/'+$routeParams.id+'/classes/rel/'+$scope.autoCompleteClasses[$scope.classIndex].id,{
+        checked_in:false,
+        days_of_week:{
+          monday:true,
+          tuesday:true,
+          wednesday:true,
+          thursday:true,
+          friday:true,
+          saturday:false,
+          sunday:false
+        }
+      })
+      .success(function(classObj){
+        $scope.getSeatList();
+        $scope.newClass.name = "";
+      });
+    }
+  }
+
+  $scope.removeClass = function(classObj){
+    if($routeParams.id){
+      $http.delete('/api/students/'+$routeParams.id+'/classes/rel/'+classObj.id)
+      .success(function(classObj){
+        $scope.getSeatList();
+      });
+    }
+  }
+
+  $scope.invalidClass = function() {
+    if($scope.newClass.name.length >= 3){
+      for(var i =0; i < $scope.autoCompleteClasses.length; i++){
+        if($scope.newClass.name == $scope.autoCompleteClasses[i].name){
+          $scope.classIndex = i;
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  $scope.getAutoCompleteClasses = function() {
+    return $http.get("/api/classes?filter={\"where\":{\"name\": {\"like\" : \"" + $scope.newClass.name + "\",\"options\": \"i\"}}}")
+    .then(function(response){
+      $scope.autoCompleteClasses = response.data;
+      return response.data;
+    });
+  };
 
 
   $scope.getTeacherName = function(teacherId){
@@ -68,11 +136,31 @@ angular.module("beansprouts_app")
     }
   };
 
+  $scope.getSeatList = function() {
+    //$http.get('/api/classes/'+$routeParams.id+'/students')
+    $http({
+      url: '/api/seats/',
+      method: "GET",
+      params: {
+        filter:{
+          where:{studentId:$routeParams.id},
+          include:{relation:'class'}
+        }
+      }
+    })
+    .success(function(seatList){
+      $scope.seatList = seatList;
+    });
+  }
+
 
   $http.get('/api/students/'+$routeParams.id)
   .success(function(student){
     $scope.student = student;
   });
+
+  $scope.getSeatList();
+
 
   $scope.updateLogs();
 

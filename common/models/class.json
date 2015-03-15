@@ -16,8 +16,10 @@
   "validations": [],
   "relations": {
     "students": {
-      "type": "hasAndBelongsToMany",
-      "model": "student"
+      "type": "hasMany",
+      "model": "student",
+      "foreignKey": "studentId",
+      "through": "seat"
     }
   },
   "acls": [

@@ -4,12 +4,71 @@
     <form class="">
       <label> Name </label>
       <input type="text" class="form-control" name="studentName" placeholder="Name" ng-model="student.name">
+      <label> PIN </label>
       <input type="text" class="form-control" name="studentPin" placeholder="PIN" ng-model="student.pin">
-
 
       <br>
       <button type="submit" class="btn btn-success" ng-click="update()"> Update </button>
     </form>
+  </div>
+</div>
+<div  class="panel panel-default">
+  <div class="panel-heading">Add/Remove Classes</div>
+  <div class="panel-body">
+
+    <label> Add Class </label>
+    <div> </div>
+    <form  class="form-inline">
+      <div class="input-group">
+        <input type="text" class="form-control"  ng-model="newClass.name" typeahead="class.name for class in getAutoCompleteClasses()" typeahead-min-length=3>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-success" ng-click="addClass()" ng-disabled="invalidClass()">
+            &nbsp
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            &nbsp
+          </button>
+        </span>
+      </div>
+    </form>
+
+    <table class="table table-striped table-responsive" style="table-layout: fixed;">
+      <tr>
+        <th>
+          Class
+        </th>
+        <th>
+          Type
+        </th>
+        <th>
+          Days of Week
+        </th>
+      </tr>
+
+      <tr ng-repeat="seat in seatList">
+        <td>
+          {{seat.class.name}}
+          <a href="">
+            <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeClass(seat.class)"> </span>
+          </a>
+        </td>
+        <td>
+          {{seat.class.class_type}}
+        </td>
+        <td>
+
+          <div class="btn-group">
+            <button class="btn btn-default" ng-class="{'active':seat.days_of_week.monday}" ng-click="updateSeat(seat, 'monday')"> M </button>
+            <button class="btn btn-default" ng-class="{'active':seat.days_of_week.tuesday}" ng-click="updateSeat(seat, 'tuesday')"> T </button>
+            <button class="btn btn-default" ng-class="{'active':seat.days_of_week.wednesday}" ng-click="updateSeat(seat, 'wednesday')"> W </button>
+            <button class="btn btn-default" ng-class="{'active':seat.days_of_week.thursday}" ng-click="updateSeat(seat, 'thursday')"> Th </button>
+            <button class="btn btn-default" ng-class="{'active':seat.days_of_week.friday}" ng-click="updateSeat(seat, 'friday')"> F </button>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+
+
 
   </div>
 </div>

@@ -1,54 +1,70 @@
 <div class="panel panel-default">
   <div class="panel-heading">Edit Class</div>
   <div class="panel-body">
-  <form class="form-inline" ng-submit="logIn()">
-    <label> Class Name </label>
-    <input type="text" class="form-control" name="className" placeholder="Name" ng-model="classObj.name">
-    <label> Class Type </label>
-    <select class="form-control" ng-model="classObj.class_type">
-      <option value = "pre"> Preschool Class </option>
-      <option value = "after"> After-School Class </option>
-      <option value = "pickup"> Pickup Location </option>
-    </select>
-    <br>
-    <button type="submit" class="btn btn-success" ng-click="update()"> Update </button>
-  </form>
+    <form class="form-inline" ng-submit="logIn()">
+      <label> Class Name </label>
+      <input type="text" class="form-control" name="className" placeholder="Name" ng-model="classObj.name">
+      <label> Class Type </label>
+      <select class="form-control" ng-model="classObj.class_type">
+        <option value = "pre"> Preschool Class </option>
+        <option value = "after"> After-School Class </option>
+        <option value = "pickup"> Pickup Location </option>
+      </select>
+      <br>
+      <button type="submit" class="btn btn-success" ng-click="update()"> Update </button>
+    </form>
 
-</div>
+  </div>
 </div>
 
 <div class="panel panel-default">
   <div class="panel-heading">Add/Remove Students</div>
   <div class="panel-body">
 
-  <form class="form-inline">
+    <form class="form-inline">
 
-    <label> Add Student </label>
-    <div> </div>
+      <label> Add Student </label>
+      <div> </div>
 
-    <div class="input-group">
-      <input type="text" class="form-control"  ng-model="newStudent.name" typeahead="student.name for student in getAutoCompleteStudents()" typeahead-min-length=3>
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-success" ng-click="addStudent()" ng-disabled="invalidStudent()">
-          &nbsp
-          <span class="glyphicon glyphicon-plus-sign"></span>
-          &nbsp
-        </button>
-      </span>
-    </div>
-
-
-  </form>
+      <div class="input-group">
+        <input type="text" class="form-control"  ng-model="newStudent.name" typeahead="student.name for student in getAutoCompleteStudents()" typeahead-min-length=3>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-success" ng-click="addStudent()" ng-disabled="invalidStudent()">
+            &nbsp
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            &nbsp
+          </button>
+        </span>
+      </div>
 
 
-
-  <table class="table">
-
-    <tr ng-repeat="student in studentList"> <td>
-      {{student.name}} <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeStudent(student)"> </span> </a>
-    </td> </tr>
-  </table>
+    </form>
 
 
-</div>
+
+    <table class="table">
+
+      <tr ng-repeat="seat in seatList"> <td>
+        <a href="#/admin/student/{{seat.student.id}}"> {{seat.student.name}}</a>
+
+        <a href="">
+          <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeStudent(seat.student)"> </span>
+        </a>
+        <div class="btn-group pull-right">
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.monday}" ng-click="updateSeat(seat, 'monday')"> M </button>
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.tuesday}" ng-click="updateSeat(seat, 'tuesday')"> T </button>
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.wednesday}" ng-click="updateSeat(seat, 'wednesday')"> W </button>
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.thursday}" ng-click="updateSeat(seat, 'thursday')"> Th </button>
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.friday}" ng-click="updateSeat(seat, 'friday')"> F </button>
+        </div>
+
+
+      </td> </tr>
+    </table>
+
+
+
+
+
+  </div>
 </div>

@@ -2,9 +2,11 @@ angular.module("beansprouts_app")
 .controller("editClassController", ["$scope", "$http", "$routeParams", "$location", function($scope, $http, $routeParams, $location){
 
   $scope.classObj = {};
-  $scope.studentList = [];
+  $scope.seatList = [];
   $scope.autoCompleteList = [];
   $scope.studentIndex = 0;
+
+  $scope.autoCompleteStudents = {};
 
   $scope.newStudent = {name:""};
 
@@ -18,11 +20,29 @@ angular.module("beansprouts_app")
     }
   }
 
+  $scope.updateSeat = function(seat, day_of_week) {
+    seat.days_of_week[day_of_week] = !seat.days_of_week[day_of_week];
+    $http.put('/api/seats/'+seat.id, {days_of_week:seat.days_of_week})
+    .success(function(classObj){
+    });
+  }
+
   $scope.addStudent = function(){
     if($routeParams.id){
-      $http.put('/api/classes/'+$routeParams.id+'/students/rel/'+$scope.autoCompleteStudents[$scope.studentIndex].id)
+      $http.put('/api/classes/'+$routeParams.id+'/students/rel/'+$scope.autoCompleteStudents[$scope.studentIndex].id,{
+        checked_in:false,
+        days_of_week:{
+          monday:true,
+          tuesday:true,
+          wednesday:true,
+          thursday:true,
+          friday:true,
+          saturday:false,
+          sunday:false
+        }
+      })
       .success(function(student){
-        $scope.getStudentList();
+        $scope.getSeatList();
         $scope.newStudent.name = "";
       });
     }
@@ -32,7 +52,7 @@ angular.module("beansprouts_app")
     if($routeParams.id){
       $http.delete('/api/classes/'+$routeParams.id+'/students/rel/'+student.id)
       .success(function(student){
-        $scope.getStudentList();
+        $scope.getSeatList();
       });
     }
   }
@@ -57,10 +77,20 @@ angular.module("beansprouts_app")
     });
   };
 
-  $scope.getStudentList = function() {
-    $http.get('/api/classes/'+$routeParams.id+'/students')
-    .success(function(studentList){
-      $scope.studentList = studentList;
+  $scope.getSeatList = function() {
+    //$http.get('/api/classes/'+$routeParams.id+'/students')
+    $http({
+      url: '/api/seats/',
+      method: "GET",
+      params: {
+        filter:{
+          where:{classId:$routeParams.id},
+          include:{relation:'student'}
+        }
+      }
+    })
+    .success(function(seatList){
+      $scope.seatList = seatList;
     });
   }
 
@@ -69,7 +99,7 @@ angular.module("beansprouts_app")
     $scope.classObj = classObj;
   });
 
-  $scope.getStudentList();
+  $scope.getSeatList();
 
 
 }]);

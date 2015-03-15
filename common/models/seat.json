@@ -1,0 +1,30 @@
+{
+  "name": "seat",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "days_of_week": {
+      "type": "object",
+      "required": true
+    },
+    "checked_in": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "class": {
+      "type": "belongsTo",
+      "model": "class",
+      "foreignKey": "classId"
+    },
+    "student": {
+      "type": "belongsTo",
+      "model": "student",
+      "foreignKey": "studentId"
+    }
+  },
+  "acls": [],
+  "methods": []
+}

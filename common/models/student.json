@@ -21,7 +21,14 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "classes": {
+      "type": "hasMany",
+      "model": "class",
+      "foreignKey": "classId",
+      "through": "seat"
+    }
+  },
   "acls": [
     {
       "accessType": "*",
