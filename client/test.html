@@ -1,2 +1,214 @@
+<html ng-app='test_app'>
+  <head>
 
-<input type="text" ng-model="text" typeahead="option.name for option in getOptions()" typeahead-min-length=2>
+
+
+    <!-- Angular -->
+    <script src="/bower_components/jquery/jquery.min.js"></script>
+  <!--  <script src="/bower_components/fastclick/lib/fastclick.js" ></script>
+    <script>
+      $(function() {
+      FastClick.attach(document.body);
+      });
+    </script> -->
+
+
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+   <!--<script src="/bower_components/jquery-ui/ui/jquery.ui.core.js"></script>
+    <script src="/bower_components/jquery-mobile/js/jquery.mobile.js"></script> -->
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+  <!-- <script src='https://rawgit.com/x1024/jquery-fastbutton/master/bin/fastbutton.js'></script> -->
+
+
+
+    <script src="/bower_components/angular/angular.js"></script>
+
+
+    <script>
+      mycount = 0;
+    $( document ).on( "vclick", "#mytap", function() {
+      console.log("yo")
+      mycount++;
+      //$("#mynum").html( mycount);
+      document.getElementById('mynum').innerHTML= mycount;
+
+    });
+
+    tfePinPad = {pin:""};
+
+for(i = 0 ; i<=9; i++){
+  var  j = i;
+(function(i){
+  $(document).on( "vclick", '#pin'+j, function() {
+
+
+       //want
+       tfePinPad.pin = tfePinPad.pin + String(i);
+
+       if (tfePinPad.pin.length >= 4) {
+         //var scope = angular.element('.pinbutton').scope().$parent;
+         //scope.pinCheck(tfePinPad.pin);
+         //scope.$apply();
+         tfePinPad.pin="";
+       }
+       //$(".pinPanel").html(tfePinPad.pin + "&nbsp")
+       //mycount++;
+       $(".pinPanel").html(tfePinPad.pin+"&nbsp");
+
+   });
+}(i));
+}
+console.log(i);
+/*
+
+   $(document).on( "vclick", ".pinbutton", function() {
+
+
+        //want
+        //tfePinPad.pin = tfePinPad.pin.concat(this.value);
+
+        if (tfePinPad.pin.length >= 4) {
+          //var scope = angular.element('.pinbutton').scope().$parent;
+          //scope.pinCheck(tfePinPad.pin);
+          //scope.$apply();
+          tfePinPad.pin="";
+        }
+        //$(".pinPanel").html(tfePinPad.pin + "&nbsp")
+        mycount++;
+        $(".pinPanel").html(mycount)
+
+    });
+    */
+/*
+    $('.pinbutton').fastButton(function(){
+      console.log("YOYOY");
+      mycount++;
+      $(".pinPanel").html(mycount)
+
+    });
+
+    $.fastButton('a', function(event) {
+  console.log("Now you're clicking with gas");
+})
+
+$('a').fastButton(function(event) {
+  alert("Now you're clicking with gas");
+})
+
+*/
+    </script>
+
+
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
+
+
+    <script src="/bower_components/angular-touch/angular-touch.js"></script>
+
+    <script src="/js/test.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="res/style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 text-center col-sm-offset-3">
+          <img src="res/logo.gif" class="img-responsive"></img>
+        </div>
+      </div>
+
+      <a>YOY </a>
+      <div ng-controller="testController">
+
+
+        <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" ng-click="startPinPad(craig, checkIn)"> Check In </button>
+         Is good pin? {{goodpin}}
+
+         <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" ng-click="inc()"> Check In </button>
+         {{count}}
+         <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" onclick="mycount++; console.log(mycount);  document.getElementById('mynum').innerHTML= mycount;"> Check In </button>
+        <div id="mynum"></div>
+        <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" ng-click="incbare()"> Check In </button>
+
+        <button class="btn btn-lg btn-primary checkIn" data-loading-text="loading" type="submit" id="mytap"> jquery </button>
+
+
+
+
+
+        <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number">
+
+        <style>
+        .modal-content
+        {
+          /* Fallback for web browsers that don't support RGBa */
+          background-color: rgb(0, 0, 0);
+          /* RGBa with 0.6 opacity */
+          background-color: rgba(0, 0, 0, 0.6);
+        0
+        }
+
+
+
+
+        </style>
+
+
+
+          <div class="modal fade pin-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content text-center">
+                <div class="modal-header">
+                  <div class="modal-title" style="color:#FFFFFF;">
+                    Please Enter PIN
+                  </div>
+                </div>
+                <h1 class="text-center pinPanel" style="color:#FFFFFF;" >&nbsp;</h1>
+                  <button class="btn btn-lg btn-success col-md-4 pinbutton" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-value="number"><h1>{{number}}</h1></button>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+            <div class="" tabindex="-1" role="dialog">
+              <div class="">
+                <div class="text-center">
+                  <div class="">
+                    <div class="">
+                      Please Enter PIN
+                    </div>
+                  </div>
+                  <h1 class="text-center pinPanel" >&nbsp;</h1>
+                    <button class="btn btn-lg btn-success col-md-4 pinbutton" id="{{'pin'+number}}" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-value="number"><h1>{{number}}</h1></button>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-lg btn-success col-md-4 pinbutton"  style="width:33.3%; border-radius: 0 !important;" value="1"><h1>1</h1></button>
+            <button class="btn btn-lg btn-success col-md-4 pinbutton"  style="width:33.3%; border-radius: 0 !important;" value="2"><h1>2</h1></button>
+            <button class="btn btn-lg btn-success col-md-4 pinbutton" style="width:33.3%; border-radius: 0 !important;" value="3"><h1>3</h1></button>
+
+      </div>
+    </div>
+
+
+  </body>
+</html>
