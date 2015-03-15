@@ -59,7 +59,9 @@
 
         //console.log(number);
         //console.log("BUDDO");
-        tfePinPad.pin = tfePinPad.pin.concat(this.value);
+
+        //want
+        //tfePinPad.pin = tfePinPad.pin.concat(this.value);
 
         if (tfePinPad.pin.length >= 4) {
           //var scope = angular.element('.pinbutton').scope().$parent;
@@ -67,7 +69,8 @@
           //scope.$apply();
           tfePinPad.pin="";
         }
-        $(".pinPanel").html(tfePinPad.pin + "&nbsp")
+        //$(".pinPanel").html(tfePinPad.pin + "&nbsp")
+        $(".pinPanel").html(this.value)
 
 
 
