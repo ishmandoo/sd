@@ -37,6 +37,7 @@ module.exports = function(Student) {
   });
 
   var logHook = function( ctx, modelInstance, next) {
+    console.log("test");
 
     var data = {
       date : new Date(),
@@ -45,6 +46,7 @@ module.exports = function(Student) {
       teacherId: ctx.req.accessToken.userId,
       classId: ctx.req.body.classId
     };
+
     var log = Student.app.models.Log.create(data, function(err, logObj){
     });
 

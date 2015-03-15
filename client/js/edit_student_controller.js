@@ -40,7 +40,7 @@ angular.module("beansprouts_app")
           where:{
             and : [{studentId:$routeParams.id}, {date:{gt:$scope.startDate}}, {date:{lt:$scope.endDate}}]
           },
-          include:{},
+          //include:[{relation:'teacher'},{relation:'class'},{relation:'student'}],
           order:'date DESC',
           limit:10
         }

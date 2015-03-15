@@ -46,10 +46,10 @@ angular.module("beansprouts_app")
   }
 
   $scope.addTeacher = function() {
-    $http.post('/api/teachers/', {email:$scope.teacher.email, password:$scope.teacher.password, username:$scope.teacher.username})
+    $http.post('/api/teachers/', {email:($scope.teacher.username+"@sproutsbk.com"), password:$scope.teacher.password, username:$scope.teacher.username, name:$scope.teacher.name})
     .success(function(teacher){
       $scope.teacherData.push(teacher);
-      $scope.teacher.email = "";
+      $scope.teacher.name = "";
       $scope.teacher.password = "";
       $scope.teacher.username = "";
     });

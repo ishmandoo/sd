@@ -14,13 +14,6 @@ module.exports = function(Seat) {
         seat.save();
       });
 
-    //  Seat.app.models.student.findById(seat.studentId, function(err, student) {
-    //    console.log(student);
-    //    student.seats({where: {checked_in:true}}, function(err, seats){
-    //      console.log(seats);
-    //    });
-    //  });
-
 
       console.log("checked in");
       cb(null, "success");
@@ -47,5 +40,30 @@ module.exports = function(Seat) {
     returns: {arg: 'result', type: 'string'},
     http: {path: '/checkout', verb: 'post'}
   });
+
+  var logHook = function( ctx, modelInstance, next) {
+
+    Seat.findById(ctx.req.body.seatId, function(err, seat){
+      var data = {
+        date : new Date(),
+        event : ctx.req.path,
+        studentId: seat.studentId,
+        teacherId: ctx.req.accessToken.userId,
+        classId: seat.classId
+      };
+
+      var log = Seat.app.models.Log.create(data, function(err, logObj){
+      });
+
+
+      next();
+    });
+
+
+  };
+
+
+  Seat.afterRemote("checkIn", logHook);
+  Seat.afterRemote("checkOut", logHook);
 
 };

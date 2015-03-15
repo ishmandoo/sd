@@ -35,7 +35,7 @@
       <div class="panel-body">
         <form>
           <input type="text" class="form-control" placeholder="Enter Username" ng-model="teacher.username">
-          <input type="text" class="form-control" placeholder="Enter Email" ng-model="teacher.email">
+          <input type="text" class="form-control" placeholder="Enter Name" ng-model="teacher.name">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Enter Password" ng-model="teacher.password">
             <span class="input-group-btn">
@@ -46,7 +46,7 @@
         <table class="table">
           <tr ng-repeat="teacher in teacherData  | filter:searchText">
             <td>
-              <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.email}}  </a>
+              <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.name}}  </a>
               <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="deleteTeacher(teacher)"> </span> </a>
             </td>
           </tr>

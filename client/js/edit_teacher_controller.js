@@ -15,8 +15,6 @@ angular.module("beansprouts_app")
     });
   }
 
-  //$scope.password
-
 
   $http.get('/api/teachers/'+$routeParams.id)
   .success(function(teacher){
@@ -26,7 +24,7 @@ angular.module("beansprouts_app")
   });
 
   $scope.passwordValid = function() {
-    if (($scope.teacher.password1.length > 5) && ($scope.teacher.password1 == $scope.teacher.password2)) {
+    if (($scope.teacher.password1.length > 3) && ($scope.teacher.password1 == $scope.teacher.password2)) {
       return true;
     } else {
       return false;
