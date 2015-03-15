@@ -131,7 +131,8 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.modal = false;
 
   $scope.pin ="";
-  $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9","0"];
+  $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9"];
+  $scope.teacherToggle = false;
 
   var weekday = new Array(7);
   weekday[0]=  "sunday";
@@ -170,11 +171,25 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     }
   }
 
-  //The is Some ngKeypad Stuff  
+  //The is Some ngKeypad Stuff
   $scope.$on(Keypad.KEY_PRESSED, function(event,data){
     $scope.pinButton(data);
     $scope.$digest();
   });
+
+  $scope.$on(Keypad.MODIFIER_KEY_PRESSED, function(event,key,id){
+
+      switch(key){
+				case "teacher":
+          $scope.teacherToggle = !$scope.teacherToggle;
+					break;
+				case "back":
+					$scope.pin = $scope.pin.slice(0,-1);
+					break;
+			}
+      $scope.$digest();
+		});
+
 
   $scope.startPinPad = function(seat, callback){
     $scope.pin="";

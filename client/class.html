@@ -39,7 +39,7 @@
   background-color: rgb(0, 0, 0);
   /* RGBa with 0.6 opacity */
   background-color: rgba(0, 0, 0, 0.6);
-0
+
 }
 
 
@@ -53,13 +53,17 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content text-center">
         <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#FFFFFF;"><span aria-hidden="true">&times;</span></button>
           <div class="modal-title" style="color:#FFFFFF;">
             Please Enter PIN
           </div>
         </div>
         <h1 class="text-center" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
           <div data-ng-keypad="numeric" class="numpad">
-            <button class="btn btn-lg btn-success col-md-4" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
+            <button class="btn btn-lg btn-success col-xs-4" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
+            <button class="btn btn-lg btn-success col-xs-4" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;" ng-class="{active:teacherToggle}"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
+            <button class="btn btn-lg btn-success col-xs-4" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
+            <button class="btn btn-lg btn-success col-xs-4" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
           </div>
       </div>
     </div>
