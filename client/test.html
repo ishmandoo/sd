@@ -28,12 +28,24 @@
 
 
     <script>
+
+
+    mobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+console.log(mobile);
+console.log('BUDDOD');
+//document.getElementById('mynum').innerHTML= mobile;
+init = function(){
+$(".pinPanel").html(mobile);
+}
+
+//document.getElementById('mynum').innerHTML= mobile;
+
       mycount = 0;
     $( document ).on( "vclick", "#mytap", function() {
       console.log("yo")
       mycount++;
       //$("#mynum").html( mycount);
-      document.getElementById('mynum').innerHTML= mycount;
+      document.getElementById('.pinPanel').innerHTML= mycount;
 
     });
 
@@ -123,7 +135,7 @@ $('a').fastButton(function(event) {
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
   </head>
-  <body>
+  <body onload="init()">
 
     <div class="container">
       <div class="row">
@@ -151,7 +163,23 @@ $('a').fastButton(function(event) {
 
 
 
-        <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number">
+        <input style=" appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  border-radius: 0;
+  border: none;
+  background:transparent;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0" type="number" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number">
+  <input style="" autofocus ng-model="mypin" type="hidden" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number">
+<h1> {{mypin}}</h1>
+
+<input ng-model="mytest">
+
+<h1>{{mytest}} </h1>
+
+                <input type="tel" min="0" inputmode="numeric" pattern="[0-9]*" title="Non-negative integral number">
 
         <style>
         .modal-content
