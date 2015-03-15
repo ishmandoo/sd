@@ -15,17 +15,18 @@
 
 
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-  <!--  <script src="/bower_components/jquery-ui/ui/jquery.ui.core.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+   <!--<script src="/bower_components/jquery-ui/ui/jquery.ui.core.js"></script>
     <script src="/bower_components/jquery-mobile/js/jquery.mobile.js"></script> -->
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+  <!-- <script src='https://rawgit.com/x1024/jquery-fastbutton/master/bin/fastbutton.js'></script> -->
 
-<!--
+
 
     <script src="/bower_components/angular/angular.js"></script>
 
-  -->
+
     <script>
       mycount = 0;
     $( document ).on( "vclick", "#mytap", function() {
@@ -38,27 +39,33 @@
 
     tfePinPad = {pin:""};
 
-   $( document ).on( "tap", ".pinbutton", function() {
-      //console.log("yo")
-      //mycount++;
-      //$("#mynum").html( mycount);
-      //document.getElementById('mynum').innerHTML= mycount;
-      //console.log(this);
-      //console.log(angular.element('.pinbutton').scope());
-      //console.log(this.scope());
-      //var scope = angular.element('.pinbutton').scope().$parent;
-      //console.log(scope);
-      //console.log(scope.pinpad);
-      //console.log(this.value);
-      //scope.pinButton(this.value);
-      //scope.$apply();
-      //scope.$apply(function(){scope.pinButton(this.value)});
-      //scope.$apply(function(){scope.pin="12"})
-      //pinButton(this.value);
+for(i = 0 ; i<=9; i++){
+  var  j = i;
+(function(i){
+  $(document).on( "vclick", '#pin'+j, function() {
 
 
-        //console.log(number);
-        //console.log("BUDDO");
+       //want
+       tfePinPad.pin = tfePinPad.pin.concat(i);
+
+       if (tfePinPad.pin.length >= 4) {
+         //var scope = angular.element('.pinbutton').scope().$parent;
+         //scope.pinCheck(tfePinPad.pin);
+         //scope.$apply();
+         tfePinPad.pin="";
+       }
+       //$(".pinPanel").html(tfePinPad.pin + "&nbsp")
+       //mycount++;
+       $(".pinPanel").html(tfePinPad.pin);
+
+   });
+}(i));
+}
+console.log(i);
+/*
+
+   $(document).on( "vclick", ".pinbutton", function() {
+
 
         //want
         //tfePinPad.pin = tfePinPad.pin.concat(this.value);
@@ -73,21 +80,36 @@
         mycount++;
         $(".pinPanel").html(mycount)
 
-
-
-
+    });
+    */
+/*
+    $('.pinbutton').fastButton(function(){
+      console.log("YOYOY");
+      mycount++;
+      $(".pinPanel").html(mycount)
 
     });
+
+    $.fastButton('a', function(event) {
+  console.log("Now you're clicking with gas");
+})
+
+$('a').fastButton(function(event) {
+  alert("Now you're clicking with gas");
+})
+
+*/
     </script>
-<!--
+
+
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/bower_components/angular-route/angular-route.js"></script>
     <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
 
-  -->
-    <!--<script src="/bower_components/angular-touch/angular-touch.js"></script>
 
-    <script src="/js/test.js"></script> -->
+    <script src="/bower_components/angular-touch/angular-touch.js"></script>
+
+    <script src="/js/test.js"></script>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
@@ -109,6 +131,8 @@
           <img src="res/logo.gif" class="img-responsive"></img>
         </div>
       </div>
+
+      <a>YOY </a>
       <div ng-controller="testController">
 
 
@@ -173,7 +197,7 @@
                     </div>
                   </div>
                   <h1 class="text-center pinPanel" >&nbsp;</h1>
-                    <button class="btn btn-lg btn-success col-md-4 pinbutton" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-value="number"><h1>{{number}}</h1></button>
+                    <button class="btn btn-lg btn-success col-md-4 pinbutton" id="{{'pin'+number}}" ng-repeat="number in pinNumbers" style="width:33.3%; border-radius: 0 !important;" ng-value="number"><h1>{{number}}</h1></button>
                 </div>
               </div>
             </div>
