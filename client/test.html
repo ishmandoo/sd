@@ -46,7 +46,7 @@ for(i = 0 ; i<=9; i++){
 
 
        //want
-       tfePinPad.pin = tfePinPad.pin.concat(i);
+       tfePinPad.pin = tfePinPad.pin + String(i);
 
        if (tfePinPad.pin.length >= 4) {
          //var scope = angular.element('.pinbutton').scope().$parent;
@@ -56,7 +56,7 @@ for(i = 0 ; i<=9; i++){
        }
        //$(".pinPanel").html(tfePinPad.pin + "&nbsp")
        //mycount++;
-       $(".pinPanel").html(tfePinPad.pin);
+       $(".pinPanel").html(tfePinPad.pin+"&nbsp");
 
    });
 }(i));
