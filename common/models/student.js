@@ -73,7 +73,6 @@ module.exports = function(Student) {
       next();
     });
   });
-  });
 
 
   Student.afterRemote("checkIn", logHook);
