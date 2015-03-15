@@ -9,8 +9,8 @@ angular.module("beansprouts_app")
       query.password = $scope.teacher.password1;
     }
     $http.put('/api/teachers/'+$routeParams.id, query)
-    .success(function(classObj){
-      $scope.classObj = classObj;
+    .success(function(teacher){
+      $scope.teacher = teacher;
       $location.path("admin");
     });
   }
