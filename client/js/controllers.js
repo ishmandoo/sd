@@ -170,6 +170,12 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     }
   }
 
+  //The is Some ngKeypad Stuff  
+  $scope.$on(Keypad.KEY_PRESSED, function(event,data){
+    $scope.pinButton(data);
+    $scope.$digest();
+  });
+
   $scope.startPinPad = function(seat, callback){
     $scope.pin="";
     $scope.pinpad.seat = seat
