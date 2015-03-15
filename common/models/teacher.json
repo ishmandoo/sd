@@ -2,7 +2,12 @@
   "name": "teacher",
   "base": "User",
   "idInjection": true,
-  "properties": {},
+  "properties": {
+    "pin": {
+      "type": "string",
+      "required": true
+    }
+  },
   "validations": [],
   "relations": {},
   "acls": [

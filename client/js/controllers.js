@@ -125,11 +125,11 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.seatList = {};
   $scope.name = "";
   $scope.class = "";
-  $scope.pinpad = {};
-  $scope.pin="";
+  $scope.teacher = {};
 
   $scope.modal = false;
 
+  $scope.pinpad = {};
   $scope.pin ="";
   $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9"];
   $scope.teacherToggle = false;
@@ -206,6 +206,14 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     });
   }
 
+  $scope.getTeacher = function () {
+    $http.get('/api/teachers/current')
+    .success(function(teacher){
+      $scope.teacher = teacher;
+      console.log(teacher);
+    });
+  }
+
   $scope.getSeats = function (){
     var day_of_week_where_obj = {}
     day_of_week_where_obj["days_of_week.monday"] = true;
@@ -254,6 +262,8 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     }
   }
 
+
   $scope.getSeats();
   $scope.getClass();
+  $scope.getTeacher();
 }]);
