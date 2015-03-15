@@ -27,7 +27,7 @@
 
   -->
     <script>
-
+      mycount = 0;
     $( document ).on( "vclick", "#mytap", function() {
       console.log("yo")
       mycount++;
@@ -70,7 +70,8 @@
           tfePinPad.pin="";
         }
         //$(".pinPanel").html(tfePinPad.pin + "&nbsp")
-        $(".pinPanel").html(this.value)
+        mycount++;
+        $(".pinPanel").html(mycount)
 
 
 
