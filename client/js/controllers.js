@@ -134,6 +134,8 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9"];
   $scope.teacherToggle = false;
 
+  $scope.teacherPinTime = new Date(0);
+
   var weekday = new Array(7);
   weekday[0]=  "sunday";
   weekday[1] = "monday";
@@ -161,7 +163,11 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   $scope.pinButton = function(number, pin) {
     $scope.pin = $scope.pin.concat(number);
     if ($scope.pin.length >= 4) {
-      if($scope.pin == $scope.pinpad.seat.student.pin){
+      if(!$scope.teacherToggle && $scope.pin == $scope.pinpad.seat.student.pin){
+        $scope.pinpad.callback($scope.pinpad.seat.id);
+      }
+      else if($scope.teacherToggle && $scope.pin == $scope.teacher.pin){
+        $scope.teacherPinTime = new Date()
         $scope.pinpad.callback($scope.pinpad.seat.id);
       }
       else{
@@ -193,9 +199,17 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
 
   $scope.startPinPad = function(seat, callback){
     $scope.pin="";
+    $scope.teacherToggle = false;
     $scope.pinpad.seat = seat
     $scope.pinpad.callback = callback
-    $(".pin-modal").modal('show');
+    now = new Date()
+    if(now - $scope.teacherPinTime > 10*1000 ){
+      $(".pin-modal").modal('show');
+    }
+    else{
+      $scope.teacherPinTime = now;
+      $scope.pinpad.callback($scope.pinpad.seat.id);
+    }
 
   }
 
@@ -208,9 +222,8 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
 
   $scope.getTeacher = function () {
     $http.get('/api/teachers/current')
-    .success(function(teacher){
-      $scope.teacher = teacher;
-      console.log(teacher);
+    .success(function(response){
+      $scope.teacher = response.teacher;
     });
   }
 
