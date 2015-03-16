@@ -1,48 +1,41 @@
 <div class="panel panel-default">
   <div class="panel-heading">Edit Teacher</div>
   <div class="panel-body">
-    <form class="" name="update" ng-submit="logIn()">
+    <form class="" name="update">
       <label> Name </label>
       <input type="text" class="form-control" name="name" placeholder="Name" ng-model="teacher.name">
 
       <label> Username </label>
-      <input type="text" class="form-control" name="username" placeholder="Username" ng-model="teacher.username">
+      <input type="text" class="form-control" name="username" placeholder="Username" ng-model="teacher.username" >
 
       <label> Email </label>
-      <input type="email" class="form-control" name="email" placeholder="Email" ng-model="teacher.email">
+      <input type="email" class="form-control" name="email" placeholder="Email" ng-model="teacher.email" ng-model-options="{ updateOn: 'blur' }" >
 
-      <div class="error-container"
-        ng-show="update.email.$dirty && update.email.$invalid">
-        <small class="error"
-          ng-show="update.email.$error.email">
-          That is not a valid email. Please input a valid email.
-        </small>
-      </div>
+      <label> PIN </label>
+      <input type="text" class="form-control" name="pin" placeholder="PIN" ng-model="teacher.pin" >
 
-      <br>
-      <button type="submit" class="btn btn-success" ng-click="update()" ng-disabled=""> Update </button>
-    </form>
+  <br>
+  <button type="submit" class="btn btn-success" ng-click="updateTeacher()" ng-disabled="update.email.$error.email"> Update </button>
+</form>
 
-  </div>
+</div>
 </div>
 
 <div class="panel panel-default">
   <div class="panel-heading">Update Password</div>
   <div class="panel-body">
-    <form class="" ng-submit="logIn()">
+    <form class="" name="password_update">
       <label> Password </label>
-      <input type="password" class="form-control" name="className" placeholder="Password" ng-model="teacher.password1">
+      <input type="password" class="form-control" name="password1" placeholder="Password" ng-model="teacher.password1">
       <label> Confirm Password </label>
-      <input type="password" class="form-control" name="className" placeholder="Password Again" ng-model="teacher.password2">
+      <input type="password" class="form-control" name="password2" placeholder="Password Again" ng-model="teacher.password2">
 
 
-      <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
-        <span ng-show="myForm.user.$error.required">Username is required.</span>
-      </span>
 
-      <br>
-      <button type="submit" class="btn btn-success" ng-click="update()" ng-disabled="!passwordValid()"> Update Password</button>
-    </form>
 
-  </div>
+<br>
+<button type="submit" class="btn btn-success" ng-click="updatePassword()" ng-disabled="!passwordValid()"> Update Password</button>
+</form>
+
+</div>
 </div>

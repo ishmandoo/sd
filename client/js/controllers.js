@@ -147,6 +147,9 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
   var today = new Date();
   var dayOfWeek = weekday[today.getDay()];
 
+  $scope.overrideTimeout = 0;
+  $scope.overrideTimer = null;
+
 
   jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
     this.each(function() {
@@ -167,7 +170,17 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
         $scope.pinpad.callback($scope.pinpad.seat.id);
       }
       else if($scope.teacherToggle && $scope.pin == $scope.teacher.pin){
-        $scope.teacherPinTime = new Date()
+        $scope.overrideTimeout = 100;
+
+        $scope.overrideTimer = setInterval(function (){
+          console.log($scope.overrideTimeout);
+          $scope.overrideTimeout -= 2;
+          if($scope.overrideTimeout <= 0) {
+            clearInterval($scope.overrideTimer);
+          }
+          $scope.$digest();
+        }, 100);
+
         $scope.pinpad.callback($scope.pinpad.seat.id);
       }
       else{
@@ -203,11 +216,11 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
     $scope.pinpad.seat = seat
     $scope.pinpad.callback = callback
     now = new Date()
-    if(now - $scope.teacherPinTime > 10*1000 ){
+    if($scope.overrideTimeout <= 0){
       $(".pin-modal").modal('show');
     }
     else{
-      $scope.teacherPinTime = now;
+      $scope.overrideTimeout = 100;
       $scope.pinpad.callback($scope.pinpad.seat.id);
     }
 
