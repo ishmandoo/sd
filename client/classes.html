@@ -11,18 +11,18 @@
   </div>
   <div class="panel panel-default">
     <div class="panel-body">
-      <strong>After-School Classes</strong>
+      <strong>After-School Pickup Locations</strong>
     </div>
     <div class="list-group">
-      <a href="#/class/{{class.id}}" ng-repeat="class in after_classes" class="list-group-item"> {{ class.name }} ({{class.totalCheckedIn}}/{{class.totalStudents}})
+      <a href="#/class/{{class.id}}" ng-repeat="class in pick_up_locs" class="list-group-item"> {{ class.name }}
         <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
       </a>
     </div>
     <div class="panel-body">
-      <strong>After-School Pickup Locations</strong>
+      <strong>After-School Classes</strong>
     </div>
     <div class="list-group">
-      <a href="#/class/{{class.id}}" ng-repeat="class in pick_up_locs" class="list-group-item"> {{ class.name }} ({{class.totalCheckedIn}}/{{class.totalStudents}})
+      <a href="#/class/{{class.id}}" ng-repeat="class in after_classes" class="list-group-item"> {{ class.name }} ({{class.totalCheckedIn}}/{{class.totalStudents}})
         <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
       </a>
     </div>

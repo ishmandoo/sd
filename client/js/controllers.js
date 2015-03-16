@@ -20,7 +20,7 @@ controllers.controller("classListController", ["$scope", "$http", function($scop
 
   $scope.getAttendanceFraction = function(classList){
     var day_of_week_where_obj = {}
-    day_of_week_where_obj["days_of_week.monday"] = true;
+    day_of_week_where_obj["days_of_week."+dayOfWeek] = true;
 
 
     console.log(classList);
@@ -122,7 +122,7 @@ controllers.controller("loginController", ["$scope", "$http", "$location", "$win
 
 controllers.controller("studentListController", ["$scope", "$http", "$routeParams", function($scope, $http, $routeParams){
 
-  $scope.seatList = {};
+  $scope.seatList = [];
   $scope.name = "";
   $scope.class = "";
   $scope.teacher = {};
@@ -242,7 +242,7 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
 
   $scope.getSeats = function (){
     var day_of_week_where_obj = {}
-    day_of_week_where_obj["days_of_week.monday"] = true;
+    day_of_week_where_obj["days_of_week." + dayOfWeek] = true;
 
     $http({
       url: '/api/seats/',
@@ -255,8 +255,39 @@ controllers.controller("studentListController", ["$scope", "$http", "$routeParam
       }
     })
     .success(function(seatList){
-      $scope.seatList = seatList;
+      $scope.seatList=[];
+      if ($scope.class.class_type == "pickup"){
+        $scope.buildPickupSeatList(seatList);
+      } else {
+        $scope.seatList = seatList;
+      }
     });
+  }
+
+  $scope.buildPickupSeatList = function(seatList){
+    var day_of_week_where_obj = {}
+    day_of_week_where_obj["days_of_week." + dayOfWeek] = true;
+
+    for (var i = 0; i < seatList.length; i++){
+      $http({
+        url: '/api/seats/',
+        method: "GET",
+        params: {
+          filter:{
+            where:{ and:[{studentId:seatList[i].student.id},day_of_week_where_obj] },
+            include:[{relation:'class'},{relation:'student'}]
+          }
+        }
+      })
+      .success(function(pickupSeatList){
+        for (var j=0; j < pickupSeatList.length; j++){
+          if (pickupSeatList[j].class.class_type == "after"){
+            console.log(pickupSeatList[j]);
+            $scope.seatList.push(pickupSeatList[j]);
+          }
+        }
+      });
+    }
   }
 
   $scope.checkIn = function(seatId) {
