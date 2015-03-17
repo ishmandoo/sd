@@ -20,9 +20,9 @@
         Status
       </th>
     </tr>
-    <tr ng-repeat="seat in seatList">
+    <tr ng-repeat="seat in seatList | orderBy:'student.name'">
       <td class="col-sm-3">
-        {{ seat.student.name }}
+        {{ seat.student.name}}
       </td>
       <td class="col-sm-3">
         <button class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in"> Check In </button>
