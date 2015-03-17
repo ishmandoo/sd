@@ -12,8 +12,9 @@ module.exports = function(Class) {
       }
     });
 */
-    Class.app.models.Seat.find({where:{classId:Class.id}}, function(err, seats){
+    Class.app.models.Seat.find({where:{classId:ctx.where.id}}, function(err, seats){
       for (var i in seats) {
+        console.log(seats[i]);
         seats[i].destroy();
       }
       next();

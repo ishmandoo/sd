@@ -68,7 +68,7 @@ module.exports = function(Student) {
     });
     */
 
-    Student.app.models.Seat.find({where:{studentId:Student.id}}, function(err, seats){
+    Student.app.models.Seat.find({where:{studentId:ctx.where.id}}, function(err, seats){
       for (var i in seats) {
         seats[i].destroy();
       }

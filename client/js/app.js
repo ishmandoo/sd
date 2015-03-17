@@ -1,4 +1,4 @@
-var app = angular.module("beansprouts_app", ['ngRoute', 'controllers', 'ngCookies', 'ui.bootstrap', 'ngTouch', 'ngKeypad']);
+var app = angular.module("beansprouts_app", ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngTouch', 'ngKeypad']);
 
 app.run(['$http', '$cookieStore', '$location', function($http, $cookieStore, $location){
   var token = $cookieStore.get("authToken") || {}
