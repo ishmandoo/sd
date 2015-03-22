@@ -121,6 +121,9 @@ angular.module("beansprouts_app")
 
       $scope.getSeats = function (){
         var day_of_week_where_obj = {}
+
+        dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
+
         day_of_week_where_obj["days_of_week." + dayOfWeek] = true;
 
         $http({
