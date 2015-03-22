@@ -5,29 +5,8 @@
 <br>
 
 
-  <div class="col-md-4 col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">Classes</div>
-      <div class="panel-body">
-        <form>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter New Class Name" ng-model="class.name">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-success" ng-click="addClass()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
-            </span>
-          </div>
-        </form>
-        <table class="table">
-          <tr ng-repeat="class in classData | filter:searchText">
-            <td>
-              <a href="/#/admin/class/{{class.id}}"> {{class.name}}  </a>
-              <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="deleteClass(class)"> </span> </a>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
+
+<add-remove type="'classes'"></add-remove>
 
   <div class="col-md-4 col-sm-12">
     <div class="panel panel-default">
@@ -55,26 +34,5 @@
     </div>
   </div>
 
-  <div class="col-md-4 col-sm-12">
-    <div class="panel panel-default" >
-      <div class="panel-heading">Students</div>
-      <div class="panel-body">
-        <form>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter New Student Name" ng-model="student.name">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-success" ng-click="addStudent()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
-            </span>
-          </div>
-        </form>
-        <table class="table">
-          <tr ng-repeat="student in studentData  | filter:searchText">
-            <td>
-              <a href="/#/admin/student/{{student.id}}"> {{student.name}}  </a>
-              <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="deleteStudent(student)"> </span> </a>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
+
+  <add-remove type="'students'"></add-remove>

@@ -92,4 +92,51 @@ angular.module("beansprouts_app")
 
 
 
+}]).directive('addRemove', function() {
+  return {
+    controller: 'listController',
+    restrict: 'E',
+    scope: {
+      type: "=type"
+    },
+    templateUrl: '../list.html'
+  };
+}).controller("listController", ["$scope", "$http", function($scope, $http){
+
+  $scope.newItemName = "";
+  $scope.data = [];
+
+  console.log($scope);
+
+  $scope.getList = function(){
+    $http.get('/api/'+ $scope.type +'?filter={\"order\":\"name ASC\"}')
+    .success(function(data){
+      $scope.data = data;
+    });
+  }
+
+  $scope.add = function() {
+    var attrs = {};
+    if ($scope.type == "students") {
+      attrs = {name:$scope.newItemName, pin:"1234", status:"checked out", last_action_date:new Date()}
+    } else if ($scope.type == "classes") {
+      attrs = {name:$scope.newItemName, class_type:"pre"}
+    }
+
+    console.log($scope.newItemName);
+    $http.post('/api/'+ $scope.type +'/', attrs)
+    .success(function(item){
+      $scope.getList();
+      $scope.newItemName = "";
+    });
+  }
+
+  $scope.delete = function(item){
+    $http.delete('/api/'+ $scope.type +'/'+item.id)
+    .success(function(){
+      $scope.getList();
+    });
+  }
+
+  $scope.getList();
 }]);
