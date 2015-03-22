@@ -1,6 +1,6 @@
 <div class="col-md-4 col-sm-12">
   <div class="panel panel-default">
-    <div class="panel-heading">Classes</div>
+    <div class="panel-heading">{{name}}</div>
     <div class="panel-body">
       <form>
         <div class="input-group">
@@ -13,7 +13,7 @@
       <table class="table">
         <tr ng-repeat="item in data | filter:searchText">
           <td>
-            <a href="/#/admin/class/{{item.id}}"> {{item.name}}  </a>
+            <a href="/#/admin/{{detail_path}}/{{item.id}}"> {{item.name}}  </a>
             <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="delete(item)"> </span> </a>
           </td>
         </tr>

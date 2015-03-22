@@ -105,6 +105,16 @@ angular.module("beansprouts_app")
 
   $scope.newItemName = "";
   $scope.data = [];
+  $scope.name = "";
+  $scope.detail_path = "";
+
+  if ($scope.type == "classes") {
+    $scope.name = "Classes";
+    $scope.detail_path = "class"
+  } else if ($scope.type == "students") {
+    $scope.name = "Students";
+    $scope.detail_path = "student"
+  }
 
   console.log($scope);
 
