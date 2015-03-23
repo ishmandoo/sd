@@ -109,6 +109,8 @@ angular.module("beansprouts_app")
         $http.get('/api/classes/'+$routeParams.id+'/')
         .success(function(classObj){
           $scope.class = classObj;
+          $scope.getSeats();
+          $scope.getTeacher();
         });
       }
 
@@ -206,7 +208,5 @@ angular.module("beansprouts_app")
       }
 
 
-      $scope.getSeats();
       $scope.getClass();
-      $scope.getTeacher();
     }]);
