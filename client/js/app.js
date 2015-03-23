@@ -64,4 +64,15 @@ app.config(function($routeProvider){
     templateUrl: 'login.html',
     controller: "loginController"
   })
+}).
+factory('getDateFilterObject', function() {
+  var weekday = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  return function(){
+    var dayOfWeek = weekday[new Date().getDay()];
+    dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
+
+    var day_of_week_where_obj = {};
+
+    day_of_week_where_obj["days_of_week." + dayOfWeek] = true;
+  }
 });

@@ -20,7 +20,7 @@ angular.module("beansprouts_app")
   $scope.getAttendanceFraction = function(classList){
     var day_of_week_where_obj = {}
 
-    dayOfWeek="monday"; // THIS IS A TEMPORARY CHANGE THAT MAKES IT ALWAYS DISPLAY MONDAY CLASS LISTS
+    //dayOfWeek="monday"; // THIS IS A TEMPORARY CHANGE THAT MAKES IT ALWAYS DISPLAY MONDAY CLASS LISTS
 
     day_of_week_where_obj["days_of_week."+dayOfWeek] = true;
 
