@@ -140,6 +140,7 @@ angular.module("beansprouts_app")
           $scope.seatList=[];
           if ($scope.class.class_type === "pickup"){
             $scope.buildPickupSeatList(seatList);
+            console.log("pickup location");
           } else {
             $scope.seatList = seatList;
           }
