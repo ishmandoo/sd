@@ -138,7 +138,7 @@ angular.module("beansprouts_app")
         })
         .success(function(seatList){
           $scope.seatList=[];
-          if ($scope.class.class_type == "pickup"){
+          if ($scope.class.class_type === "pickup"){
             $scope.buildPickupSeatList(seatList);
           } else {
             $scope.seatList = seatList;
@@ -150,7 +150,7 @@ angular.module("beansprouts_app")
         var day_of_week_where_obj = {};
 
         dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
-        
+
         day_of_week_where_obj["days_of_week." + dayOfWeek] = true;
 
         for (var i = 0; i < seatList.length; i++){
