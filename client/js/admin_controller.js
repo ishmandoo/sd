@@ -99,7 +99,7 @@ angular.module("beansprouts_app")
     scope: {
       type: "=type"
     },
-    templateUrl: '../list.html'
+    templateUrl: '../html/list.html'
   };
 }).controller("listController", ["$scope", "$http", function($scope, $http){
 

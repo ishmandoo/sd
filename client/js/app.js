@@ -33,35 +33,35 @@ app.config(['$httpProvider',function($httpProvider) {
 app.config(function($routeProvider){
   $routeProvider
   .when('/login',{
-    templateUrl: 'login.html',
+    templateUrl: 'html/login.html',
     controller: "loginController"
   })
   .when('/classes',{
-    templateUrl: 'classes.html',
+    templateUrl: 'html/classes.html',
     controller: "classListController"
   })
   .when('/class/:id',{
-    templateUrl: 'class.html',
+    templateUrl: 'html/class.html',
     controller: "studentListController"
   })
   .when('/admin',{
-    templateUrl: 'admin.html',
+    templateUrl: 'html/admin.html',
     controller: "adminController"
   })
   .when('/admin/class/:id',{
-    templateUrl: 'edit_class.html',
+    templateUrl: 'html/edit_class.html',
     controller: "editClassController"
   })
   .when('/admin/teacher/:id',{
-    templateUrl: 'edit_teacher.html',
+    templateUrl: 'html/edit_teacher.html',
     controller: "editTeacherController"
   })
   .when('/admin/student/:id',{
-    templateUrl: 'edit_student.html',
+    templateUrl: 'html/edit_student.html',
     controller: "editStudentController"
   })
   .otherwise({
-    templateUrl: 'login.html',
+    templateUrl: 'html/login.html',
     controller: "loginController"
   })
 });
