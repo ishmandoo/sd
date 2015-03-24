@@ -1,5 +1,5 @@
 angular.module("beansprouts_app")
-.controller("studentListController", ["$scope", "$http", "$routeParams", function($scope, $http, $routeParams){
+.controller("studentListController", ["$scope", "$http", "$routeParams", "dateFilterObjectService", function($scope, $http, $routeParams, dateFilterObjectService){
 
   $scope.seatList = [];
   $scope.name = "";
@@ -15,19 +15,11 @@ angular.module("beansprouts_app")
 
   $scope.teacherPinTime = new Date(0);
 
-  var weekday = new Array(7);
-  weekday[0]=  "sunday";
-  weekday[1] = "monday";
-  weekday[2] = "tuesday";
-  weekday[3] = "wednesday";
-  weekday[4] = "thursday";
-  weekday[5] = "friday";
-  weekday[6] = "saturday";
-  var today = new Date();
-  var dayOfWeek = weekday[today.getDay()];
 
   $scope.overrideTimeout = 0;
   $scope.overrideTimer = null;
+
+  console.log(dateFilterObjectService.getDateFilterObject());
 
 
   jQuery.fn.shake = function(intShakes, intDistance, intDuration) {
@@ -122,18 +114,13 @@ angular.module("beansprouts_app")
       }
 
       $scope.getSeats = function (){
-        var day_of_week_where_obj = {};
-
-        //dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
-
-        day_of_week_where_obj["days_of_week." + dayOfWeek] = true;
 
         $http({
           url: '/api/seats/',
           method: "GET",
           params: {
             filter:{
-              where:{ and:[{classId:$routeParams.id},day_of_week_where_obj] },
+              where:{ and:[{classId:$routeParams.id},dateFilterObjectService.getDateFilterObject()] },
               include:{relation:'student'}
             }
           }
@@ -150,19 +137,13 @@ angular.module("beansprouts_app")
       }
 
       $scope.buildPickupSeatList = function(seatList){
-        var day_of_week_where_obj = {};
-
-        //dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
-
-        day_of_week_where_obj["days_of_week." + dayOfWeek] = true;
-
         for (var i = 0; i < seatList.length; i++){
           $http({
             url: '/api/seats/',
             method: "GET",
             params: {
               filter:{
-                where:{ and:[{studentId:seatList[i].student.id},day_of_week_where_obj] },
+                where:{ and:[{studentId:seatList[i].student.id},dateFilterObjectService.getDateFilterObject()] },
                 include:[{relation:'class'},{relation:'student'}]
               }
             }

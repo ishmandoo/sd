@@ -1,28 +1,12 @@
 angular.module("beansprouts_app")
-.controller("classListController", ["$scope", "$http", function($scope, $http){
+.controller("classListController", ["$scope", "$http", "dateFilterObjectService", function($scope, $http, dateFilterObjectService) {
 
   $scope.pre_classes = [];
   $scope.after_classes = [];
   $scope.pick_up_locs = [];
 
-  var weekday = new Array(7);
-  weekday[0]=  "sunday";
-  weekday[1] = "monday";
-  weekday[2] = "tuesday";
-  weekday[3] = "wednesday";
-  weekday[4] = "thursday";
-  weekday[5] = "friday";
-  weekday[6] = "saturday";
-  var today = new Date();
-  var dayOfWeek = weekday[today.getDay()];
-
 
   $scope.getAttendanceFraction = function(classList){
-    var day_of_week_where_obj = {}
-
-    //dayOfWeek="monday"; // THIS IS A TEMPORARY CHANGE THAT MAKES IT ALWAYS DISPLAY MONDAY CLASS LISTS
-
-    day_of_week_where_obj["days_of_week."+dayOfWeek] = true;
 
 
     console.log(classList);
@@ -34,7 +18,7 @@ angular.module("beansprouts_app")
           url: '/api/seats/count',
           method: "GET",
           params: {
-            where:{ and:[{classId:classList[index].id},day_of_week_where_obj] }
+            where:{ and:[{classId:classList[index].id},dateFilterObjectService.getDateFilterObject()] }
           }
         })
         .success(function(res){
@@ -46,7 +30,7 @@ angular.module("beansprouts_app")
           url: '/api/seats/count',
           method: "GET",
           params: {
-            where:{ and:[{classId:classList[index].id}, {checked_in:true}, day_of_week_where_obj] }
+            where:{ and:[{classId:classList[index].id}, {checked_in:true}, dateFilterObjectService.getDateFilterObject()] }
           }
         })
         .success(function(res){

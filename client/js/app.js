@@ -64,15 +64,19 @@ app.config(function($routeProvider){
     templateUrl: 'login.html',
     controller: "loginController"
   })
-}).
-factory('getDateFilterObject', function() {
+});
+
+app.service('dateFilterObjectService', function() {
   var weekday = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-  return function(){
+
+  this.getDateFilterObject = function(){
     var dayOfWeek = weekday[new Date().getDay()];
-    dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
+    //dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
 
     var day_of_week_where_obj = {};
 
     day_of_week_where_obj["days_of_week." + dayOfWeek] = true;
+
+    return day_of_week_where_obj;
   }
 });
