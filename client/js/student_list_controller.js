@@ -155,6 +155,9 @@ angular.module("beansprouts_app")
                 $scope.seatList.push(pickupSeatList[j]);
               }
             }
+          })
+          .error(function(data, status, headers, config) {
+            console.log("Status code: " + status);
           });
         }
       }
