@@ -152,7 +152,7 @@ angular.module("beansprouts_app")
           $scope.seatList = result.afterList;
         });
       }
-
+/*
       $scope.buildPickupSeatList = function(seatList){
         for (var i = 0; i < seatList.length; i++){
           $http({
@@ -175,7 +175,7 @@ angular.module("beansprouts_app")
           });
         }
       }
-
+*/
       $scope.checkIn = function(seatId) {
         var btn = $('.checkIn.'+seatId);
         btn.button('loading');

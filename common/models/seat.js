@@ -15,7 +15,6 @@ module.exports = function(Seat) {
 
             var afterList = [];
             for (var i = 0; i < seats.length; i++) {
-              console.log(seats[i].class());
               if (seats[i].class().class_type == 'after'){
                 afterList.push(seats[i]);
               }
