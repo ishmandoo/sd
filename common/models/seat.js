@@ -1,11 +1,11 @@
 module.exports = function(Seat) {
-
+/*
   Seat.getSeatList = function(classId, dayOfWeekFilterObject, cb){
     Seat.app.models.class.findById(classId, function(err, classObj){
-
       if (classObj.class_type === "pickup") { // if we have a pickup location, find the list of students, get seats that have any of them and have the right day of the week, then create a new list from the ones that are after school locations
-        Seat.app.models.student.find({filter: {where:{classId:classObj.id}}}, function(err, students){
-          var idList = students.map(function(student){return student.id})
+        Seat.find({where:{classId:classObj.id}}, function(err, seats){
+          var idList = seats.map(function(seat){return seat.studentId})
+          console.log(idList);
           Seat.find({
             where: {
               and: [{studentId:{inq:idList}}, dayOfWeekFilterObject]
@@ -29,6 +29,38 @@ module.exports = function(Seat) {
       }
     });
   }
+  */
+
+
+  Seat.getSeatList = function(classId, dayOfWeekFilterObject, cb){
+      Seat.app.models.class.findById(classId, function(err, classObj){
+
+          Seat.find({where: {and:[{classId:classId},dayOfWeekFilterObject]}, include: {relation:"student"}}, function(err, seats){
+              if (classObj.class_type !== "pickup") {
+                  cb(null, seats, "success");
+              } else {
+                  var idList = seats.map(function(seat){return seat.studentId});
+                  Seat.find({
+                      where: {
+                          and: [{studentId:{inq:idList}}, dayOfWeekFilterObject]
+                      },
+                      include: ['student', 'class']
+                  }, function(err, seats){
+
+                      var afterList = [];
+                      for (var i = 0; i < seats.length; i++) {
+                          if (seats[i].class().class_type == 'after'){
+                              afterList.push(seats[i]);
+                          }
+                      }
+                      cb(null, afterList, "success");
+                  });
+              }
+          });
+
+      });
+  }
+
 
   Seat.remoteMethod('getSeatList',{
     accepts: [{arg: 'classId', type: 'string'}, {arg: 'dayOfWeekFilterObject', type: 'object'}],
