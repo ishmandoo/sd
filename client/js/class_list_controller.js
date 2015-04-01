@@ -5,6 +5,8 @@ angular.module("beansprouts_app")
   $scope.after_classes = [];
   $scope.pick_up_locs = [];
 
+  $scope.test_string = "test";
+
 
   $scope.getAttendanceFraction = function(classList){
 

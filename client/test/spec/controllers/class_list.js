@@ -1,4 +1,4 @@
-describe('PasswordController', function() {
+describe('class_list_controller', function() {
   beforeEach(module('beansprouts_app'));
 
   var $controller;
@@ -8,21 +8,11 @@ describe('PasswordController', function() {
     $controller = _$controller_;
   }));
 
-  describe('$scope.grade', function() {
-    it('sets the strength to "strong" if the password length is >8 chars', function() {
+  describe('test string', function() {
+    it('check test string', function() {
       var $scope = {};
-      var controller = $controller('PasswordController', { $scope: $scope });
-      $scope.password = 'longerthaneightchars';
-      $scope.grade();
-      expect($scope.strength).toEqual('strong');
-    });
-
-    it('sets the strength to "weak" if the password length <3 chars', function() {
-      var $scope = {};
-      var controller = $controller('PasswordController', { $scope: $scope });
-      $scope.password = 'a';
-      $scope.grade();
-      expect($scope.strength).toEqual('weak');
+      var controller = $controller('classListController', { $scope: $scope });
+      expect($scope.test_string).toEqual('test');
     });
   });
 });

@@ -1,5 +1,42 @@
 module.exports = function(Seat) {
 
+  Seat.getSeatList = function(classId, dayOfWeekFilterObject, cb){
+    Seat.app.models.class.findById(classId, function(err, classObj){
+
+      if (classObj.class_type === "pickup") { // if we have a pickup location, find the list of students, get seats that have any of them and have the right day of the week, then create a new list from the ones that are after school locations
+        Seat.app.models.student.find({filter: {where:{classId:classObj.id}}}, function(err, students){
+          var idList = students.map(function(student){return student.id})
+          Seat.find({
+            where: {
+              and: [{studentId:{inq:idList}}, dayOfWeekFilterObject]
+            },
+            include: ['student', 'class']
+          }, function(err, seats){
+
+            var afterList = [];
+            for (var i = 0; i < seats.length; i++) {
+              console.log(seats[i].class());
+              if (seats[i].class().class_type == 'after'){
+                afterList.push(seats[i]);
+              }
+            }
+            cb(null, afterList, "success");
+          });
+        });
+      } else {
+        Seat.find({where: {and:[{classId:classId},dayOfWeekFilterObject]}, include: {relation:"student"}}, function(err, seats){
+          cb(null, seats, "success");
+        });
+      }
+    });
+  }
+
+  Seat.remoteMethod('getSeatList',{
+    accepts: [{arg: 'classId', type: 'string'}, {arg: 'dayOfWeekFilterObject', type: 'object'}],
+    returns: [{arg: 'afterList', type: 'array'}, {arg: 'result', type: 'string'}],
+    http: {path: '/getseatlist', verb: 'get'}
+  });
+
   Seat.checkIn = function(seatId, cb) {
     Seat.findById(seatId, function(err, seat) {
 

@@ -112,7 +112,7 @@ angular.module("beansprouts_app")
           $scope.teacher = response.teacher;
         });
       }
-
+/*
       $scope.getSeats = function (){
 
         $http({
@@ -135,6 +135,23 @@ angular.module("beansprouts_app")
           }
         });
       }
+      */
+
+      $scope.getSeats = function (){
+
+        $http({
+          url: '/api/seats/getseatlist',
+          method: "GET",
+          params: {
+            classId:$routeParams.id,
+            dayOfWeekFilterObject: dateFilterObjectService.getDateFilterObject()
+          }
+        })
+        .success(function(result){
+          console.log(result);
+          $scope.seatList = result.afterList;
+        });
+      }
 
       $scope.buildPickupSeatList = function(seatList){
         for (var i = 0; i < seatList.length; i++){
@@ -155,9 +172,6 @@ angular.module("beansprouts_app")
                 $scope.seatList.push(pickupSeatList[j]);
               }
             }
-          })
-          .error(function(data, status, headers, config) {
-            console.log("Status code: " + status);
           });
         }
       }

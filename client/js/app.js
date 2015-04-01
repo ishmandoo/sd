@@ -32,21 +32,21 @@ app.config(['$httpProvider',function($httpProvider) {
 app.factory('httpResponseErrorInterceptor',function($q, $injector, $timeout) {
   return {
     'responseError': function(response) {
-      if (response.status === 0) {
-        // should retry
-        return $timeout(function(){
-          if (response.config.backoff) {
-            response.config.backoff *= 1.1;
-          } else {
-            response.config.backoff = 100;
-          }
-          console.log(response.config);
-          var $http = $injector.get('$http');
-          return $http(response.config);
-        }, response.config.backoff);
-      }
-      // give up
-      return $q.reject(response);
+        if (response.status === 0) {
+            // should retry
+            return $timeout(function(){
+                if (response.config.backoff) {
+                    response.config.backoff *= 1.1;
+                } else {
+                    response.config.backoff = 100;
+                }
+                console.log(response.config);
+                var $http = $injector.get('$http');
+                return $http(response.config);
+            }, response.config.backoff);
+        }
+
+        return $q.reject(response)
     }
   };
 });
