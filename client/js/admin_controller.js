@@ -57,7 +57,7 @@ angular.module("beansprouts_app")
 
   $scope.addStudent = function() {
     console.log($scope.student.name);
-    $http.post('/api/students/', {name:$scope.student.name, pin:"1234", status:"checked out", last_action_date:new Date()})
+    $http.post('/api/students/', {name:$scope.student.name, status:"checked out", last_action_date:new Date()})
     .success(function(student){
       $scope.getStudentList();
       $scope.student.name = "";
@@ -128,7 +128,7 @@ angular.module("beansprouts_app")
   $scope.add = function() {
     var attrs = {};
     if ($scope.type == "students") {
-      attrs = {name:$scope.newItemName, pin:"1234", status:"checked out", last_action_date:new Date()}
+      attrs = {name:$scope.newItemName, status:"checked out", last_action_date:new Date()}
     } else if ($scope.type == "classes") {
       attrs = {name:$scope.newItemName, class_type:"pre"}
     }

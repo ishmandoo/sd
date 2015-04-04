@@ -97,7 +97,7 @@ app.service('dateFilterObjectService', function() {
 
   this.getDateFilterObject = function(){
     var dayOfWeek = weekday[new Date().getDay()];
-    //dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
+    dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
 
     var day_of_week_where_obj = {};
 

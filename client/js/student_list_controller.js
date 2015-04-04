@@ -13,6 +13,8 @@ angular.module("beansprouts_app")
   $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9"];
   $scope.teacherToggle = false;
 
+  $scope.firstPin = "";
+
   $scope.teacherPinTime = new Date(0);
 
 
@@ -37,10 +39,9 @@ angular.module("beansprouts_app")
   $scope.pinButton = function(number, pin) {
     $scope.pin = $scope.pin.concat(number);
     if ($scope.pin.length >= 4) {
-      if(!$scope.teacherToggle && $scope.pin == $scope.pinpad.seat.student.pin){
+      if (!$scope.teacherToggle && $scope.pin == $scope.pinpad.seat.student.pin) {
         $scope.pinpad.callback($scope.pinpad.seat.id);
-      }
-      else if($scope.teacherToggle && $scope.pin == $scope.teacher.pin){
+      } else if ($scope.teacherToggle && $scope.pin == $scope.teacher.pin) {
         $scope.overrideTimeout = 100;
 
         $scope.overrideTimer = setInterval(function (){
@@ -53,12 +54,34 @@ angular.module("beansprouts_app")
         }, 100);
 
         $scope.pinpad.callback($scope.pinpad.seat.id);
-      }
-      else{
+      } else if (!$scope.teacherToggle && !$scope.pinpad.seat.student.pin) {
+        if ($scope.firstPin == "") {
+          $scope.firstPin = $scope.pin;
+          $scope.pin = "";
+          $('.modal-title').html("Please Repeat PIN");
+        } else if ($scope.pin == $scope.firstPin) {
+          $scope.setPin($scope.pinpad.seat.student, $scope.pin);
+          $scope.pinpad.callback($scope.pinpad.seat.id);
+        } else if ($scope.pin != $scope.firstPin) {
+          $(".modal-content").shake(3,7,350);
+          $('.modal-title').html("Please Choose a PIN");
+          $scope.firstPin = "";
+          $scope.pin = "";
+        }
+      } else {
         $(".modal-content").shake(3,7,350);
       }
       $scope.pin="";
     }
+  }
+
+
+  $scope.setPin = function(student, pin) {
+    var query = {pin:pin};
+    $http.put('/api/students/'+student.id, query)
+    .success(function(classObj){
+      $scope.getSeats();
+    });
   }
 
   //The is Some ngKeypad Stuff
@@ -72,139 +95,98 @@ angular.module("beansprouts_app")
     switch(key){
       case "teacher":
         $scope.teacherToggle = !$scope.teacherToggle;
-        break;
-        case "back":
-          $scope.pin = $scope.pin.slice(0,-1);
-          break;
-        }
-        $scope.$digest();
-      });
+      break;
+      case "back":
+        $scope.pin = $scope.pin.slice(0,-1);
+      break;
+    }
+    $scope.$digest();
+  });
 
 
-      $scope.startPinPad = function(seat, callback){
-        $scope.pin="";
-        $scope.teacherToggle = false;
-        $scope.pinpad.seat = seat
-        $scope.pinpad.callback = callback
-        now = new Date()
-        if($scope.overrideTimeout <= 0){
-          $(".pin-modal").modal('show');
-        }
-        else{
-          $scope.overrideTimeout = 100;
-          $scope.pinpad.callback($scope.pinpad.seat.id);
-        }
-
+  $scope.startPinPad = function(seat, callback){
+    $scope.pin="";
+    $scope.firstPin = "";
+    $scope.teacherToggle = false;
+    $scope.pinpad.seat = seat
+    $scope.pinpad.callback = callback
+    now = new Date()
+    if($scope.overrideTimeout <= 0){
+      if (!seat.student.pin) {
+        $('.modal-title').html("Please Choose a PIN");
+      } else {
+        $('.modal-title').html("Please Enter PIN");
       }
+      $(".pin-modal").modal('show');
+    } else {
+      $scope.overrideTimeout = 100;
+      $scope.pinpad.callback($scope.pinpad.seat.id);
+    }
 
-      $scope.getClass = function () {
-        $http.get('/api/classes/'+$routeParams.id+'/')
-        .success(function(classObj){
-          $scope.class = classObj;
-          $scope.getSeats();
-          $scope.getTeacher();
-        });
+  }
+
+  $scope.getClass = function () {
+    $http.get('/api/classes/'+$routeParams.id+'/')
+    .success(function(classObj){
+      $scope.class = classObj;
+      $scope.getSeats();
+      $scope.getTeacher();
+    });
+  }
+
+  $scope.getTeacher = function () {
+    $http.get('/api/teachers/current')
+    .success(function(response){
+      $scope.teacher = response.teacher;
+    });
+  }
+
+
+  $scope.getSeats = function (){
+
+    $http({
+      url: '/api/seats/getseatlist',
+      method: "GET",
+      params: {
+        classId:$routeParams.id,
+        dayOfWeekFilterObject: dateFilterObjectService.getDateFilterObject()
       }
+    })
+    .success(function(result){
+      console.log(result);
+      $scope.seatList = result.afterList;
+    });
+  }
 
-      $scope.getTeacher = function () {
-        $http.get('/api/teachers/current')
-        .success(function(response){
-          $scope.teacher = response.teacher;
-        });
-      }
-/*
-      $scope.getSeats = function (){
+  $scope.checkIn = function(seatId) {
+    var btn = $('.checkIn.'+seatId);
+    btn.button('loading');
+    $http.post('/api/seats/checkin', {seatId:seatId})
+    .success(function(){
+      $scope.getSeats();
+      $(".pin-modal").modal('hide');
+    });
+  }
 
-        $http({
-          url: '/api/seats/',
-          method: "GET",
-          params: {
-            filter:{
-              where:{ and:[{classId:$routeParams.id},dateFilterObjectService.getDateFilterObject()] },
-              include:{relation:'student'}
-            }
-          }
-        })
-        .success(function(seatList){
-          $scope.seatList=[];
-          if ($scope.class.class_type === "pickup"){
-            $scope.buildPickupSeatList(seatList);
-            console.log("pickup location");
-          } else {
-            $scope.seatList = seatList;
-          }
-        });
-      }
-      */
+  $scope.checkOut = function(seatId) {
+    var btn = $('.checkOut.'+seatId);
+    btn.button('loading');
+    $http.post('/api/seats/checkout', {seatId:seatId})
+    .success(function(){
+      $scope.getSeats();
+      $(".pin-modal").modal('hide');
 
-      $scope.getSeats = function (){
+    });
+  }
 
-        $http({
-          url: '/api/seats/getseatlist',
-          method: "GET",
-          params: {
-            classId:$routeParams.id,
-            dayOfWeekFilterObject: dateFilterObjectService.getDateFilterObject()
-          }
-        })
-        .success(function(result){
-          console.log(result);
-          $scope.seatList = result.afterList;
-        });
-      }
-/*
-      $scope.buildPickupSeatList = function(seatList){
-        for (var i = 0; i < seatList.length; i++){
-          $http({
-            url: '/api/seats/',
-            method: "GET",
-            params: {
-              filter:{
-                where:{ and:[{studentId:seatList[i].student.id},dateFilterObjectService.getDateFilterObject()] },
-                include:[{relation:'class'},{relation:'student'}]
-              }
-            }
-          })
-          .success(function(pickupSeatList){
-            for (var j=0; j < pickupSeatList.length; j++){
-              if (pickupSeatList[j].class.class_type == "after"){
-                console.log(pickupSeatList[j]);
-                $scope.seatList.push(pickupSeatList[j]);
-              }
-            }
-          });
-        }
-      }
-*/
-      $scope.checkIn = function(seatId) {
-        var btn = $('.checkIn.'+seatId);
-        btn.button('loading');
-        $http.post('/api/seats/checkin', {seatId:seatId})
-        .success(function(){
-          $scope.getSeats();
-          $(".pin-modal").modal('hide');
-        });
-      }
-
-      $scope.checkOut = function(seatId) {
-        var btn = $('.checkOut.'+seatId);
-        btn.button('loading');
-        $http.post('/api/seats/checkout', {seatId:seatId})
-        .success(function(){
-          $scope.getSeats();
-          $(".pin-modal").modal('hide');
-
-        });
-      }
-
-      $scope.getStatus = function(checked_in) {
-        if (checked_in){
-          return "Checked In";
-        } else {
-          return "Checked Out";
-        }
-      }
+  $scope.getStatus = function(checked_in) {
+    if (checked_in){
+      return "Checked In";
+    } else {
+      return "Checked Out";
+    }
+  }
 
 
-      $scope.getClass();
-    }]);
+$scope.getClass();
+}]);
