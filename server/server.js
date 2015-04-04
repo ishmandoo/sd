@@ -4,7 +4,7 @@ var boot = require('loopback-boot');
 var app = module.exports = loopback();
 
 var path = require('path');
-//app.use(loopback.static(path.resolve(__dirname,"../")));
+app.use(loopback.static(path.resolve(__dirname,"../")));
 
 //app.use(loopback.token({ model: app.models.accessToken }));
 
