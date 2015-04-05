@@ -61,13 +61,13 @@ angular.module("beansprouts_app")
         if ($scope.firstPin == "") {
           $scope.firstPin = $scope.pin;
           $scope.pin = "";
-          $scope.pinPadTitle = "Please Repeat PIN";
+          $scope.pinPadTitle = "Please Confirm New PIN";
         } else if ($scope.pin == $scope.firstPin) {
           $scope.setPin($scope.pinpad.seat.student, $scope.pin);
           $scope.pinpad.callback($scope.pinpad.seat.id);
         } else if ($scope.pin != $scope.firstPin) {
           $(".modal-content").shake(3,7,350);
-          $scope.pinPadTitle = "Please Choose a PIN";
+          $scope.pinPadTitle = "Please Enter a New PIN";
           $scope.firstPin = "";
           $scope.pin = "";
         }
@@ -118,7 +118,7 @@ angular.module("beansprouts_app")
     if($scope.overrideTimeout <= 0){
       $(".pin-modal").modal('show');
       if (!seat.student.pin) {
-        $scope.pinPadTitle = "Please Choose a PIN";
+        $scope.pinPadTitle = "Please Enter a New PIN";
         //$(".modal-backdrop").css("background-color", "blue", "important");
         $scope.newPin = true;
       } else {
