@@ -1,4 +1,4 @@
-<h1>{{class.name}}</h1>
+<h3>{{class.name}}</h3>
 <div class="progress" ng-show="overrideTimeout > 0">
   <div class="progress-bar override-bar" role="progressbar" ng-style="{'width': overrideTimeout+'%'}" >
   </div>
@@ -7,34 +7,47 @@
 <div class="">
   <table class="table">
     <tr>
-      <th class="col-xs-3">
+      <th class="col-sm-3 col-xs-4">
         Student
       </th>
-      <th class="col-xs-3">
+      <th class="col-sm-3 col-xs-4">
         Check In
       </th>
-      <th class="col-xs-3">
+      <th class="col-sm-3 col-xs-4">
         Check Out
       </th>
-      <th class="col-xs-3">
+      <th class="col-sm-3 hidden-xs">
         Status
       </th>
     </tr>
-    <tr ng-repeat="seat in seatList | orderBy:'student.name'">
-      <td class="col-xs-3">
+    <tr ng-repeat="seat in seatList | orderBy:'student.name'" ng-class="">
+      <td class="col-sm-3 col-xs-4">
         {{ seat.student.name}}
       </td>
-      <td class="col-xs-3">
-        <button class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in"> <span class="hidden-xs">Check</span> In</button>
+      <td class="col-sm-3 col-xs-4">
+        <button class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in"> Check In</button>
       </td>
-      <td class="col-xs-3">
-        <button class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'"><span class="hidden-xs">Check </span> Out </button>
+      <td class="col-sm-3 col-xs-4">
+        <button class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'">Check Out </button>
       </td>
-      <td class="col-xs-3">
-        {{ getStatus(seat.checked_in) }}
+      <td class="col-sm-3 hidden-xs">
+        {{seat.student.status}}
       </td>
     </tr>
   </table>
+<!--
+<ul class="list-group">
+<li class="list-group-item" ng-repeat="seat in seatList | orderBy:'student.name'">
+  <div>
+    <strong>{{seat.student.name}} </strong>
+
+    <button class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in"> Check In</button>
+    <button class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'">Check Out </button>
+  </div>
+</li>
+</ul>
+-->
+
 
 <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".pin-modal">Small modal</button> -->
 
