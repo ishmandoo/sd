@@ -4,8 +4,9 @@
       <strong>Preschool Classes</strong>
     </div>
     <div class="list-group">
-      <a href="#/class/{{class.id}}" ng-repeat="class in pre_classes" class="list-group-item"> {{ class.name }} ({{class.totalCheckedIn}}/{{class.totalStudents}})
+      <a href="#/class/{{class.id}}" ng-repeat="class in pre_classes" class="list-group-item"> {{ class.name }}
         <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
+        <span class="badge">{{class.totalCheckedIn}}/{{class.totalStudents}}</span>
       </a>
     </div>
   </div>
@@ -22,8 +23,9 @@
       <strong>After-School Classes</strong>
     </div>
     <div class="list-group">
-      <a href="#/class/{{class.id}}" ng-repeat="class in after_classes" class="list-group-item"> {{ class.name }} ({{class.totalCheckedIn}}/{{class.totalStudents}})
+      <a href="#/class/{{class.id}}" ng-repeat="class in after_classes" class="list-group-item"> {{ class.name }}
         <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
+        <span class="badge">{{class.totalCheckedIn}}/{{class.totalStudents}}</span>
       </a>
     </div>
   </div>

@@ -187,6 +187,12 @@ angular.module("beansprouts_app")
     }
   }
 
+  $scope.getLastName = function(seat) {
+    var names = seat.student.name.split(' ');
+    return names[names.length-1].toLowerCase();
+
+  }
+
 
 $scope.getClass();
 }]);
