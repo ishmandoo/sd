@@ -13,7 +13,10 @@ angular.module("beansprouts_app")
   $scope.pinNumbers = ["1","2","3","4","5","6","7","8","9"];
   $scope.teacherToggle = false;
 
+  $scope.newPin = false;
+
   $scope.firstPin = "";
+  $scope.pinPadTitle = "Please Enter PIN";
 
   $scope.teacherPinTime = new Date(0);
 
@@ -58,13 +61,13 @@ angular.module("beansprouts_app")
         if ($scope.firstPin == "") {
           $scope.firstPin = $scope.pin;
           $scope.pin = "";
-          $('.modal-title').html("Please Repeat PIN");
+          $scope.pinPadTitle = "Please Repeat PIN";
         } else if ($scope.pin == $scope.firstPin) {
           $scope.setPin($scope.pinpad.seat.student, $scope.pin);
           $scope.pinpad.callback($scope.pinpad.seat.id);
         } else if ($scope.pin != $scope.firstPin) {
           $(".modal-content").shake(3,7,350);
-          $('.modal-title').html("Please Choose a PIN");
+          $scope.pinPadTitle = "Please Choose a PIN";
           $scope.firstPin = "";
           $scope.pin = "";
         }
@@ -107,17 +110,20 @@ angular.module("beansprouts_app")
   $scope.startPinPad = function(seat, callback){
     $scope.pin="";
     $scope.firstPin = "";
+    $scope.newPin = false;
     $scope.teacherToggle = false;
     $scope.pinpad.seat = seat
     $scope.pinpad.callback = callback
     now = new Date()
     if($scope.overrideTimeout <= 0){
-      if (!seat.student.pin) {
-        $('.modal-title').html("Please Choose a PIN");
-      } else {
-        $('.modal-title').html("Please Enter PIN");
-      }
       $(".pin-modal").modal('show');
+      if (!seat.student.pin) {
+        $scope.pinPadTitle = "Please Choose a PIN";
+        //$(".modal-backdrop").css("background-color", "blue", "important");
+        $scope.newPin = true;
+      } else {
+        $scope.pinPadTitle = "Please Enter PIN";
+      }
     } else {
       $scope.overrideTimeout = 100;
       $scope.pinpad.callback($scope.pinpad.seat.id);

@@ -9,3 +9,10 @@
     text-align: center;
   }
 }
+
+.modal-content
+{
+  /* Fallback for web browsers that don't support RGBa */
+  background-color: rgb(0, 0, 0);
+
+}

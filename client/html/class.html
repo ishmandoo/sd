@@ -35,58 +35,27 @@
         </button>
       </td>
       <td class="col-sm-3 hidden-xs">
-        {{seat.student.status}}
+        {{getStatus(seat.checked_in)}}
       </td>
     </tr>
   </table>
-<!--
-<ul class="list-group">
-<li class="list-group-item" ng-repeat="seat in seatList | orderBy:'student.name'">
-  <div>
-    <strong>{{seat.student.name}} </strong>
-
-    <button class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in"> Check In</button>
-    <button class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'">Check Out </button>
-  </div>
-</li>
-</ul>
--->
-
-
-<!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".pin-modal">Small modal</button> -->
-
-<style>
-.modal-content
-{
-  /* Fallback for web browsers that don't support RGBa */
-  background-color: rgb(0, 0, 0);
-  /* RGBa with 0.6 opacity */
-  background-color: rgba(0, 0, 0, 0.6);
-
-}
-
-
-
-
-</style>
-
 
 
   <div class="modal fade pin-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content text-center">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#FFFFFF;"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" style="color:#FFFFFF;"><span>&times;</span></button>
           <div class="modal-title" style="color:#FFFFFF;">
-            Please Enter PIN
+            <h4>{{pinPadTitle}}</h4>
           </div>
         </div>
         <h1 class="text-center" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
         <div data-ng-keypad="numeric" class="numpad">
-          <button class="btn btn-lg btn-success col-xs-4" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;" ng-class="{active:teacherToggle}"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin}" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin}" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;" ng-class="{active:teacherToggle}"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin}" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin}" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
         </div>
       </div>
     </div>
