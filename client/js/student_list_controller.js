@@ -98,6 +98,13 @@ angular.module("beansprouts_app")
     switch(key){
       case "teacher":
         $scope.teacherToggle = !$scope.teacherToggle;
+        if($scope.teacherToggle){
+          $scope.teacherTogglePinTitle = $scope.pinPadTitle;
+          $scope.pinPadTitle = "Please Enter Teacher PIN";
+        }
+        else{
+          $scope.pinPadTitle = $scope.teacherTogglePinTitle;
+        }
       break;
       case "back":
         $scope.pin = $scope.pin.slice(0,-1);

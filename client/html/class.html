@@ -52,10 +52,10 @@
         </div>
         <h1 class="text-center" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
         <div data-ng-keypad="numeric" class="numpad">
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin}" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin}" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;" ng-class="{active:teacherToggle}"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin}" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin}" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin && !teacherToggle}" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin && !teacherToggle, active:teacherToggle}" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin && !teacherToggle}" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin && !teacherToggle}" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
         </div>
       </div>
     </div>
