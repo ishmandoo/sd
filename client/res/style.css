@@ -2,3 +2,10 @@
 .override-bar {
   transition:.3s;
 }
+
+
+@media (max-width: 767px) {
+  .check-in-out-button {
+    text-align: center;
+  }
+}
