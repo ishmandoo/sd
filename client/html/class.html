@@ -7,30 +7,30 @@
 <div>
   <table class="table">
     <tr>
-      <th class="col-sm-3">
+      <th class="col-xs-3">
         Student
       </th>
-      <th class="col-sm-3">
+      <th class="col-xs-3">
         Check In
       </th>
-      <th class="col-sm-3">
+      <th class="col-xs-3">
         Check Out
       </th>
-      <th class="col-sm-3">
+      <th class="col-xs-3">
         Status
       </th>
     </tr>
     <tr ng-repeat="seat in seatList | orderBy:'student.name'">
-      <td class="col-sm-3">
+      <td class="col-xs-3">
         {{ seat.student.name}}
       </td>
-      <td class="col-sm-3">
+      <td class="col-xs-3">
         <button class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in"> Check In </button>
       </td>
-      <td class="col-sm-3">
+      <td class="col-xs-3">
         <button class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="loading" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'"> Check Out </button>
       </td>
-      <td class="col-sm-3">
+      <td class="col-xs-3">
         {{ getStatus(seat.checked_in) }}
       </td>
     </tr>
