@@ -10,11 +10,6 @@
     function factory(socketFactory) {
         var mySocket = socketFactory();
         mySocket.forward('update');
-        console.log("FactoryRunning");
-        mySocket.on('test', function(){
-
-          console.log("Successfulsocket");
-        })
         return mySocket;
 
     }

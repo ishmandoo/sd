@@ -48,7 +48,6 @@ angular.module("beansprouts_app")
         $scope.overrideTimeout = 100;
 
         $scope.overrideTimer = setInterval(function (){
-          console.log($scope.overrideTimeout);
           $scope.overrideTimeout -= 2;
           if($scope.overrideTimeout <= 0) {
             clearInterval($scope.overrideTimer);

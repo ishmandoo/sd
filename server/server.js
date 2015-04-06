@@ -3,10 +3,6 @@ var boot = require('loopback-boot');
 
 var app = module.exports = loopback();
 
-
-var EventEmitter = require('events').EventEmitter;
-var ee = new EventEmitter();
-
 var path = require('path');
 //app.use(loopback.static(path.resolve(__dirname,"../")));
 
@@ -32,7 +28,7 @@ boot(app, __dirname, function(err) {
 
     app.io = require('socket.io')(app.start());
 
-    
+
 
   }
 });

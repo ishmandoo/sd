@@ -65,8 +65,6 @@ angular.module("beansprouts_app")
   });
 
   $scope.$on('socket:update', function(event, classId){
-    console.log("Getting into update metho");
-    console.log(classId);
     $scope.getAttendanceFraction($scope.findClass($scope.after_classes, classId));
     $scope.getAttendanceFraction($scope.findClass($scope.pre_classes, classId));
   });
