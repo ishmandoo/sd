@@ -129,7 +129,7 @@ angular.module("beansprouts_app")
           delay:{"hide":0},
           content:"This student does not yet have a PIN. Please enter it now.",
           placement:"bottom",
-          trigger:"click"
+          trigger:""
         });
 
         setTimeout(function(){
@@ -149,6 +149,10 @@ angular.module("beansprouts_app")
       $scope.pinpad.callback($scope.pinpad.seat.id);
     }
 
+  }
+
+  $scope.hidePopover = function(){
+    $('#popover-location').popover('hide');
   }
 
   $scope.getClass = function () {
