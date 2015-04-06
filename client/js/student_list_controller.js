@@ -88,12 +88,13 @@ angular.module("beansprouts_app")
 
   //The is Some ngKeypad Stuff
   $scope.$on(Keypad.KEY_PRESSED, function(event,data){
+    $scope.hidePopover();
     $scope.pinButton(data);
     $scope.$digest();
   });
 
   $scope.$on(Keypad.MODIFIER_KEY_PRESSED, function(event,key,id){
-
+    $scope.hidePopover();
     switch(key){
       case "teacher":
         $scope.teacherToggle = !$scope.teacherToggle;

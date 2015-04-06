@@ -3,7 +3,7 @@ angular.module("beansprouts_app")
   $scope.loginFailed = false;
 
   $scope.logIn = function(username, password){
-    $http.post('/api/teachers/login/', {username:$scope.username, password:$scope.password, ttl:60*10*1000}).
+    $http.post('/api/teachers/login/', {username:$scope.username, password:$scope.password, ttl:60*100*1000}).
     success(function(data, status, headers, config) {
       $http.defaults.headers.common.authorization = data.id;
       $cookieStore.put("authToken", data.id);
@@ -17,7 +17,7 @@ angular.module("beansprouts_app")
   }
 
   $scope.logInAdmin = function(username, password){
-    $http.post('/api/admins/login/', {username:$scope.username, password:$scope.password, ttl:60*10*1000})
+    $http.post('/api/admins/login/', {username:$scope.username, password:$scope.password, ttl:60*100*1000})
     .success(function(data, status, headers, config) {
       $http.defaults.headers.common.authorization = data.id;
       $cookieStore.put("authToken", data.id);
