@@ -1,4 +1,4 @@
-var app = angular.module("beansprouts_app", ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngTouch', 'ngKeypad']);
+var app = angular.module("beansprouts_app", ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ngTouch', 'ngKeypad','btford.socket-io']);
 
 app.run(['$http', '$cookieStore', '$location', function($http, $cookieStore, $location){
   var token = $cookieStore.get("authToken") || {}
@@ -97,7 +97,7 @@ app.service('dateFilterObjectService', function() {
 
   this.getDateFilterObject = function(){
     var dayOfWeek = weekday[new Date().getDay()];
-    
+
     if ((dayOfWeek == 'saturday') || (dayOfWeek == 'sunday')) {
       dayOfWeek = 'monday'; //TEMPORARY CHANGE TO MAKE MONDAY STUDENT LISTS APPEAR
     }

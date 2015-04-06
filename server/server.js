@@ -3,10 +3,16 @@ var boot = require('loopback-boot');
 
 var app = module.exports = loopback();
 
+
+var EventEmitter = require('events').EventEmitter;
+var ee = new EventEmitter();
+
 var path = require('path');
 //app.use(loopback.static(path.resolve(__dirname,"../")));
 
 //app.use(loopback.token({ model: app.models.accessToken }));
+
+
 
 app.start = function() {
   // start the web server
@@ -22,6 +28,11 @@ boot(app, __dirname, function(err) {
   if (err) throw err;
 
   // start the server if `$ node server.js`
-  if (require.main === module)
-    app.start();
+  if (require.main === module){
+
+    app.io = require('socket.io')(app.start());
+
+    
+
+  }
 });

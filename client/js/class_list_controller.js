@@ -1,5 +1,5 @@
 angular.module("beansprouts_app")
-.controller("classListController", ["$scope", "$http", "dateFilterObjectService", function($scope, $http, dateFilterObjectService) {
+.controller("classListController", ["$scope", "$http", "dateFilterObjectService", "mySocket", function($scope, $http, dateFilterObjectService, mySocket) {
 
   $scope.pre_classes = [];
   $scope.after_classes = [];
@@ -63,5 +63,20 @@ angular.module("beansprouts_app")
     $scope.pick_up_locs = classes;
     $scope.getAttendanceFraction($scope.pick_up_locs);
   });
+
+  $scope.$on('socket:update', function(event, classId){
+    console.log("Getting into update metho");
+    console.log(classId);
+    $scope.getAttendanceFraction($scope.findClass($scope.after_classes, classId));
+    $scope.getAttendanceFraction($scope.findClass($scope.pre_classes, classId));
+  });
+
+  $scope.findClass = function(classList, id){
+    var updateList = classList.filter(function(classObj){
+      return classObj.id === id;
+    });
+
+    return updateList;
+  }
 
 }]);

@@ -1,3 +1,5 @@
+
+
 module.exports = function(Seat) {
 /*
   Seat.getSeatList = function(classId, dayOfWeekFilterObject, cb){
@@ -81,8 +83,7 @@ module.exports = function(Seat) {
         seat.checked_in = true;
         seat.save();
       });
-
-
+      Seat.app.io.sockets.emit('update', seat.classId);
       console.log("checked in");
       cb(null, "success");
     });
@@ -98,8 +99,9 @@ module.exports = function(Seat) {
     Seat.findById(seatId, function(err, seat) {
       seat.checked_in = false;
       seat.save();
-      console.log("checked out");
+      Seat.app.io.sockets.emit('update', seat.classId);
       cb(null, "success");
+
     });
   }
 

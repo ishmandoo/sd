@@ -21,7 +21,9 @@
     "angular-bootstrap": "~0.12.1",
     "angular-touch": "~1.3.14",
     "fastclick": "~1.0.6",
-    "jquery-mobile": "~1.4.5"
+    "jquery-mobile": "~1.4.5",
+    "angular-socket-io": "~0.7.0",
+    "socket.io-client": "~1.3.5"
   },
   "resolutions": {
     "angular": "~1.3.14"
