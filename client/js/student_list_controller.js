@@ -136,7 +136,7 @@ angular.module("beansprouts_app")
           $('#popover-location').popover('show');
           setTimeout(function(){
             $('#popover-location').popover('hide');
-          },2500);
+          },3000);
 
         },200);
 

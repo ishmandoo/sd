@@ -1,8 +1,10 @@
 <h3>{{class.name}}</h3>
+<!--
 <div class="progress" ng-show="overrideTimeout > 0">
   <div class="progress-bar override-bar" role="progressbar" ng-style="{'width': overrideTimeout+'%'}" >
   </div>
 </div>
+-->
 
 <div class="">
   <table class="table">
@@ -25,12 +27,12 @@
         {{ seat.student.name}}
       </td>
       <td class="col-sm-3 col-xs-4 check-in-out-button">
-        <button class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in">
+        <button ng-class="{'btn-warning':(overrideTimeout > 0)}" class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in">
           <span class="hidden-xs">Check</span>&nbsp;In&nbsp;
         </button>
       </td>
       <td class="col-sm-3 col-xs-4 check-in-out-button">
-        <button class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'">
+        <button ng-class="{'btn-warning':overrideTimeout > 0}" class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'">
           <span class="hidden-xs">Check </span>Out
         </button>
       </td>
@@ -52,10 +54,10 @@
         </div>
         <h1 class="text-center" id="popover-location" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
         <div data-ng-keypad="numeric" class="numpad">
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin && !teacherToggle}" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin && !teacherToggle, active:teacherToggle}" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin && !teacherToggle}" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{'btn-danger':newPin && !teacherToggle}" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" ng-class="{active:teacherToggle}" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
+          <button class="btn btn-lg btn-success col-xs-4" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
         </div>
       </div>
     </div>
