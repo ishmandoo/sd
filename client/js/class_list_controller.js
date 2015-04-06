@@ -10,9 +10,6 @@ angular.module("beansprouts_app")
 
   $scope.getAttendanceFraction = function(classList){
 
-
-    console.log(classList);
-
     for (var i = 0; i < classList.length; i++){
 
       (function(index){

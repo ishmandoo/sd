@@ -125,7 +125,21 @@ angular.module("beansprouts_app")
       $(".pin-modal").modal('show');
       if (!seat.student.pin) {
         $scope.pinPadTitle = "Please Enter a New PIN";
-        //$(".modal-backdrop").css("background-color", "blue", "important");
+        $('#popover-location').popover({
+          delay:{"hide":0},
+          content:"This student does not yet have a PIN. Please enter it now.",
+          placement:"bottom",
+          trigger:"click"
+        });
+
+        setTimeout(function(){
+          $('#popover-location').popover('show');
+          setTimeout(function(){
+            $('#popover-location').popover('hide');
+          },2500);
+
+        },200);
+
         $scope.newPin = true;
       } else {
         $scope.pinPadTitle = "Please Enter PIN";
@@ -187,7 +201,6 @@ angular.module("beansprouts_app")
     .success(function(){
       $scope.getSeats();
       $(".pin-modal").modal('hide');
-
     });
   }
 
