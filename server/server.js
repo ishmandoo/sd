@@ -29,6 +29,5 @@ boot(app, __dirname, function(err) {
     app.io = require('socket.io')(app.start());
 
 
-
   }
 });
