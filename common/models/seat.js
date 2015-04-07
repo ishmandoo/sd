@@ -83,16 +83,18 @@ module.exports = function(Seat) {
   var logHook = function( ctx, modelInstance, next) {
 
     Seat.findById(ctx.req.body.seatId, function(err, seat){
-      var data = {
-        date : new Date(),
-        event : ctx.req.path,
-        studentId: seat.studentId,
-        teacherId: ctx.req.accessToken.userId,
-        classId: seat.classId
-      };
+      if (ctx.req.accessToken) {
+        var data = {
+          date : new Date(),
+          event : ctx.req.path,
+          studentId: seat.studentId,
+          teacherId: ctx.req.accessToken.userId, // This line kept crashing the server. I added the if statment around this code as a band-aid to stop the crashes.
+          classId: seat.classId
+        };
 
-      var log = Seat.app.models.Log.create(data, function(err, logObj){
-      });
+        var log = Seat.app.models.Log.create(data, function(err, logObj){
+        });
+      }
 
 
       next();
