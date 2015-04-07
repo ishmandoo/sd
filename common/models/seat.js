@@ -94,6 +94,8 @@ module.exports = function(Seat) {
 
         var log = Seat.app.models.Log.create(data, function(err, logObj){
         });
+      } else {
+        console.log("log creation error");
       }
 
 
