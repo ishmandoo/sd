@@ -1,7 +1,7 @@
 <div class="col-sm-6 col-sm-offset-3">
   <div class="panel panel-default">
-    <div class="panel-body">
-      <strong>Preschool Classes</strong>
+    <div class="panel-heading">
+      Preschool Classes
     </div>
     <div class="list-group">
       <a href="#/class/{{class.id}}" ng-repeat="class in pre_classes" class="list-group-item"> {{ class.name }}
@@ -11,16 +11,16 @@
     </div>
   </div>
   <div class="panel panel-default">
-    <div class="panel-body">
-      <strong>After-School Pickup Locations</strong>
+    <div class="panel-heading">
+      After-School Pickup Locations
     </div>
     <div class="list-group">
       <a href="#/class/{{class.id}}" ng-repeat="class in pick_up_locs" class="list-group-item"> {{ class.name }}
         <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
       </a>
     </div>
-    <div class="panel-body">
-      <strong>After-School Classes</strong>
+    <div class="panel-heading">
+      After-School Classes
     </div>
     <div class="list-group">
       <a href="#/class/{{class.id}}" ng-repeat="class in after_classes" class="list-group-item"> {{ class.name }}

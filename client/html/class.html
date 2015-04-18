@@ -27,12 +27,12 @@
         {{ seat.student.name}}
       </td>
       <td class="col-sm-3 col-xs-4 check-in-out-button">
-        <button ng-class="{'btn-warning':(overrideTimeout > 0)}" class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in">
+        <button ng-class="{'btn-warning':(overrideTimeout > 0)}" class="btn btn-lg btn-success checkIn {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in">
           <span class="hidden-xs">Check</span>&nbsp;In&nbsp;
         </button>
       </td>
       <td class="col-sm-3 col-xs-4 check-in-out-button">
-        <button ng-class="{'btn-warning':overrideTimeout > 0}" class="btn btn-lg btn-primary checkOut {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'">
+        <button ng-class="{'btn-warning':overrideTimeout > 0}" class="btn btn-lg btn-success checkOut {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkOut)" ng-disabled="!seat.checked_in" ng-hide="class.class_type=='pickup'">
           <span class="hidden-xs">Check </span>Out
         </button>
       </td>
