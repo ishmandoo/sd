@@ -29,17 +29,18 @@
   vertical-align: middle;
 }
 
-.banner img {
-  height: 100px;
-  margin-right:20px;
-}
-
 .banner {
   background: #18bc9c;
   color: white;
+  width: 100%;
   text-align:center;
   margin-bottom:20px;
   padding: 10px 0px;
+}
+
+.banner img {
+  margin: 0 auto;
+  max-height: 100px;
 }
 
 
@@ -54,4 +55,8 @@ a:link {
 }
 a:hover {
   text-decoration: underline !important;
+}
+
+.container-fluid {
+  padding: 0px;
 }
