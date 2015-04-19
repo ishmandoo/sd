@@ -91,6 +91,7 @@ angular.module("beansprouts_app")
     $scope.hidePopover();
     $scope.pinButton(data);
     $scope.$digest();
+    $( ".modal-title" ).trigger( "click" );
   });
 
   $scope.$on(Keypad.MODIFIER_KEY_PRESSED, function(event,key,id){
@@ -100,7 +101,7 @@ angular.module("beansprouts_app")
         $scope.teacherToggle = !$scope.teacherToggle;
         if($scope.teacherToggle){
           $scope.teacherTogglePinTitle = $scope.pinPadTitle;
-          $scope.pinPadTitle = "Please Enter Teacher PIN";
+          $scope.pinPadTitle = "Enter Teacher PIN";
         }
         else{
           $scope.pinPadTitle = $scope.teacherTogglePinTitle;
@@ -111,6 +112,7 @@ angular.module("beansprouts_app")
       break;
     }
     $scope.$digest();
+    $( ".modal-title" ).trigger( "click" );
   });
 
 
