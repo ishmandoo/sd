@@ -74,6 +74,63 @@
 </div>
 
 <div class="panel panel-default">
+  <div class="panel-heading">Notes</div>
+  <div class="panel-body">
+    <div class="row">
+      <form class="form col-md-offset-1">
+
+        <div class="form-group">
+
+          <input class="form-control" ng-model="notes.textbox" placeholder="Enter Note" type="text"></input>
+        </div>
+
+        <div class="form-group input-group">
+
+          <input class="form-control" ng-model="notes.datebox" type="date"></input>
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-success" ng-click="addNote()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+          </span>
+        </div>
+
+        <div class="form-group">
+
+      </div>
+      </form>
+    </div>
+
+
+
+
+
+      <table class="table table-striped table-responsive" style="table-layout: fixed;">
+        <tr>
+          <th>
+            Date
+          </th>
+          <th>
+            Note
+          </th>
+        </tr>
+
+        <tr ng-repeat="note in noteList">
+          <td>
+            {{note.date | date:"fullDate"}}
+            <a href="">
+              <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeNote(note)"> </span>
+            </a>
+          </td>
+          <td>
+            {{note.text}}
+          </td>
+        </tr>
+      </table>
+
+  </div>
+</div>
+
+
+
+<div class="panel panel-default">
   <div class="panel-heading">Recent Logs</div>
   <div class="panel-body">
     <div class="row">

@@ -49,5 +49,9 @@
   "seat": {
     "dataSource": "beansprouts_db",
     "public": true
+  },
+  "note": {
+    "dataSource": "beansprouts_db",
+    "public": true
   }
 }

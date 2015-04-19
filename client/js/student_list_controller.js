@@ -186,6 +186,7 @@ angular.module("beansprouts_app")
     .success(function(result){
       console.log(result);
       $scope.seatList = result.afterList;
+      $scope.getNotes();
     });
   }
 
@@ -222,6 +223,53 @@ angular.module("beansprouts_app")
     return names[names.length-1].toLowerCase();
 
   }
+
+
+  $scope.getNotes = function(){
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    tomorrow = new Date();
+    tomorrow.setHours(0,0,0,0);
+    tomorrow.setDate(today.getDate()+1);
+
+
+    $http({
+      url: '/api/notes/',
+      method: "GET",
+      params:{
+        filter:{
+          where:{
+            and : [{date:{gt:today}}, {date:{lt:tomorrow}}]
+          },
+          //include:[{relation:'teacher'},{relation:'class'},{relation:'student'}],
+          order:'date ASC',
+          limit:10
+        }
+      }
+    })
+    .success(function(notes){
+      //notes.startDate = $scope.noteList.startDate
+      //notes.endDate = $scope.noteList.endDate;
+      console.log(notes);
+      $scope.noteList = notes;
+      for(i=0; i < notes.length; i++){
+        for(j=0; j < $scope.seatList.length; j++){
+          if(notes[i].studentId == $scope.seatList[j].studentId){
+            if( $scope.seatList[j].notes){
+              $scope.seatList[j].notes.push(notes[i]);
+            }
+            else{
+              $scope.seatList[j].notes = [ notes[i] ];
+            }
+          }
+        }
+      }
+      console.log($scope.seatList)
+    });
+
+
+  }
+
 
 
 $scope.getClass();

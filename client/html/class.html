@@ -22,9 +22,20 @@
         Status
       </th>
     </tr>
-    <tr ng-repeat="seat in seatList | orderBy:getLastName" ng-class="">
+
+
+<style>
+.nobottom{
+  border-bottom:none;
+}
+.notop{
+  border-top:none !important;
+}
+</style>
+    <tbody ng-repeat="seat in seatList | orderBy:getLastName" ng-class="">
+<tr ng-class="{warning:seat.notes, nobottom:seat.notes}">
       <td class="col-sm-3 col-xs-4">
-        {{ seat.student.name}}
+        {{seat.student.name}}
       </td>
       <td class="col-sm-3 col-xs-4 check-in-out-button">
         <button ng-class="{'btn-warning':(overrideTimeout > 0)}" class="btn btn-lg btn-primary checkIn {{seat.id}}" data-loading-text="&#8203;<span class='glyphicon glyphicon-hourglass'></span>&#8203;" type="submit" ng-click="startPinPad(seat, checkIn)" ng-disabled="seat.checked_in">
@@ -38,8 +49,23 @@
       </td>
       <td class="col-sm-3 hidden-xs">
         {{getStatus(seat.checked_in)}}
+
+
       </td>
     </tr>
+      <tr ng-repeat="note in seat.notes" class="warning nobottom notop">
+      <td colspan="4" class="notop">
+        <h4><span class="glyphicon glyphicon-exclamation-sign"></span>
+        {{note.text}} </h4></td>
+    </tr>
+  </tbody>
+    <table>
+
+    </tr>
+
+
+
+
   </table>
 
 

@@ -1,0 +1,25 @@
+{
+  "name": "note",
+  "plural": "notes",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+        "student": {
+        "type": "belongsTo",
+        "model": "student",
+        "foreignKey": ""
+        }    
+  },
+  "acls": [],
+  "methods": []
+}

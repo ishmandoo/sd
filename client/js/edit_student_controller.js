@@ -4,8 +4,20 @@ angular.module("beansprouts_app")
   $scope.student = {};
   $scope.seatList = [];
   $scope.logList = [];
-  $scope.startDate = new Date("1/1/2015");
-  $scope.endDate = new Date("4/1/2015");
+  $scope.noteList = [];
+
+  $scope.notes = {};
+  $scope.notes.datebox = new Date()
+
+  lastMonth = new Date()
+  lastMonth.setMonth(lastMonth.getMonth()-1);
+  $scope.startDate = lastMonth;
+  $scope.endDate = new Date();
+
+  $scope.noteList.startDate = new Date();
+  nextMonth = new Date();
+  nextMonth.setMonth(nextMonth.getMonth()+1);
+  $scope.noteList.endDate = nextMonth;
 
 
   $scope.classIndex = 0;
@@ -49,6 +61,51 @@ angular.module("beansprouts_app")
     .success(function(logs){
       $scope.logList = logs;
     });
+  }
+
+  $scope.updateNotes = function(){
+    $http({
+      url: '/api/notes/',
+      method: "GET",
+      params:{
+        filter:{
+          where:{
+            studentId:$routeParams.id
+          },
+          //include:[{relation:'teacher'},{relation:'class'},{relation:'student'}],
+          order:'date DESC',
+          limit:10
+        }
+      }
+    })
+    .success(function(notes){
+      //notes.startDate = $scope.noteList.startDate
+      //notes.endDate = $scope.noteList.endDate;
+      $scope.noteList = notes;
+    });
+  }
+
+  $scope.addNote = function(){
+    $http.post('/api/notes/',
+    {
+      "studentId":$routeParams.id,
+      "text": $scope.notes.textbox,
+      "date": $scope.notes.datebox
+    })
+    .success(function(note){
+      $scope.updateNotes()
+      $scope.notes.textbox = "";
+    });
+  }
+
+  $scope.removeNote = function(note){
+    if($routeParams.id){
+      $http.delete('/api/notes/'+note.id)
+      .success(function(note){
+        $scope.updateNotes();
+
+      });
+    }
   }
 
   $scope.addClass = function(){
@@ -160,9 +217,8 @@ angular.module("beansprouts_app")
   });
 
   $scope.getSeatList();
-
-
   $scope.updateLogs();
+  $scope.updateNotes();
 
 
 }]);
