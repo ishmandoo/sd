@@ -70,9 +70,11 @@
 
 
   <div class="modal fade pin-modal" tabindex="-1" role="dialog" ng-click="hidePopover()">
+
     <div class="modal-dialog modal-sm">
+
       <div class="modal-content text-center">
-        <div class="modal-header">
+        <div class="modal-header ">
           <button type="button" class="close" data-dismiss="modal" style="color:#FFFFFF;"><span style="font-size:30px;">&times;</span></button>
           <div class="modal-title" style="color:#FFFFFF;">
             <h4>{{pinPadTitle}}</h4>
@@ -80,13 +82,15 @@
         </div>
         <h1 class="text-center" id="popover-location" style="color:#FFFFFF;">&nbsp;{{pin}}&nbsp;</h1>
         <div data-ng-keypad="numeric" class="numpad">
-          <button class="btn btn-lg btn-success col-xs-4" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" ng-class="{active:teacherToggle}" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
-          <button class="btn btn-lg btn-success col-xs-4" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
+          <button class="btn btn btn-success col-xs-4" ng-repeat="number in pinNumbers" data-ng-key="{{number}}" style="width:33.3%; border-radius: 0 !important;"><h1>{{number}}</h1></button>
+          <button class="btn btn btn-success col-xs-4" ng-class="{active:teacherToggle}" data-ng-key="[teacher]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-apple" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp; </h1></button>
+          <button class="btn btn btn-success col-xs-4" data-ng-key="0" style="width:33.3%; border-radius: 0 !important;"><h1> 0 </h1></button>
+          <button class="btn btn btn-success col-xs-4" data-ng-key="[back]" style="width:33.3%; border-radius: 0 !important;"><h1>&nbsp;<span class="glyphicon glyphicon-triangle-left" style="vertical-align:-5px; position: relative; top: -2px;"></span>&nbsp</h1></button>
         </div>
       </div>
-    </div>
+
+      </div>
+
   </div>
 
 </div>

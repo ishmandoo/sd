@@ -60,13 +60,13 @@ angular.module("beansprouts_app")
         if ($scope.firstPin == "") {
           $scope.firstPin = $scope.pin;
           $scope.pin = "";
-          $scope.pinPadTitle = "Please Confirm New PIN";
+          $scope.pinPadTitle = "Repeat PIN";
         } else if ($scope.pin == $scope.firstPin) {
           $scope.setPin($scope.pinpad.seat.student, $scope.pin);
           $scope.pinpad.callback($scope.pinpad.seat.id);
         } else if ($scope.pin != $scope.firstPin) {
           $(".modal-content").shake(3,7,350);
-          $scope.pinPadTitle = "Please Enter a New PIN";
+          $scope.pinPadTitle = "Set New PIN";
           $scope.firstPin = "";
           $scope.pin = "";
         }
@@ -125,20 +125,23 @@ angular.module("beansprouts_app")
     if($scope.overrideTimeout <= 0){
       $(".pin-modal").modal('show');
       if (!seat.student.pin) {
-        $scope.pinPadTitle = "Please Enter a New PIN";
+        $scope.pinPadTitle = "Set New PIN";
         $('#popover-location').popover({
           delay:{"hide":0},
-          content:"This student does not yet have a PIN. Please enter it now.",
+          content:"<center> <h1>Welcome!</h1><img src='res/sheepdog.png' width='50px'><h3>This student has no PIN yet.</h3><h4>Choose one, then repeat it.</h4></center>",
+          html: true,
           placement:"bottom",
           trigger:""
         });
 
+
         setTimeout(function(){
           $('#popover-location').popover('show');
-          setTimeout(function(){
+          //$(".arrow").hide()
+          /*setTimeout(function(){
             $('#popover-location').popover('hide');
           },3000);
-
+*/
         },200);
 
         $scope.newPin = true;
