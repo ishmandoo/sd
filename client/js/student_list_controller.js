@@ -114,6 +114,16 @@ angular.module("beansprouts_app")
   });
 
 
+  $scope.setupPopover = function(){
+    $('#popover-location').popover({
+      delay:{"hide":0},
+      content:"<center> <h1>Welcome!</h1><img src='res/sheepdog.png' width='50px'><h3>This student has no PIN yet.</h3><h4>Choose one, then repeat it.</h4></center>",
+      html: true,
+      placement:"bottom",
+      trigger:""
+    });
+  }
+
   $scope.startPinPad = function(seat, callback){
     $scope.pin="";
     $scope.firstPin = "";
@@ -126,18 +136,12 @@ angular.module("beansprouts_app")
       $(".pin-modal").modal('show');
       if (!seat.student.pin) {
         $scope.pinPadTitle = "Set New PIN";
-        $('#popover-location').popover({
-          delay:{"hide":0},
-          content:"<center> <h1>Welcome!</h1><img src='res/sheepdog.png' width='50px'><h3>This student has no PIN yet.</h3><h4>Choose one, then repeat it.</h4></center>",
-          html: true,
-          placement:"bottom",
-          trigger:""
-        });
+
 
 
         setTimeout(function(){
+
           $('#popover-location').popover('show');
-          //$(".arrow").hide()
           /*setTimeout(function(){
             $('#popover-location').popover('hide');
           },3000);
@@ -274,6 +278,6 @@ angular.module("beansprouts_app")
   }
 
 
-
+$scope.setupPopover();
 $scope.getClass();
 }]);
