@@ -92,7 +92,7 @@ angular.module("beansprouts_app")
     $scope.pinButton(data);
     $scope.$digest();
     //$(".pinbtn").trigger('mouseleave');
-    $(".modal-title").trigger('hover');
+
   });
 
   $scope.$on(Keypad.MODIFIER_KEY_PRESSED, function(event,key,id){
@@ -113,7 +113,7 @@ angular.module("beansprouts_app")
       break;
     }
     $scope.$digest();
-    $(".modal-title").trigger('hover');
+  
 
   });
 

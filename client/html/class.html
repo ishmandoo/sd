@@ -80,11 +80,11 @@
 
 <script type="text/javascript">
 $(".pinbtn").on("touchstart", function(){
+    $(this).removeClass("mobileHoverFix");
+});
+$(".pinbtn").on("touchend", function(){
     $(this).addClass("mobileHoverFix");
 });
-//$(".pinbtn").on("touchend", function(){
-  //  $(this).addClass("mobileHoverFix");
-//});
 </script>
 
 <style>
