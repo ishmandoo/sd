@@ -92,7 +92,7 @@ angular.module("beansprouts_app")
     $scope.pinButton(data);
     $scope.$digest();
     //$(".pinbtn").trigger('mouseleave');
-    $(".modal-title").focus();
+    $(".modal-title").trigger('hover');
   });
 
   $scope.$on(Keypad.MODIFIER_KEY_PRESSED, function(event,key,id){
@@ -113,7 +113,7 @@ angular.module("beansprouts_app")
       break;
     }
     $scope.$digest();
-    $(".modal-title").focus();
+    $(".modal-title").trigger('hover');
 
   });
 
@@ -285,12 +285,3 @@ angular.module("beansprouts_app")
 $scope.setupPopover();
 $scope.getClass();
 }]);
-
-function fix()
-{
-    var el = this;
-    var par = el.parentNode;
-    var next = el.nextSibling;
-    par.removeChild(el);
-    setTimeout(function() {par.insertBefore(el, next);}, 0)
-}
