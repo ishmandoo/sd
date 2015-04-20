@@ -79,10 +79,20 @@
 -->
 
 <script type="text/javascript">
-$(document).ready( function($) {
- $('.pinbtn').attr("onclick","return true");
+$(".pinbtn").on("touchstart", function(){
+    $(this).removeClass("mobileHoverFix");
+});
+$(".pinbtn").on("touchend", function(){
+    $(this).addClass("mobileHoverFix");
 });
 </script>
+
+<style>
+.mobileHoverFix:hover,
+.mobileHoverFix.hover{
+    background-position: 0 0px;
+}
+</style>
 
   <div class="modal fade pin-modal" tabindex="-1" role="dialog" ng-click="hidePopover()">
 
