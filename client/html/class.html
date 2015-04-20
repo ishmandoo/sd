@@ -80,16 +80,16 @@
 
 <script type="text/javascript">
 $(".pinbtn").on("touchstart", function(){
-    $(this).removeClass("mobileHoverFix");
-});
-$(".pinbtn").on("touchend", function(){
     $(this).addClass("mobileHoverFix");
 });
+//$(".pinbtn").on("touchend", function(){
+  //  $(this).addClass("mobileHoverFix");
+//});
 </script>
 
 <style>
-.pinbtn:hover,
-.pinbtn.hover{
+.mobileHoverFix:hover,
+.mobileHoverFix.hover{
     background-position: 0 0px;
 
     background-color:#18BC9C !important;
