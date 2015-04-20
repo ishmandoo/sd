@@ -285,3 +285,12 @@ angular.module("beansprouts_app")
 $scope.setupPopover();
 $scope.getClass();
 }]);
+
+function fix()
+{
+    var el = this;
+    var par = el.parentNode;
+    var next = el.nextSibling;
+    par.removeChild(el);
+    setTimeout(function() {par.insertBefore(el, next);}, 0)
+}
