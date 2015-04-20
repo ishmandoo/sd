@@ -61,3 +61,7 @@ a:hover {
 .container-fluid {
   padding: 0px;
 }
+
+.btn .touch {
+  color:red;
+}
