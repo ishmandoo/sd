@@ -62,6 +62,20 @@ a:hover {
   padding: 0px;
 }
 
-.no-touch .btn{
-  color:red !important;
+.touch .btn-success:hover{
+  color: #ffffff;
+  background-color: #18bc9c;
+  border-color: #18bc9c;
+}
+
+.no-touch .btn-success:hover{
+  color: #ffffff;
+  background-color: #128f76;
+  border-color: #11866f;
+}
+
+.touch .btn-success.active:hover{
+  color: #ffffff;
+  background-color: #128f76;
+  border-color: #11866f;
 }
