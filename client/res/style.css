@@ -79,3 +79,9 @@ a:hover {
   background-color: #128f76;
   border-color: #11866f;
 }
+
+.logout{
+  margin: 10px;
+  background-color:#aaaaaa;
+  border-color:#aaaaaa;
+}

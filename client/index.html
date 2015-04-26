@@ -33,6 +33,7 @@
     <script src="/js/student_list_controller.js"></script>
     <script src="/js/class_list_controller.js"></script>
     <script src="/js/login_controller.js"></script>
+    <script src="/js/index_controller.js"></script>
     <script src="/js/socket.service.js"></script>
 
 
@@ -52,9 +53,14 @@
   </head>
   <body>
 
-    <div class="container-fluid banner">
+    <div class="container-fluid banner" ng-controller="indexController as index">
 
-          <img src="res/banner.png" class="img-responsive"></img>
+      <span class="col-xs-8 col-xs-offset-2">
+        <img src="res/banner.png" class="img-responsive"></img>
+      </span>
+      <span class="col-xs-2">
+        <button class="btn btn-sm btn-default pull-right logout" ng-click="index.logout()"><span class="glyphicon glyphicon-log-out"></span></button>
+      </span>
 
     </div>
     <div class="container">
