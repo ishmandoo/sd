@@ -59,8 +59,9 @@
         <img src="res/banner.png" class="img-responsive"></img>
       </span>
       <span class="col-xs-2">
-        <button class="btn btn-sm btn-default pull-right logout" ng-click="index.logout()"><span class="glyphicon glyphicon-log-out"></span></button>
+        <button class="btn btn-sm btn-default pull-right logout" ng-click="index.logout()" ng-hide="index.isLoginPage()"><span class="glyphicon glyphicon-log-out"></span></button>
       </span>
+      {{index.$location.$$path}}
 
     </div>
     <div class="container">

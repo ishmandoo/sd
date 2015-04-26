@@ -10,12 +10,13 @@
     function indexController($scope, $http, $location) {
         var vm = this;
 
+        this.isLoginPage = isLoginPage;
         this.logout = logout;
 
         activate();
 
         function activate() {
-
+          console.log($location);
         }
 
         function logout() {
@@ -26,6 +27,10 @@
           .error(function(data, status, headers, config){
             $location.path("");
           });
+        }
+
+        function isLoginPage() {
+          return ($location.$$path === '/login') || ($location.$$path === '/');
         }
     }
 })();
