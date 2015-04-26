@@ -14,11 +14,11 @@
   },
   "validations": [],
   "relations": {
-        "student": {
-        "type": "belongsTo",
-        "model": "student",
-        "foreignKey": ""
-        }    
+    "student": {
+      "type": "belongsTo",
+      "model": "student",
+      "foreignKey": ""
+    }
   },
   "acls": [],
   "methods": []
