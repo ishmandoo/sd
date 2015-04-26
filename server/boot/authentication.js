@@ -1,10 +1,9 @@
 module.exports = function enableAuthentication(server) {
   // enable authentication
-  console.log(process.env.PATH)
   if(process.env.APP_TYPE != 'demo'){
-  server.enableAuth();
+    server.enableAuth();
   }
   else{
-    console.log("WARNING: Authorization disbabled. YOU SHOULD BE FREAKING OUT.")
+    console.log("WARNING: Authorization disabled. YOU SHOULD BE FREAKING OUT.")
   }
 };
