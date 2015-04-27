@@ -19,13 +19,13 @@ module.exports = function(Teacher) {
     http: {path: '/current', verb: 'get'}
   });
 
-  Teacher.addAdmin = function(teacherId){
+  Teacher.addAdmin = function(teacherId, cb){
 
     var Role = Teacher.app.models.Role;
     var RoleMapping = Teacher.app.models.RoleMapping;
 
     Role.findOne({name: 'admin'}, function(err, role) {
-      if (err) throw err;
+      if (err) cb(err);
 
       role.principals.create({
         principalType: RoleMapping.USER,
@@ -36,7 +36,7 @@ module.exports = function(Teacher) {
 
     });
 
-    return "admin added";
+    return cb(null,"admin added");
   }
 
   Teacher.remoteMethod('addAdmin',{
@@ -45,31 +45,28 @@ module.exports = function(Teacher) {
     http: {path: '/addadmin', verb: 'post'}
   });
 
-  Teacher.removeAdmin = function(teacherId){
+  Teacher.removeAdmin = function(teacherId, cb){
 
     var Role = Teacher.app.models.Role;
     var RoleMapping = Teacher.app.models.RoleMapping;
 
     Role.findOne({name: 'admin'}, function(err, role) {
-          if (err) throw err;
-          role.principals({principalId: teacherId}, function(err, principals){
+          if (err){
+            cb(err);
+          }
+
+          RoleMapping.find({where: {principalId: teacherId}}, function(err, principals){
+            if (err) {
+              cb(null,"There's a problem in removeAdmin hook, buddo");
+            }
+
             principals.forEach(function(principal){
             principal.remove();
-          })
-
-
+            })
           });
-        /*
-          .destroyAll({
-            principalType: RoleMapping.USER,
-            principalId: teacherId
-          }, function(err, principal) {
-            cb(err);
-          });
-*/
-        });
+    });
 
-        return "admin removed";
+        cb(null,"admin removed");
 
   }
 
