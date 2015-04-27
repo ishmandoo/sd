@@ -14,6 +14,12 @@
       <label> PIN </label>
       <input type="text" class="form-control" name="pin" placeholder="PIN" ng-model="teacher.pin" >
 
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="teacher.isAdmin" ng-click="changeAdmin()"> Admin
+        </label>
+      </div>
+
   <br>
   <button type="submit" class="btn btn-success" ng-click="updateTeacher()" ng-disabled="update.email.$error.email"> Update </button>
 </form>
