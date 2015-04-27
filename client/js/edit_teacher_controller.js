@@ -36,14 +36,22 @@ angular.module("beansprouts_app")
 
   $scope.getTeacher = function() {
 
-    $http.get('/api/teachers/'+$routeParams.id)
+    $http.get('/api/teachers/'+$routeParams.id,
+      {filter:{include: {relation: "roleMappings"}}})
     .success(function(teacher){
-      temp = $scope.teacher.isAdmin
+
       $scope.teacher = teacher;
       $scope.teacher.password1 = "";
       $scope.teacher.password2 = "";
       $scope.teacher.password2 = "";
-      $scope.teacher.isAdmin = temp
+      console.log(teacher)
+
+      if(teacher){//roleMappings[0].roleId == 1){
+        $scope.teacher.isAdmin = true;
+      }
+      else{
+        $scope.teacher.isAdmin = false;
+      }
     });
 
 
