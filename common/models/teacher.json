@@ -9,7 +9,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "roleMappings": {
+      "type": "hasAndBelongsToMany",
+      "model": "RoleMapping",
+      "foreignKey": "RoleMappingId"
+    }
+  },
   "acls": [
     {
       "accessType": "*",

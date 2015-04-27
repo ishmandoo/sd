@@ -24,7 +24,7 @@ module.exports = function(Teacher) {
     var Role = Teacher.app.models.Role;
     var RoleMapping = Teacher.app.models.RoleMapping;
 
-    Role.findOne({name: 'admin'}, function(err, role) {
+    Role.findOne({where:{name: 'admin'}}, function(err, role) {
       if (err) cb(err);
 
       role.principals.create({
@@ -32,8 +32,14 @@ module.exports = function(Teacher) {
         principalId: teacherId
       }, function(err, principal) {
         if(err) throw err;
-      });
 
+        Teacher.findById(teacherId, function(err, teacher) {
+          teacher.roleMappings.add(principal, function(err){});
+          teacher.save();
+          console.log(teacher);
+        });
+
+      });
     });
 
     return cb(null,"admin added");
@@ -60,9 +66,18 @@ module.exports = function(Teacher) {
               cb(null,"There's a problem in removeAdmin hook, buddo");
             }
 
-            principals.forEach(function(principal){
-            principal.remove();
-            })
+
+
+            Teacher.findById(teacherId, function(err, teacher) {
+              principals.forEach(function(principal){
+                teacher.roleMappings.remove(principal, function(err){});
+                principal.remove();
+              });
+              teacher.save();
+              console.log(teacher);
+            });
+
+
           });
     });
 
