@@ -25,7 +25,7 @@
         <table class="table">
           <tr ng-repeat="teacher in teacherData  | filter:searchText">
             <td>
-              <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.name}}  </a>
+              <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.name}} <span ng-show="teacher.roleMappings.length >= 1">(admin)</span> </a>
               <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="deleteTeacher(teacher)"> </span> </a>
             </td>
           </tr>
