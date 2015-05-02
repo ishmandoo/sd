@@ -1,5 +1,9 @@
-//USAGE
+//OLD USAGE maybe useful someday?
 //mongo database_clear.js --eval "env = '$NODE_ENV'; mongouri='$MONOGOLAB_URI'"
+
+//USAGE
+//heroku run node scripts/database_clear.js --app sheepdog-demo
+
 
 var MongoClient = require('mongodb').MongoClient
 
@@ -54,6 +58,15 @@ MongoClient.connect(url, function(err, db) {
 
     ]
 
+    afterclasses = [
+      {"name" : "Fred's Class", "class_type" : "after" },
+      {"name" : "Jennifer's Class", "class_type" : "after" },
+    { "name" : "Jill's Class", "class_type" : "after" },
+    { "name" : "Jarbo's Class", "class_type" : "after" },
+    { "name" : "Zillian's Class", "class_type" : "after" },
+
+    ]
+
 
 
     db.class.insert(classes, function(err, classresult){
@@ -70,6 +83,12 @@ MongoClient.connect(url, function(err, db) {
             for(var j =0; j < classes.length - 2 ; j++){
               seats.push({ "classId" : classes[j]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
             }
+          }
+
+          for(var i =0; i < students.length ; i++){
+
+              seats.push({ "classId" : afterclasses[Math.floor(i/afterclass.length)]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
+
           }
 
           db.seat.insert(seats, function(err, seats){
