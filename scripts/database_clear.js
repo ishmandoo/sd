@@ -87,7 +87,7 @@ MongoClient.connect(url, function(err, db) {
 
           for(var i =0; i < students.length ; i++){
 
-              seats.push({ "classId" : afterclasses[Math.floor(i/afterclass.length)]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
+              seats.push({ "classId" : afterclasses[Math.floor(i/afterclasses.length)]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
 
           }
 
