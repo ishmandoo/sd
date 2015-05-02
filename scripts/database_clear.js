@@ -47,10 +47,11 @@ MongoClient.connect(url, function(err, db) {
     classes = [
       {"name" : "Billy's Class", "class_type" : "pre" },
       {"name" : "Zane's Class", "class_type" : "pre" },
+      { "name" : "Pickup PS103", "class_type" : "pickup" },
       {"name" : "Fred's Class", "class_type" : "after" },
       {"name" : "Jennifer's Class", "class_type" : "after" },
     { "name" : "Jill's Class", "class_type" : "after" },
-    { "name" : "Pickup PS103", "class_type" : "pickup" }
+
     ]
 
 
@@ -66,7 +67,7 @@ MongoClient.connect(url, function(err, db) {
           seats = []
 
           for(var i =0; i < students.length ; i++){
-            for(var j =0; j < classes.length ; j++){
+            for(var j =0; j < classes.length - 2 ; j++){
               seats.push({ "classId" : classes[j]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
             }
           }
