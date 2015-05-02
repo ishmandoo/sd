@@ -55,50 +55,49 @@ MongoClient.connect(url, function(err, db) {
       {"name" : "Fred's Class", "class_type" : "after" },
       {"name" : "Jennifer's Class", "class_type" : "after" },
     { "name" : "Jill's Class", "class_type" : "after" },
-
+    { "name" : "Jarbo's Class", "class_type" : "after" }
     ]
-
-    afterclasses = [
-      {"name" : "Fred's Class", "class_type" : "after" },
-      {"name" : "Jennifer's Class", "class_type" : "after" },
-    { "name" : "Jill's Class", "class_type" : "after" },
-    { "name" : "Jarbo's Class", "class_type" : "after" },
-    { "name" : "Zillian's Class", "class_type" : "after" },
-
-    ]
+    afterclassnum = 4;
 
 
 
     db.class.insert(classes, function(err, classresult){
-      db.teacher.insert(teachers, function(err, teacherresult){
-        db.student.insert(students, function(err,studentresult){
-          classes = classresult.ops;
-          students = studentresult.ops;
 
-          days_of_week = { "monday" : true, "tuesday" : true, "wednesday" : true, "thursday" : true, "friday" : true, "saturday" : true, "sunday" : true }
-          db.seat.drop()
-          seats = []
+        db.teacher.insert(teachers, function(err, teacherresult){
+          db.student.insert(students, function(err,studentresult){
+            classes = classresult.ops;
 
-          for(var i =0; i < students.length ; i++){
-            for(var j =0; j < classes.length - 2 ; j++){
-              seats.push({ "classId" : classes[j]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
+            students = studentresult.ops;
+
+            days_of_week = { "monday" : true, "tuesday" : true, "wednesday" : true, "thursday" : true, "friday" : true, "saturday" : true, "sunday" : true }
+            db.seat.drop()
+            seats = []
+
+            for(var i =0; i < students.length ; i++){
+              for(var j =0; j < classes.length - afterclassnum ; j++){
+                seats.push({ "classId" : classes[j]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
+              }
             }
-          }
 
-          for(var i =0; i < students.length ; i++){
+            for(var i =0; i < students.length ; i++){
 
-              seats.push({ "classId" : afterclasses[Math.floor(i/afterclasses.length)]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
+                seats.push({ "classId" : classes[classes.length - afterclassnum + Math.floor(i/students.length * afterclassnum)]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
 
-          }
+            }
 
-          db.seat.insert(seats, function(err, seats){
-            console.log('database reset by database_clear.js');
-            db.close();
+            db.seat.insert(seats, function(err, seats){
+              console.log('database reset by database_clear.js');
+              db.close();
+            });
+
           });
 
-        });
       });
     });
 });
 
+}
+else{
+
+console.log("This is not a demo server. I will not destroy your database. You have so much to live for. The flowers. The trees. THe beauty of the world. LIVE! THRIVE!")
 }
