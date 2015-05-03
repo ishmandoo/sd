@@ -1,7 +1,7 @@
 module.exports = function(Teacher) {
 
   Teacher.current = function(teacherId,cb) {
-    Teacher.findById(teacherId, function(err, teacher) {
+    Teacher.findById(teacherId, {include:{relation:"roleMappings"}}, function(err, teacher) {
       cb(null,teacher);
     });
   }
@@ -17,6 +17,27 @@ module.exports = function(Teacher) {
 
     returns: {arg: 'teacher', type: 'object'},
     http: {path: '/current', verb: 'get'}
+  });
+
+  Teacher.currentIsAdmin = function(teacherId,cb) {
+    Teacher.findById(teacherId, {include:"roleMappings"}, function(err, teacher) {
+      console.log(teacher.roleMappings())
+      var isAdmin = ((teacher.roleMappings().length >= 1) && (teacher.roleMappings()[0].roleId == 1));
+      cb(null,isAdmin);
+    });
+  }
+
+  Teacher.remoteMethod('currentIsAdmin',{
+    accepts: {
+      arg: 'teacherId',
+      type: 'string',
+      http: function(ctx) {
+        return ctx.req.accessToken.userId;
+      }
+    },
+
+    returns: {arg: 'isAdmin', type: 'boolean'},
+    http: {path: '/currentisadmin', verb: 'get'}
   });
 
   Teacher.addAdmin = function(teacherId, cb){
