@@ -26,7 +26,7 @@ angular.module("beansprouts_app")
 
   $scope.newClass = {name:""};
 
-  $scope.update = function(){
+  $scope.updateStudent = function(){
     var query = {name:$scope.student.name, pin:$scope.student.pin}
     $http.put('/api/students/'+$routeParams.id, query)
     .success(function(classObj){
@@ -214,6 +214,7 @@ angular.module("beansprouts_app")
   $http.get('/api/students/'+$routeParams.id)
   .success(function(student){
     $scope.student = student;
+    $scope.student.original_name = student.name;
   });
 
   $scope.getSeatList();

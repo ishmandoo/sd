@@ -1,9 +1,13 @@
 <div class="panel panel-default">
   <div class="panel-heading">Edit Class</div>
   <div class="panel-body">
-    <form class="form-inline" ng-submit="logIn()">
-      <label> Class Name </label>
-      <input type="text" class="form-control" name="className" placeholder="Name" ng-model="classObj.name">
+    <form name="update">
+      <div class="form-group has-feedback" ng-class="{'has-error':update.name.$error.unique}">
+        <label> Class Name </label>
+        <span class="pull-right control-label" ng-show="update.name.$error.unique">This name is taken.</span>
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="update.name.$error.unique"></span>
+        <input type="text" class="form-control" name="name" placeholder="Name" ng-model="classObj.name" required unique model="classes" attribute="name" except="{{classObj.original_name}}">
+      </div>
       <label> Class Type </label>
       <select class="form-control" ng-model="classObj.class_type">
         <option value = "pre"> Preschool Class </option>
@@ -11,7 +15,7 @@
         <option value = "pickup"> Pickup Location </option>
       </select>
       <br>
-      <button type="submit" class="btn btn-success" ng-click="update()"> Update </button>
+      <button type="submit" class="btn btn-success" ng-click="updateClass()" ng-disabled="update.$invalid"> Update </button>
     </form>
 
   </div>

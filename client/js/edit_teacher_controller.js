@@ -17,6 +17,7 @@ angular.module("beansprouts_app")
     $http.put('/api/teachers/'+$routeParams.id, query)
     .success(function(teacher){
       $scope.teacher = teacher;
+      $scope.teacher.original_name = teacher.name;
       $scope.teacher.password1 = "";
       $scope.teacher.password2 = "";
       $location.path("admin");
@@ -37,10 +38,9 @@ angular.module("beansprouts_app")
   $http.get('/api/teachers/'+$routeParams.id)
   .success(function(teacher){
     $scope.teacher = teacher;
+    $scope.teacher.original_name = teacher.name;
     $scope.teacher.password1 = "";
     $scope.teacher.password2 = "";
   });
-
-
 
 }]);

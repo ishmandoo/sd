@@ -2,39 +2,45 @@
   <div class="panel-heading">Edit Teacher</div>
   <div class="panel-body">
     <form class="" name="update">
-      <label> Name </label>
-      <input type="text" class="form-control" name="name" placeholder="Name" ng-model="teacher.name">
-
-      <label> Username </label>
-      <input type="text" class="form-control" name="username" placeholder="Username" ng-model="teacher.username" >
-
-      <label> Email </label>
-      <input type="email" class="form-control" name="email" placeholder="Email" ng-model="teacher.email" ng-model-options="{ updateOn: 'blur' }" >
-
-      <label> PIN </label>
-      <input type="text" class="form-control" name="pin" placeholder="PIN" ng-model="teacher.pin" >
-
-  <br>
-  <button type="submit" class="btn btn-success" ng-click="updateTeacher()" ng-disabled="update.email.$error.email"> Update </button>
-</form>
-
-</div>
+      <div class="form-group">
+        <label> Username </label>
+        <input type="text" class="form-control" ng-model="teacher.username" readonly>
+      </div>
+      <div class="form-group has-feedback" ng-class="{'has-error':update.name.$error.unique}">
+        <label> Name </label>
+        <span class="pull-right control-label" ng-show="update.name.$error.unique">This name is taken.</span>
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="update.name.$error.unique"></span>
+        <input type="text" class="form-control" name="name" placeholder="Name" ng-model="teacher.name" required unique model="teachers" attribute="name" except="{{teacher.original_name}}">
+      </div>
+      <div class="form-group has-feedback" ng-class="{'has-error':update.pin.$error.pattern}">
+        <label class="control-label"> PIN </label>
+        <span class="pull-right control-label" ng-show="update.pin.$error.pattern">PIN must be a four digit number.</span>
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="update.pin.$error.pattern"></span>
+        <input type="text" class="form-control" name="pin" placeholder="PIN" ng-model="teacher.pin" pattern="^[0-9]{4}$" maxLength=4 minLength=4 required>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-success" ng-click="updateTeacher()" ng-disabled="update.$invalid"> Update </button>
+    </form>
+  </div>
 </div>
 
 <div class="panel panel-default">
   <div class="panel-heading">Update Password</div>
   <div class="panel-body">
     <form class="" name="password_update">
-      <label> Password </label>
-      <input type="password" class="form-control" name="password1" placeholder="Password" ng-model="teacher.password1">
-      <label> Confirm Password </label>
-      <input type="password" class="form-control" name="password2" placeholder="Password Again" ng-model="teacher.password2">
-
+      <div class="form-group has-feedback" ng-class="{'has-error':(password_update.password1.$error.minlength)||(password_update.password2.$error.compareTo&&password_update.password2.$dirty)}">
+        <label> Password </label>
+        <span class="pull-right control-label" ng-show="password_update.password1.$error.minlength">Password must be at least 4 character long.</span>
+        <input type="password" class="form-control" name="password1" placeholder="Password" ng-model="teacher.password1" minLength=4>
+        <label> Confirm Password </label>
+        <span class="pull-right control-label" ng-show="(password_update.password2.$error.compareTo&&password_update.password2.$dirty)">Passwords must match.</span>
+        <input type="password" class="form-control" name="password2" placeholder="Password Again" ng-model="teacher.password2" compare-to="teacher.password1">
+      </div>
 
 
 
 <br>
-<button type="submit" class="btn btn-success" ng-click="updatePassword()" ng-disabled="!passwordValid()"> Update Password</button>
+<button type="submit" class="btn btn-success" ng-click="updatePassword()" ng-disabled="password_update.password1.$error.minlength||password_update.password2.$error.compareTo"> Update Password</button>
 </form>
 
 </div>
