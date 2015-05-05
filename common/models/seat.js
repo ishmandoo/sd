@@ -6,29 +6,33 @@ module.exports = function(Seat) {
 
   Seat.getSeatList = function(classId, dayOfWeekFilterObject, cb){
       Seat.app.models.class.findById(classId, function(err, classObj){
+          if (!classObj) {
+            console.log("Invalid class request " + classId);
+            cb(null);
+          } else {
+            Seat.find({where: {and:[{classId:classId},dayOfWeekFilterObject]}, include: {relation:"student"}}, function(err, seats){
+                if (classObj.class_type !== "pickup") {
+                    cb(null, seats, "success");
+                } else {
+                    var idList = seats.map(function(seat){return seat.studentId});
+                    Seat.find({
+                        where: {
+                            and: [{studentId:{inq:idList}}, dayOfWeekFilterObject]
+                        },
+                        include: ['student', 'class']
+                    }, function(err, seats){
 
-          Seat.find({where: {and:[{classId:classId},dayOfWeekFilterObject]}, include: {relation:"student"}}, function(err, seats){
-              if (classObj.class_type !== "pickup") {
-                  cb(null, seats, "success");
-              } else {
-                  var idList = seats.map(function(seat){return seat.studentId});
-                  Seat.find({
-                      where: {
-                          and: [{studentId:{inq:idList}}, dayOfWeekFilterObject]
-                      },
-                      include: ['student', 'class']
-                  }, function(err, seats){
-
-                      var afterList = [];
-                      for (var i = 0; i < seats.length; i++) {
-                          if (seats[i].class().class_type == 'after'){
-                              afterList.push(seats[i]);
-                          }
-                      }
-                      cb(null, afterList, "success");
-                  });
-              }
-          });
+                        var afterList = [];
+                        for (var i = 0; i < seats.length; i++) {
+                            if (seats[i].class().class_type == 'after'){
+                                afterList.push(seats[i]);
+                            }
+                        }
+                        cb(null, afterList, "success");
+                    });
+                }
+            });
+          }
 
       });
   }
