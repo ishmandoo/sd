@@ -85,3 +85,7 @@ a:hover {
   background-color:#aaaaaa;
   border-color:#aaaaaa;
 }
+
+html {
+  overflow-y: scroll;
+}
