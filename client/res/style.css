@@ -3,6 +3,14 @@
   transition:.3s;
 }
 
+/* Fix for modal white stripe on mobile
+@media screen and (max-device-width: 600px) {
+  body.modal-open {
+    overflow: hidden;
+  }
+}
+*/
+
 
 @media (max-width: 767px) {
   .check-in-out-button {
