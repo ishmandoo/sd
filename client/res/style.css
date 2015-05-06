@@ -85,3 +85,7 @@ a:hover {
   background-color:#aaaaaa;
   border-color:#aaaaaa;
 }
+
+.class-lists .panel-body{
+  padding : 0px;
+}
