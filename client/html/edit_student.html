@@ -1,17 +1,67 @@
 <div class="panel panel-default">
   <div class="panel-heading">Edit Student</div>
   <div class="panel-body">
-    <form class="">
-      <label> Name </label>
-      <input type="text" class="form-control" name="studentName" placeholder="Name" ng-model="student.name">
-      <label> PIN </label>
-      <input type="text" class="form-control" name="studentPin" placeholder="PIN" ng-model="student.pin">
-
-      <br>
-      <button type="submit" class="btn btn-success" ng-click="update()"> Update </button>
+    <form name="update">
+      <div class="form-group has-feedback" ng-class="{'has-error':update.name.$error.unique}">
+        <label> Name </label>
+        <span class="pull-right control-label" ng-show="update.name.$error.unique">This name is taken.</span>
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="update.name.$error.unique"></span>
+        <input type="text" class="form-control" name="name" placeholder="Name" ng-model="student.name" required unique model="students" attribute="name" except="{{student.original_name}}">
+      </div>
+      <div class="form-group has-feedback" ng-class="{'has-error':update.pin.$error.pattern}">
+        <label class="control-label"> PIN </label>
+        <span class="pull-right control-label" ng-show="update.pin.$error.pattern">PIN must be a four digit number.</span>
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="update.pin.$error.pattern"></span>
+        <input type="text" class="form-control" name="pin" placeholder="PIN" ng-model="student.pin" pattern="^[0-9]{4}$" maxLength=4 minLength=4>
+      </div>
+      <button type="submit" class="btn btn-success" ng-click="updateStudent()" ng-disabled="update.$invalid"> Update </button>
     </form>
   </div>
 </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Notes</div>
+  <div class="panel-body">
+    <form class="form-inline">
+
+      <div class="form-group">
+        <input class="form-control" ng-model="notes.datebox" type="date"></input>
+      </div>
+
+      <div class="form-group input-group">
+        <input class="form-control" ng-model="notes.textbox" placeholder="Enter Note" type="text" size="75"></input>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-success" ng-click="addNote()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+        </span>
+      </div>
+
+    </form>
+    <table class="table table-striped table-responsive" style="table-layout: fixed;">
+      <tr>
+        <th>
+          Date
+        </th>
+        <th colspan=3>
+          Note
+        </th>
+      </tr>
+
+      <tr ng-repeat="note in noteList">
+        <td>
+          {{note.date | date:"fullDate"}}
+          <a href="">
+            <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeNote(note)"> </span>
+          </a>
+        </td>
+        <td colspan=3>
+          {{note.text}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
 <div  class="panel panel-default">
   <div class="panel-heading">Add/Remove Classes</div>
   <div class="panel-body">
@@ -73,47 +123,6 @@
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Notes</div>
-  <div class="panel-body">
-    <form class="form-inline">
-
-      <div class="form-group">
-        <input class="form-control" ng-model="notes.datebox" type="date"></input>
-      </div>
-
-      <div class="form-group input-group">
-        <input class="form-control" ng-model="notes.textbox" placeholder="Enter Note" type="text" size="75"></input>
-        <span class="input-group-btn">
-          <button type="submit" class="btn btn-success" ng-click="addNote()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
-        </span>
-      </div>
-
-    </form>
-    <table class="table table-striped table-responsive" style="table-layout: fixed;">
-      <tr>
-        <th>
-          Date
-        </th>
-        <th colspan=3>
-          Note
-        </th>
-      </tr>
-
-      <tr ng-repeat="note in noteList">
-        <td>
-          {{note.date | date:"fullDate"}}
-          <a href="">
-            <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeNote(note)"> </span>
-          </a>
-        </td>
-        <td colspan=3>
-          {{note.text}}
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
 
 
 

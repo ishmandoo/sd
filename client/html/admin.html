@@ -12,15 +12,27 @@
     <div class="panel panel-default">
       <div class="panel-heading">Teachers</div>
       <div class="panel-body">
-        <form>
-          <input type="text" class="form-control" placeholder="Enter Username" ng-model="teacher.username">
-          <input type="text" class="form-control" placeholder="Enter Name" ng-model="teacher.name">
+        <form name="new_teacher" novalidate>
+          <div class="has-feedback" ng-class="{'has-error':(new_teacher.username.$error.unique)}">
+            <input type="text" class="form-control" name="username" placeholder="Enter Username" ng-model="teacher.username" unique model="teachers" attribute="username" required>
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_teacher.username.$error.unique"></span>
+          </div>
+
+          <div class="has-feedback" ng-class="{'has-error':(new_teacher.name.$error.unique)}">
+            <input type="text" class="form-control" name="name" placeholder="Enter Name" ng-model="teacher.name" unique model="teachers" attribute="name" required>
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_teacher.name.$error.unique"></span>
+          </div>
+
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter Password" ng-model="teacher.password">
+            <input type="text" class="form-control" name="password" placeholder="Enter Password" ng-model="teacher.password" minLength=4 required>
             <span class="input-group-btn">
-              <button type="submit" class="btn btn-success" ng-click="addTeacher()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+              <button type="submit" class="btn btn-success" ng-click="addTeacher()" ng-disabled="new_teacher.$invalid">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
             </span>
           </div>
+          <span ng-show="new_teacher.username.$error.unique">This username is already taken!</span>
+          <span ng-show="new_teacher.name.$error.unique">This name is already taken!</span>
+          <span ng-show="new_teacher.password.$error.minlength">Password must be at least 4 character long.</span>
+
         </form>
         <table class="table">
           <tr ng-repeat="teacher in teacherData  | filter:searchText">

@@ -2,13 +2,17 @@
   <div class="panel panel-default">
     <div class="panel-heading">{{name}}</div>
     <div class="panel-body">
-      <form>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Enter New Name" ng-model="newItemName">
+      <form name="new">
+        <div class="input-group"  ng-class="{'has-error':(new.name.$error.unique)}">
+          <input type="text" class="form-control" name="name" placeholder="Enter New Name" ng-model="newItemName" unique model="{{type}}" attribute="name" required>
+          <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new.name.$error.unique" style="margin-right:50px;"></span>
+          
           <span class="input-group-btn">
-            <button type="submit" class="btn btn-success" ng-click="add()">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+            <button type="submit" class="btn btn-success" ng-click="add()" ng-disabled="new.$invalid">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
           </span>
+
         </div>
+        <span ng-show="new.name.$error.unique">This name is already taken!</span>
       </form>
       <table class="table">
         <tr ng-repeat="item in data | filter:$parent.searchText">

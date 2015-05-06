@@ -10,7 +10,7 @@ angular.module("beansprouts_app")
 
   $scope.newStudent = {name:""};
 
-  $scope.update = function(){
+  $scope.updateClass = function(){
     if($routeParams.id){
       $http.put('/api/classes/'+$routeParams.id, {name:$scope.classObj.name, class_type: $scope.classObj.class_type})
       .success(function(classObj){
@@ -97,6 +97,7 @@ angular.module("beansprouts_app")
   $http.get('/api/classes/'+$routeParams.id)
   .success(function(classObj){
     $scope.classObj = classObj;
+    $scope.classObj.original_name = classObj.name;
   });
 
   $scope.getSeatList();
