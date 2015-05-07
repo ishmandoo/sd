@@ -88,6 +88,25 @@ a:hover {
   border-color: #11866f;
 }
 
+.touch .btn-default:hover{
+  color: #ffffff;
+  background-color: #95a5a6;
+  border-color: #95a5a6;
+}
+
+.no-touch .btn-default:hover{
+  color: #ffffff;
+  background-color: #798d8f;
+  border-color: #798d8f;
+}
+
+.touch .btn-default.active:hover{
+  color: #ffffff;
+  background-color: #95a5a6;
+  border-color: #95a5a6;
+}
+
+
 .logout{
   margin: 10px;
   background-color:#aaaaaa;
