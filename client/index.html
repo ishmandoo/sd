@@ -55,10 +55,10 @@
 
     <div class="container-fluid banner" ng-controller="indexController as index">
 
-      <span class="col-xs-6 col-xs-offset-3">
+      <span class="col-md-6 col-md-offset-3 col-xs-12">
         <img src="res/banner.png" class="img-responsive"></img>
       </span>
-      <span class="col-xs-3">
+      <span class="col-md-3 col-xs-12">
         <button class="btn btn-sm btn-default pull-right logout" ng-click="index.logout()" ng-hide="index.isLoginPage()">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</button>
         <button class="btn btn-sm btn-default pull-right logout" ng-click="index.goToAdmin()" ng-hide="!index.isAdmin || (index.isAdminSide())">Admin</button>
         <button class="btn btn-sm btn-default pull-right logout" ng-click="index.goToClassList()" ng-hide="!index.isAdmin || !(index.isAdminSide())">Class List</button>
