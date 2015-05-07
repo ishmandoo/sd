@@ -1,4 +1,4 @@
-<div class="input-group has-feedback col-md-12 ">
+<div class="input-group has-feedback col-xs-12 ">
     <input type="text" class="form-control" placeholder="Search" ng-model="searchText" aria-describedby="basic-addon2">
     <span class="form-control-feedback glyphicon glyphicon-search"></span>
 </div>
@@ -22,7 +22,6 @@
             <input type="text" class="form-control" name="name" placeholder="Enter Name" ng-model="teacher.name" unique model="teachers" attribute="name" required>
             <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_teacher.name.$error.unique"></span>
           </div>
-
           <div class="input-group">
             <input type="text" class="form-control" name="password" placeholder="Enter Password" ng-model="teacher.password" minLength=4 required>
             <span class="input-group-btn">
@@ -37,8 +36,8 @@
         <table class="table">
           <tr ng-repeat="teacher in teacherData  | filter:searchText">
             <td>
-              <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.name}}  </a>
-              <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="deleteTeacher(teacher)"> </span> </a>
+              <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.name}} <span ng-show="(teacher.roleMappings.length >= 1) && (teacher.roleMappings[0].roleId == 1)">(admin)</span> </a>
+              <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-hide="((teacher.roleMappings.length >= 1) && (teacher.roleMappings[0].roleId == 1))" ng-click="deleteTeacher(teacher)"> </span> </a>
             </td>
           </tr>
         </table>

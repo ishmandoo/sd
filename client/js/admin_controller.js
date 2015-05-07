@@ -23,7 +23,7 @@ angular.module("beansprouts_app")
   }
 
   $scope.getTeacherList = function(){
-    $http.get('/api/teachers')
+    $http.get("/api/teachers?filter={\"include\":{\"relation\":\"roleMappings\"}}")
     .success(function(data){
       $scope.teacherData = data;
     });

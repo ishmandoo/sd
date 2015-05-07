@@ -9,6 +9,13 @@ angular.module("beansprouts_app")
       $cookieStore.put("authToken", data.id);
       console.log("logged in");
       $location.path("classes");
+      console.log(data);
+      $http.get('/api/teachers/'+data.userId+"?filter={\"include\":{\"relation\":\"roleMappings\"}}")
+      .success(function(teacher){
+        if((teacher.roleMappings.length >= 1) && (teacher.roleMappings[0].roleId == 1)){
+          $location.path("admin");
+        }
+      });
     }).
     error(function(data, status, headers, config){
       $scope.loginFailed = true;

@@ -19,7 +19,7 @@
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "beansprouts_db",
     "public": false
   },
   "Role": {

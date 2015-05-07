@@ -9,7 +9,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "roleMappings": {
+      "type": "hasAndBelongsToMany",
+      "model": "RoleMapping",
+      "foreignKey": "RoleMappingId"
+    }
+  },
   "acls": [
     {
       "accessType": "*",
@@ -19,6 +25,12 @@
     },
     {
       "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW"

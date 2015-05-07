@@ -18,6 +18,13 @@
         <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="update.pin.$error.pattern"></span>
         <input type="text" class="form-control" name="pin" placeholder="PIN" ng-model="teacher.pin" pattern="^[0-9]{4}$" maxLength=4 minLength=4 required>
       </div>
+      <div class="checkbox">
+        <label>
+
+          <input type="checkbox" ng-model="teacher.isAdmin" ng-disabled="(userId == teacher.id)"> Admin
+
+        </label>
+      </div>
       <br>
       <button type="submit" class="btn btn-success" ng-click="updateTeacher()" ng-disabled="update.$invalid"> Update </button>
     </form>
