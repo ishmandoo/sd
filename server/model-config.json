@@ -20,11 +20,11 @@
   },
   "RoleMapping": {
     "dataSource": "beansprouts_db",
-    "public": true
+    "public": false
   },
   "Role": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "student": {
     "dataSource": "beansprouts_db",

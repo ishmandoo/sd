@@ -26,17 +26,26 @@ if (program.user) {
 
       db.roleMapping = db.collection('RoleMapping');
       db.teacher = db.collection('teacher');
+      db.teacherRoleMapping = db.collection('teacherRoleMapping');
       db.teacher.findOne({username: program.user}, function(err,teacher){
         if(err) throw err;
         console.log(teacher)
         if(teacher){
-        db.roleMapping.insert({principalType: "USER", principalId: teacher._id, "roleId" : 1 });
-        console.log(program.user + " given admin privileges");
+          db.roleMapping.insert({principalType: "USER", principalId: teacher._id.toString(), "roleId" : 1 }, function(err,rolemappingresponse){
+            if(err) throw err;
+            //console.log(rolemapping)
+            rolemapping = rolemappingresponse.ops[0]
+            db.teacherRoleMapping.insert({"teacherId" :  teacher._id, "roleMappingId" : rolemapping._id }, function(err, whatevs){
+              console.log(program.user + " given admin privileges");
+              db.close()
+            });
+          });
         }
         else{
           console.log("No such teacher: " + program.user);
+          db.close()
         }
-        db.close()
+
       });
   })
 
