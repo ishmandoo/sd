@@ -1,5 +1,9 @@
-//USAGE
+//OLD USAGE maybe useful someday?
 //mongo database_clear.js --eval "env = '$NODE_ENV'; mongouri='$MONOGOLAB_URI'"
+
+//USAGE
+//heroku run node scripts/database_clear.js --app sheepdog-demo
+
 
 var MongoClient = require('mongodb').MongoClient
 
@@ -47,38 +51,53 @@ MongoClient.connect(url, function(err, db) {
     classes = [
       {"name" : "Billy's Class", "class_type" : "pre" },
       {"name" : "Zane's Class", "class_type" : "pre" },
+      { "name" : "Pickup PS103", "class_type" : "pickup" },
       {"name" : "Fred's Class", "class_type" : "after" },
       {"name" : "Jennifer's Class", "class_type" : "after" },
     { "name" : "Jill's Class", "class_type" : "after" },
-    { "name" : "Pickup PS103", "class_type" : "pickup" }
+    { "name" : "Jarbo's Class", "class_type" : "after" }
     ]
+    afterclassnum = 4;
 
 
 
     db.class.insert(classes, function(err, classresult){
-      db.teacher.insert(teachers, function(err, teacherresult){
-        db.student.insert(students, function(err,studentresult){
-          classes = classresult.ops;
-          students = studentresult.ops;
 
-          days_of_week = { "monday" : true, "tuesday" : true, "wednesday" : true, "thursday" : true, "friday" : true, "saturday" : true, "sunday" : true }
-          db.seat.drop()
-          seats = []
+        db.teacher.insert(teachers, function(err, teacherresult){
+          db.student.insert(students, function(err,studentresult){
+            classes = classresult.ops;
 
-          for(var i =0; i < students.length ; i++){
-            for(var j =0; j < classes.length ; j++){
-              seats.push({ "classId" : classes[j]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
+            students = studentresult.ops;
+
+            days_of_week = { "monday" : true, "tuesday" : true, "wednesday" : true, "thursday" : true, "friday" : true, "saturday" : true, "sunday" : true }
+            db.seat.drop()
+            seats = []
+
+            for(var i =0; i < students.length ; i++){
+              for(var j =0; j < classes.length - afterclassnum ; j++){
+                seats.push({ "classId" : classes[j]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
+              }
             }
-          }
 
-          db.seat.insert(seats, function(err, seats){
-            console.log('database reset by database_clear.js');
-            db.close();
+            for(var i =0; i < students.length ; i++){
+
+                seats.push({ "classId" : classes[classes.length - afterclassnum + Math.floor(i/students.length * afterclassnum)]._id, "studentId" : students[i]._id , "days_of_week" : days_of_week, "checked_in" : false })
+
+            }
+
+            db.seat.insert(seats, function(err, seats){
+              console.log('database reset by database_clear.js');
+              db.close();
+            });
+
           });
 
-        });
       });
     });
 });
 
+}
+else{
+
+console.log("This is not a demo server. I will not destroy your database. You have so much to live for. The flowers. The trees. THe beauty of the world. LIVE! THRIVE!")
 }
