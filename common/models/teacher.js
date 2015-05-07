@@ -21,7 +21,7 @@ module.exports = function(Teacher) {
 
   Teacher.currentIsAdmin = function(teacherId,cb) {
     Teacher.findById(teacherId, {include:"roleMappings"}, function(err, teacher) {
-      console.log(teacher.roleMappings())
+
       var isAdmin = ((teacher.roleMappings().length >= 1) && (teacher.roleMappings()[0].roleId == 1));
       cb(null,isAdmin);
     });
@@ -57,7 +57,7 @@ module.exports = function(Teacher) {
         Teacher.findById(teacherId, function(err, teacher) {
           teacher.roleMappings.add(principal, function(err){});
           teacher.save();
-          console.log(teacher);
+
         });
 
       });
@@ -95,7 +95,7 @@ module.exports = function(Teacher) {
                 principal.remove();
               });
               teacher.save();
-              console.log(teacher);
+              
             });
 
 

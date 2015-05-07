@@ -13,6 +13,8 @@
         this.isLoginPage = isLoginPage;
         this.logout = logout;
         this.isAdmin = false;
+        this.hideAdminButton = true;
+        this.hideClassButton = true;
         this.isAdminSide = isAdminSide;
         this.goToAdmin = goToAdmin;
         this.goToClassList = goToClassList;
@@ -20,8 +22,28 @@
         activate();
 
         function activate() {
+          $scope.$on( "$routeChangeSuccess", function(event, next, current) {
+            updateNav();
+            isUserAdmin();
+
+          });
+          updateNav();
           isUserAdmin();
-          isAdminSide();
+        }
+
+        function updateNav(){
+          updateClassButton()
+          updateAdminButton()
+        }
+
+        function updateClassButton(){
+
+          vm.hideClassButton = !vm.isAdmin || (!isAdminSide()) || (isLoginPage())
+      
+        }
+
+        function updateAdminButton(){
+          vm.hideAdminButton = !vm.isAdmin || (isAdminSide()) || (isLoginPage())
         }
 
         function logout() {
@@ -40,6 +62,7 @@
 
         function isAdminSide() {
           return ($location.$$path.split('/')[1] === "admin");
+
         }
 
         function goToAdmin() {
@@ -51,10 +74,15 @@
         }
 
         function isUserAdmin() {
-          $http.get('/api/teachers/currentisadmin')
-          .success(function(response){
-            vm.isAdmin = response.isAdmin;
-          });
+          if(isLoginPage()){
+            vm.isAdmin = false;
+          }else{
+            $http.get('/api/teachers/currentisadmin')
+            .success(function(response){
+              vm.isAdmin = response.isAdmin;
+              updateNav();
+            });
+          }
         }
     }
 })();
