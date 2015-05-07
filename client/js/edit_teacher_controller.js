@@ -50,6 +50,7 @@ angular.module("beansprouts_app")
     .success(function(teacher){
 
       $scope.teacher = teacher;
+      $scope.teacher.original_name = teacher.name;
       $scope.teacher.password1 = "";
       $scope.teacher.password2 = "";
       $scope.teacher.password2 = "";
