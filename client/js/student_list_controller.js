@@ -113,7 +113,7 @@ angular.module("beansprouts_app")
       break;
     }
     $scope.$digest();
-  
+
 
   });
 
@@ -195,7 +195,6 @@ angular.module("beansprouts_app")
       }
     })
     .success(function(result){
-      console.log(result);
       $scope.seatList = result.afterList;
       $scope.getNotes();
     });
@@ -261,7 +260,6 @@ angular.module("beansprouts_app")
     .success(function(notes){
       //notes.startDate = $scope.noteList.startDate
       //notes.endDate = $scope.noteList.endDate;
-      console.log(notes);
       $scope.noteList = notes;
       for(i=0; i < notes.length; i++){
         for(j=0; j < $scope.seatList.length; j++){

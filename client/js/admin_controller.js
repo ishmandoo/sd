@@ -116,8 +116,6 @@ angular.module("beansprouts_app")
     $scope.detail_path = "student"
   }
 
-  console.log($scope);
-
   $scope.getList = function(){
     $http.get('/api/'+ $scope.type +'?filter={\"order\":\"name ASC\"}')
     .success(function(data){
