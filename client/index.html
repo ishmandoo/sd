@@ -60,8 +60,8 @@
       </span>
       <span class="col-xs-3">
         <button class="btn btn-sm btn-default pull-right logout" ng-click="index.logout()" ng-hide="index.isLoginPage()">&nbsp;<span class="glyphicon glyphicon-log-out"></span>&nbsp;</button>
-        <button class="btn btn-sm btn-default pull-right logout" ng-click="index.goToAdmin()" ng-hide="!index.isAdmin || (index.isAdminSide())">Admin</button>
-        <button class="btn btn-sm btn-default pull-right logout" ng-click="index.goToClassList()" ng-hide="!index.isAdmin || !(index.isAdminSide())">Class List</button>
+        <button class="btn btn-sm btn-default pull-right logout" ng-click="index.goToAdmin()" ng-hide="index.hideAdminButton">Admin</button>
+        <button class="btn btn-sm btn-default pull-right logout" ng-click="index.goToClassList()" ng-hide="index.hideClassButton">Class List</button>
       </span>
 
     </div>
