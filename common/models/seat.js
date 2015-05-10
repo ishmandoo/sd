@@ -80,6 +80,10 @@ module.exports = function(Seat) {
     http: {path: '/checkout', verb: 'post'}
   });
 
+  
+
+
+
   var logHook = function( ctx, modelInstance, next) {
 
     Seat.findById(ctx.req.body.seatId, function(err, seat){

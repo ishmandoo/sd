@@ -79,9 +79,8 @@ angular.module("beansprouts_app")
 
 
   $scope.setPin = function(student, pin) {
-    var query = {pin:pin};
-    $http.put('/api/students/'+student.id, query)
-    .success(function(classObj){
+    $http.post('/api/students/setpin', {studentId:student.id,pin:pin})
+    .success(function(){
       $scope.getSeats();
     });
   }

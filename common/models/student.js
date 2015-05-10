@@ -36,6 +36,23 @@ module.exports = function(Student) {
     http: {path: '/checkout', verb: 'post'}
   });
 
+
+  Student.setPin = function(studentId, pin, cb) {
+    Student.findById(studentId, function(err, student) {
+      if (err) cb(err);
+      student.pin = pin;
+      student.save();
+      cb(null, "success");
+    });
+  }
+
+  Student.remoteMethod('setPin',{
+    accepts: [{arg: 'studentId', type: 'string'},{arg: 'pin', type: 'string'}],
+    returns: {arg: 'result', type: 'string'},
+    http: {path: '/setpin', verb: 'post'}
+  });
+
+
   var logHook = function( ctx, modelInstance, next) {
     console.log("test");
 
