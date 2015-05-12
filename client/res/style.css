@@ -38,7 +38,7 @@
 }
 
 .banner {
-  background: #18bc9c;
+  background: #39b54a;
   color: white;
   width: 100%;
   text-align:center;
@@ -120,4 +120,8 @@ a:hover {
 
 html {
   overflow-y: scroll;
+}
+
+.class-lists .panel-body{
+  padding : 0px;
 }

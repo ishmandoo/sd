@@ -1,32 +1,32 @@
 <div class="col-sm-6 col-sm-offset-3">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Preschool Classes
-    </div>
-    <div class="list-group">
+  <accordion close-others="oneAtATime" class="class-lists">
+    <accordion-group class="list-group" is-open="status.preOpen" is-disabled="status.isFirstDisabled">
+      <accordion-heading>
+        Preschool Classes<i class="pull-right glyphicon" ng-class="{'glyphicon-triangle-bottom': status.preOpen, 'glyphicon-triangle-right': !status.preOpen}"></i>
+      </accordion-heading>
       <a href="#/class/{{class.id}}" ng-repeat="class in pre_classes" class="list-group-item"> {{ class.name }}
         <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
         <span class="badge">{{class.totalCheckedIn}}/{{class.totalStudents}}</span>
       </a>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      After-School Pickup Locations
-    </div>
-    <div class="list-group">
+    </accordion-group>
+
+    <accordion-group class="list-group" is-open="status.pickupOpen" is-disabled="status.isFirstDisabled">
+      <accordion-heading>
+        After-School Pickup Locations<i class="pull-right glyphicon" ng-class="{'glyphicon-triangle-bottom': status.pickupOpen, 'glyphicon-triangle-right': !status.pickupOpen}"></i>
+      </accordion-heading>
       <a href="#/class/{{class.id}}" ng-repeat="class in pick_up_locs" class="list-group-item"> {{ class.name }}
         <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
       </a>
-    </div>
-    <div class="panel-heading">
-      After-School Classes
-    </div>
-    <div class="list-group">
+    </accordion-group>
+
+    <accordion-group class="list-group" is-open="status.afterOpen" is-disabled="status.isFirstDisabled">
+      <accordion-heading>
+        After-School Classes<i class="pull-right glyphicon" ng-class="{'glyphicon-triangle-bottom': status.afterOpen, 'glyphicon-triangle-right': !status.afterOpen}"></i>
+      </accordion-heading>
       <a href="#/class/{{class.id}}" ng-repeat="class in after_classes" class="list-group-item"> {{ class.name }}
         <span class="glyphicon glyphicon-menu-right pull-right" aria-hidden="true"></span>
         <span class="badge">{{class.totalCheckedIn}}/{{class.totalStudents}}</span>
       </a>
-    </div>
-  </div>
+    </accordion-group>
+  </accordion>
 </div>

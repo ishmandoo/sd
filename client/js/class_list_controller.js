@@ -7,6 +7,11 @@ angular.module("beansprouts_app")
 
   $scope.test_string = "test";
 
+  $scope.status = {};
+
+  $scope.status.preOpen = true;
+  $scope.status.pickupOpen = true;
+  $scope.status.afterOpen = true;
 
   $scope.getAttendanceFraction = function(classList){
 
