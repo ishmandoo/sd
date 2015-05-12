@@ -15,9 +15,11 @@
         this.isAdmin = false;
         this.hideAdminButton = true;
         this.hideClassButton = true;
+        this.hideBackButton = true;
         this.isAdminSide = isAdminSide;
         this.goToAdmin = goToAdmin;
         this.goToClassList = goToClassList;
+        this.goBack = goBack;
 
         activate();
 
@@ -31,19 +33,28 @@
           isUserAdmin();
         }
 
+        function goBack() {
+          window.history.back();
+        }
+
         function updateNav(){
-          updateClassButton()
-          updateAdminButton()
+          updateClassButton();
+          updateAdminButton();
+          updateBackButton();
+        }
+
+        function updateBackButton() {
+          vm.hideBackButton = isAdminPage() || isLoginPage() || isClassListPage();
         }
 
         function updateClassButton(){
 
-          vm.hideClassButton = !vm.isAdmin || (!isAdminSide()) || (isLoginPage())
-      
+          vm.hideClassButton = !vm.isAdmin || (!isAdminSide()) || (isLoginPage());
+
         }
 
         function updateAdminButton(){
-          vm.hideAdminButton = !vm.isAdmin || (isAdminSide()) || (isLoginPage())
+          vm.hideAdminButton = !vm.isAdmin || (isAdminSide()) || (isLoginPage());
         }
 
         function logout() {
@@ -54,6 +65,15 @@
           .error(function(data, status, headers, config){
             $location.path("");
           });
+        }
+
+
+        function isClassListPage() {
+          return ($location.$$path === '/classes');
+        }
+
+        function isAdminPage() {
+          return ($location.$$path === '/admin');
         }
 
         function isLoginPage() {

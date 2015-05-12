@@ -57,8 +57,10 @@
   <body>
 
     <div class="container-fluid banner" ng-controller="indexController as index">
-
-      <span class="col-sm-6 col-sm-offset-3 col-xs-12">
+      <span class="col-sm-3 col-xs-12">
+        <button class="btn btn-lg btn-default pull-left logout" ng-click="index.goBack()" ng-hide="index.hideBackButton"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
+      </span>
+      <span class="col-sm-6 col-xs-12">
         <img src="res/banner_beta.png" class="img-responsive"></img>
       </span>
       <span class="col-sm-3 col-xs-12">
