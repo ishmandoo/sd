@@ -121,3 +121,7 @@ a:hover {
 html {
   overflow-y: scroll;
 }
+
+.class-lists .panel-body {
+  padding : 0px;
+}
