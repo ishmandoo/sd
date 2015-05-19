@@ -29,13 +29,21 @@
           $http.get('/api/schools')
           .success(function(response){
             var school = response[0]
-            if(school.banner_path){
-              service.bannerPath = school.banner_path;
-            }
-            if(school.style_path){
-              stylePath = school.style_path;
+            if(school){
+              if(school.banner_path){
+                service.bannerPath = school.banner_path;
+              }
+              if(school.style_path){
+                stylePath = school.style_path;
 
+              }
             }
+            else{
+              service.bannerPath = 'res/banner_beta.png'
+            }
+          })
+          .error(function(data, status, headers, config) {
+            service.bannerPath = 'res/banner_beta.png'
           });
         }
 
