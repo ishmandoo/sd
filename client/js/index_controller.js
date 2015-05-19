@@ -5,9 +5,9 @@
         .module('beansprouts_app')
         .controller('indexController', indexController);
 
-    indexController.$inject = ['$scope', '$http', '$location'];
+    indexController.$inject = ['$scope', '$http', '$location','schoolService'];
 
-    function indexController($scope, $http, $location) {
+    function indexController($scope, $http, $location, schoolService) {
         var vm = this;
 
         this.isLoginPage = isLoginPage;
@@ -20,6 +20,8 @@
         this.goToAdmin = goToAdmin;
         this.goToClassList = goToClassList;
         this.goBack = goBack;
+        this.bannerPath = schoolService.bannerPath
+        this.getBanner = getBanner
 
         activate();
 
@@ -31,6 +33,10 @@
           });
           updateNav();
           isUserAdmin();
+        }
+        function getBanner(){
+          console.log(schoolService.bannerPath)
+          return schoolService.bannerPath
         }
 
         function goBack() {
@@ -90,6 +96,7 @@
         }
 
         function goToClassList() {
+          console.log(schoolService)
           $location.path("classes");
         }
 

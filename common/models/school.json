@@ -9,6 +9,9 @@
     },
     "banner_path": {
       "type": "string"
+    },
+    "style_path": {
+      "type": "string"
     }
   },
   "validations": [],
