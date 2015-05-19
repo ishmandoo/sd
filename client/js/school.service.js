@@ -10,7 +10,7 @@
     function schoolService($http) {
         var name = "Sheepdog";
         var stylePath = "";
-        var bannerPath = "res/banner_beta.png";
+        var bannerPath = "";
 
 
 
@@ -31,8 +31,6 @@
             var school = response[0]
             if(school.banner_path){
               service.bannerPath = school.banner_path;
-              console.log(bannerPath)
-              console.log(service.bannerPath)
             }
             if(school.style_path){
               stylePath = school.style_path;

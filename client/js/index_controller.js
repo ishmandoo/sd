@@ -35,7 +35,6 @@
           isUserAdmin();
         }
         function getBanner(){
-          console.log(schoolService.bannerPath)
           return schoolService.bannerPath
         }
 
@@ -96,7 +95,6 @@
         }
 
         function goToClassList() {
-          console.log(schoolService)
           $location.path("classes");
         }
 
