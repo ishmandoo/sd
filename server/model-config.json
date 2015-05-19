@@ -53,5 +53,9 @@
   "note": {
     "dataSource": "beansprouts_db",
     "public": true
+  },
+  "school": {
+    "dataSource": "beansprouts_db",
+    "public": true
   }
 }
