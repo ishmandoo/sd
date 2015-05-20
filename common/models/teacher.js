@@ -20,11 +20,15 @@ module.exports = function(Teacher) {
   });
 
   Teacher.currentIsAdmin = function(teacherId,cb) {
-    Teacher.findById(teacherId, {include:"roleMappings"}, function(err, teacher) {
+    if(teacherId){
+      Teacher.findById(teacherId, {include:"roleMappings"}, function(err, teacher) {
 
-      var isAdmin = ((teacher.roleMappings().length >= 1) && (teacher.roleMappings()[0].roleId == 1));
-      cb(null,isAdmin);
-    });
+        var isAdmin = ((teacher.roleMappings().length >= 1) && (teacher.roleMappings()[0].roleId == 1));
+        cb(null,isAdmin);
+      });
+    }else{
+      cb(null,false);
+    }
   }
 
   Teacher.remoteMethod('currentIsAdmin',{
@@ -32,7 +36,12 @@ module.exports = function(Teacher) {
       arg: 'teacherId',
       type: 'string',
       http: function(ctx) {
-        return ctx.req.accessToken.userId;
+        if(ctx.req.accessToken){
+          return ctx.req.accessToken.userId;
+        }else{
+          return "";
+        }
+
       }
     },
 
@@ -95,7 +104,7 @@ module.exports = function(Teacher) {
                 principal.remove();
               });
               teacher.save();
-              
+
             });
 
 
