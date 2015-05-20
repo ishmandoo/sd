@@ -1,5 +1,5 @@
 angular.module("beansprouts_app")
-.controller("classListController", ["$scope", "$http", "dateFilterObjectService", "mySocket", function($scope, $http, dateFilterObjectService, mySocket) {
+.controller("classListController", ["$scope", "$http", "dateFilterObjectService", "mySocket","sessionSettingService", function($scope, $http, dateFilterObjectService, mySocket, sessionSettingService) {
 
   $scope.pre_classes = [];
   $scope.after_classes = [];
@@ -7,11 +7,9 @@ angular.module("beansprouts_app")
 
   $scope.test_string = "test";
 
-  $scope.status = {};
+  $scope.status = sessionSettingService.classList.status
 
-  $scope.status.preOpen = true;
-  $scope.status.pickupOpen = true;
-  $scope.status.afterOpen = true;
+
 
   $scope.getAttendanceFraction = function(classList){
 
@@ -46,6 +44,10 @@ angular.module("beansprouts_app")
 
       })(i)
     }
+  }
+
+  $scope.noClasses = function() {
+    return ($scope.pre_classes.length <= 0) && ($scope.pick_up_locs.length <= 0) && ($scope.after_classes.length <= 0);
   }
 
   $http.get("/api/classes?filter={\"where\":{\"class_type\":\"pre\"}}")

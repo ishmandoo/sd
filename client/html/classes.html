@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-sm-offset-3">
   <accordion close-others="oneAtATime" class="class-lists">
-    <accordion-group class="list-group" is-open="status.preOpen" is-disabled="status.isFirstDisabled">
+    <accordion-group class="list-group" is-open="status.preOpen" is-disabled="status.isFirstDisabled" ng-show="pre_classes.length > 0">
       <accordion-heading>
         Preschool Classes<i class="pull-right glyphicon" ng-class="{'glyphicon-triangle-bottom': status.preOpen, 'glyphicon-triangle-right': !status.preOpen}"></i>
       </accordion-heading>
@@ -10,7 +10,7 @@
       </a>
     </accordion-group>
 
-    <accordion-group class="list-group" is-open="status.pickupOpen" is-disabled="status.isFirstDisabled">
+    <accordion-group class="list-group" is-open="status.pickupOpen" is-disabled="status.isFirstDisabled" ng-show="pick_up_locs.length > 0">
       <accordion-heading>
         After-School Pickup Locations<i class="pull-right glyphicon" ng-class="{'glyphicon-triangle-bottom': status.pickupOpen, 'glyphicon-triangle-right': !status.pickupOpen}"></i>
       </accordion-heading>
@@ -19,7 +19,7 @@
       </a>
     </accordion-group>
 
-    <accordion-group class="list-group" is-open="status.afterOpen" is-disabled="status.isFirstDisabled">
+    <accordion-group class="list-group" is-open="status.afterOpen" is-disabled="status.isFirstDisabled" ng-show="after_classes.length > 0">
       <accordion-heading>
         After-School Classes<i class="pull-right glyphicon" ng-class="{'glyphicon-triangle-bottom': status.afterOpen, 'glyphicon-triangle-right': !status.afterOpen}"></i>
       </accordion-heading>
@@ -29,4 +29,15 @@
       </a>
     </accordion-group>
   </accordion>
+
+  <div class="alert alert-warning text-center" ng-show="noClasses()">
+    <h4>
+    <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+    Well, hey there buddo!
+  </h4>
+     <h5>
+     There are no classes! Add classes on the admin page!
+   </h5>
+    <img src="res/sheepdog.png" width="50px">
+  </div>
 </div>
