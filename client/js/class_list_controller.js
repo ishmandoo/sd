@@ -5,6 +5,8 @@ angular.module("beansprouts_app")
   $scope.after_classes = [];
   $scope.pick_up_locs = [];
 
+  $scope.loaded = {pre: false, pickup:false, after: false}
+
   $scope.test_string = "test";
 
   $scope.status = sessionSettingService.classList.status
@@ -47,25 +49,28 @@ angular.module("beansprouts_app")
   }
 
   $scope.noClasses = function() {
-    return ($scope.pre_classes.length <= 0) && ($scope.pick_up_locs.length <= 0) && ($scope.after_classes.length <= 0);
+    return $scope.loaded.pre && $scope.loaded.pickup && $scope.loaded.after &&($scope.pre_classes.length <= 0) && ($scope.pick_up_locs.length <= 0) && ($scope.after_classes.length <= 0);
   }
 
   $http.get("/api/classes?filter={\"where\":{\"class_type\":\"pre\"}}")
   .success(function(classes){
     $scope.pre_classes = classes;
     $scope.getAttendanceFraction($scope.pre_classes);
+    $scope.loaded.pre = true;
   });
 
   $http.get("/api/classes?filter={\"where\":{\"class_type\":\"after\"}}")
   .success(function(classes){
     $scope.after_classes = classes;
     $scope.getAttendanceFraction($scope.after_classes);
+    $scope.loaded.after = true;
   });
 
   $http.get("/api/classes?filter={\"where\":{\"class_type\":\"pickup\"}}")
   .success(function(classes){
     $scope.pick_up_locs = classes;
     $scope.getAttendanceFraction($scope.pick_up_locs);
+    $scope.loaded.pickup = true;
   });
 
   $scope.$on('socket:update', function(event, classId){
