@@ -82,7 +82,7 @@
         }
 
         function isLoginPage() {
-          return ($location.$$path === '/login') || ($location.$$path === '/');
+          return ($location.$$path === '/login') || ($location.$$path === '/') || ($location.$$path === '');
         }
 
         function isAdminSide() {
