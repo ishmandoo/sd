@@ -57,5 +57,13 @@
   "school": {
     "dataSource": "beansprouts_db",
     "public": true
+  },
+  "timeblock": {
+    "dataSource": "beansprouts_db",
+    "public": true
+  },
+  "timeBlockTweak": {
+    "dataSource": "beansprouts_db",
+    "public": true
   }
 }

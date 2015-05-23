@@ -74,6 +74,11 @@ app.config(function($routeProvider){
     templateUrl: 'html/admin.html',
     controller: "adminController"
   })
+  .when('/admin/timeblocks',{
+    templateUrl: 'html/timeblocks.html',
+    controller: "timeBlocksController",
+    controllerAs: "tb"
+  })
   .when('/admin/class/:id',{
     templateUrl: 'html/edit_class.html',
     controller: "editClassController"

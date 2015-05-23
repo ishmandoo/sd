@@ -1,0 +1,25 @@
+{
+  "name": "timeblock",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "start_date": {
+      "type": "date"
+    },
+    "end_date": {
+      "type": "date"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "week_schedule": {
+      "type": "object",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

@@ -61,6 +61,9 @@
           <button class="btn btn-default" ng-class="{'active':seat.days_of_week.thursday}" ng-click="updateSeat(seat, 'thursday')"> Th </button>
           <button class="btn btn-default" ng-class="{'active':seat.days_of_week.friday}" ng-click="updateSeat(seat, 'friday')"> F </button>
         </div>
+        <span class="badge" ng-repeat="timeBlock in seat.timeblocks">{{timeBlock.name}} <a href=""><span class="text-muted"> &times;</span></a> </span>
+
+        <span class="badge"> <input type="text" class="text-primary" ng-show="clickedSeatId == seat.id"></input> <a href=""><span ng-click="timeBlockPlusClick()" class="text-muted"> &plus;</span></a> </span>
 
 
       </td> </tr>

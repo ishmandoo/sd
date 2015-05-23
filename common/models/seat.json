@@ -23,6 +23,12 @@
       "type": "belongsTo",
       "model": "student",
       "foreignKey": "studentId"
+    },
+    "timeblocks": {
+      "type": "hasMany",
+      "model": "timeblock",
+      "foreignKey": "",
+      "through": "timeBlockTweak"
     }
   },
   "acls": [

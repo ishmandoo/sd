@@ -1,0 +1,66 @@
+
+<table class="table">
+  <tr>
+    <th> Name </th>
+    <th> Start Date </th>
+    <th> End Date </th>
+    <!--<th> Week Schedule </th>-->
+  </tr>
+
+  <tr ng-repeat="timeBlock in tb.timeBlocks">
+    <td>
+      {{timeBlock.name}}
+      <a href="">
+        <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="tb.deleteTimeBlock(timeBlock)"> </span>
+      </a>
+    </td>
+
+    <td>
+      <input class="form-control" ng-model="timeBlock.start_date" ng-change="tb.updateTimeBlock(timeBlock)" type="date"></input>
+    </td>
+
+    <td>
+      <input class="form-control" ng-model="timeBlock.end_date" ng-change="tb.updateTimeBlock(timeBlock)" type="date"></input>
+    </td>
+
+    <!--<td>
+
+      <div class="btn-group">
+        <button class="btn btn-default" ng-model="timeBlock.week_schedule.monday" ng-change="tb.updateTimeBlock(timeBlock)"  btn-checkbox>M</button>
+        <button class="btn btn-default" ng-model="timeBlock.week_schedule.tuesday" ng-change="tb.updateTimeBlock(timeBlock)" btn-checkbox>T</button>
+        <button class="btn btn-default" ng-model="timeBlock.week_schedule.wednesday" ng-change="tb.updateTimeBlock(timeBlock)" btn-checkbox>W</button>
+        <button class="btn btn-default" ng-model="timeBlock.week_schedule.thursday" ng-change="tb.updateTimeBlock(timeBlock)" btn-checkbox>Th</button>
+        <button class="btn btn-default" ng-model="timeBlock.week_schedule.friday" ng-change="tb.updateTimeBlock(timeBlock)" btn-checkbox>F</button>
+      </div>
+    </td>-->
+  </tr>
+  <tr>
+    <form name="new_time_block" novalidate>
+      <td>
+
+        <div class="form-group has-feedback" ng-class="{'has-error':(new_time_block.name.$error.unique)}">
+          <input type="text" class="form-control" name="name" placeholder="Enter Name" ng-model="tb.newTimeBlock.name" unique model="timeblocks" attribute="name" required>
+          <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_time_block.name.$error.unique"></span>
+        </div>
+      </td>
+      <td>
+        <input class="form-control" ng-model="tb.newTimeBlock.start_date" type="date"></input>
+      </td>
+      <td>
+        <input class="form-control" ng-model="tb.newTimeBlock.end_date" type="date"></input>
+      </td>
+      <!--<td>
+        <div class="btn-group">
+          <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.monday" btn-checkbox>M</button>
+          <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.tuesday" btn-checkbox>T</button>
+          <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.wednesday" btn-checkbox>W</button>
+          <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.thursday" btn-checkbox>Th</button>
+          <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.friday" btn-checkbox>F</button>
+        </div>
+        <button style="position:relative" type="submit" class="btn btn-success" ng-click="tb.addNewTimeBlock()" ng-disabled="new_time_block.$invalid">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+      </td>
+      -->
+
+    </form>
+  </tr>
+</table>

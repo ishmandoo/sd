@@ -5,6 +5,7 @@ angular.module("beansprouts_app")
   $scope.seatList = [];
   $scope.autoCompleteList = [];
   $scope.studentIndex = 0;
+  $scope.clickedSeatId = "";
 
   $scope.autoCompleteStudents = {};
 
@@ -85,13 +86,22 @@ angular.module("beansprouts_app")
       params: {
         filter:{
           where:{classId:$routeParams.id},
-          include:{relation:'student'}
+          include:[{relation:'student'},{relation:'timeblocks'}]
         }
       }
     })
     .success(function(seatList){
       $scope.seatList = seatList;
+      console.log(seatList);
     });
+  }
+
+  $scope.timeBlockPlusClick = function(seat) {
+    if (clickedSeatId == seat.id){
+      $('#my_form').submit();
+    } else {
+      clickedSeatId = seat.id;
+    }
   }
 
   $http.get('/api/classes/'+$routeParams.id)
