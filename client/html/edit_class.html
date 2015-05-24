@@ -54,7 +54,14 @@
         <a href="">
           <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeStudent(seat.student)"> </span>
         </a>
-        <div class="pull-right">
+        <div class="btn-group pull-right">
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.monday}" ng-click="updateSeat(seat, 'monday')"> M </button>
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.tuesday}" ng-click="updateSeat(seat, 'tuesday')"> T </button>
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.wednesday}" ng-click="updateSeat(seat, 'wednesday')"> W </button>
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.thursday}" ng-click="updateSeat(seat, 'thursday')"> Th </button>
+          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.friday}" ng-click="updateSeat(seat, 'friday')"> F </button>
+        </div>
+        <div class="pull-right" style="vertical-align:middle; line-height:40px;">
           <span ng-repeat="timeBlock in seat.timeblocks">
             <span class="badge">{{timeBlock.name}}
               <a href="">
@@ -68,13 +75,7 @@
               <span ng-click="seat.clicked = true" ng-hide="seat.clicked" class="text-muted"> &plus;</span>
             </a>
           </span>
-        </div>
-        <div class="btn-group pull-right">
-          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.monday}" ng-click="updateSeat(seat, 'monday')"> M </button>
-          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.tuesday}" ng-click="updateSeat(seat, 'tuesday')"> T </button>
-          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.wednesday}" ng-click="updateSeat(seat, 'wednesday')"> W </button>
-          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.thursday}" ng-click="updateSeat(seat, 'thursday')"> Th </button>
-          <button class="btn btn-default" ng-class="{'active':seat.days_of_week.friday}" ng-click="updateSeat(seat, 'friday')"> F </button>
+          &nbsp;
         </div>
 
 
