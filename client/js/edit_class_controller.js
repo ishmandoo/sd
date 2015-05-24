@@ -8,6 +8,7 @@ angular.module("beansprouts_app")
   $scope.clickedSeatId = "";
 
   $scope.autoCompleteStudents = {};
+  $scope.timeBlockList = [];
 
   $scope.newStudent = {name:""};
 
@@ -78,6 +79,13 @@ angular.module("beansprouts_app")
     });
   };
 
+  $scope.getTimeBlocks = function() {
+    return $http.get("/api/timeblocks")
+    .then(function(response){
+      $scope.timeBlocks = response.data;
+    });
+  };
+
   $scope.getSeatList = function() {
     //$http.get('/api/classes/'+$routeParams.id+'/students')
     $http({
@@ -92,17 +100,30 @@ angular.module("beansprouts_app")
     })
     .success(function(seatList){
       $scope.seatList = seatList;
-      console.log(seatList);
     });
   }
 
-  $scope.timeBlockPlusClick = function(seat) {
-    if (clickedSeatId == seat.id){
-      $('#my_form').submit();
-    } else {
-      clickedSeatId = seat.id;
-    }
+  $scope.addTimeBlock = function(seat, timeblock) {
+    $http({
+      url: '/api/seats/'+seat.id+'/timeblocks/rel/'+timeblock.id,
+      method: "PUT",
+    })
+    .success(function(){
+      $scope.getSeatList();
+    });
   }
+
+  $scope.removeTimeBlock = function(seat, timeblock) {
+    $http({
+      url: '/api/seats/'+seat.id+'/timeblocks/rel/'+timeblock.id,
+      method: "DELETE",
+    })
+    .success(function(){
+      $scope.getSeatList();
+    });
+  }
+
+
 
   $http.get('/api/classes/'+$routeParams.id)
   .success(function(classObj){
@@ -111,6 +132,7 @@ angular.module("beansprouts_app")
   });
 
   $scope.getSeatList();
+  $scope.getTimeBlocks();
 
 
 }]);
