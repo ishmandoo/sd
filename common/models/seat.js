@@ -5,12 +5,34 @@ module.exports = function(Seat) {
 
 
   Seat.getSeatList = function(classId, dayOfWeekFilterObject, cb){
+
+      today = new Date();
+
       Seat.app.models.class.findById(classId, function(err, classObj){
           if (!classObj) {
             console.log("Invalid class request " + classId);
             cb(null);
           } else {
-            Seat.find({where: {and:[{classId:classId},dayOfWeekFilterObject]}, include: {relation:"student"}}, function(err, seats){
+            Seat.find({where: {and:[{classId:classId},dayOfWeekFilterObject]}, include: [{relation:"student"},{relation:"timeblocks"}]}, function(err, seats){
+              tempseats = []
+              for(var i = 0; i < seats.length; i++){
+                seat = seats[i]
+                timeblocks = seat.timeblocks()
+                if(timeblocks.length > 0){
+                  for(j =0; j < timeblocks.length ; j++){
+                    timeblock = timeblocks[j]
+                    console.log(timeblock)
+                    if(timeblock.end_date < today || timeblock.start_date > today){
+                        tempseats.push(seat)
+                        break;
+                    }
+                  }
+                }else{
+                  tempseats.push(seat)
+                }
+              }
+              seats=tempseats
+
                 if (classObj.class_type !== "pickup") {
                     cb(null, seats, "success");
                 } else {
@@ -84,7 +106,7 @@ module.exports = function(Seat) {
     http: {path: '/checkout', verb: 'post'}
   });
 
-  
+
 
 
 

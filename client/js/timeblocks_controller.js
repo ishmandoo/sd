@@ -10,7 +10,7 @@
     function timeBlocksController($http) {
         var vm = this;
         vm.timeBlocks = [];
-        vm.newTimeBlock = {start_date:new Date(), end_date:new Date(), name:"", week_schedule:{monday:true,tuesday:true,wednesday:true,thursday:true,friday:true, saturday:false, sunday:false}}
+        vm.newTimeBlock = {start_date:(new Date()).setHours(0), end_date:(new Date()).setHours(0), name:"", week_schedule:{monday:true,tuesday:true,wednesday:true,thursday:true,friday:true, saturday:false, sunday:false}}
         vm.updateTimeBlock = updateTimeBlock;
         vm.deleteTimeBlock = deleteTimeBlock;
         vm.addNewTimeBlock = addNewTimeBlock;
