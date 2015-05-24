@@ -3,6 +3,8 @@ angular.module("beansprouts_app")
 
   $scope.options = [];
 
+  $scope.tabs = {admin:true, timeBlocks:false};
+
   $scope.student = {};
   $scope.teacher = {};
   $scope.class = {};
@@ -144,6 +146,10 @@ angular.module("beansprouts_app")
     .success(function(){
       $scope.getList();
     });
+  }
+
+  $scope.selectTab = function(tab) {
+    $scope.selectedTab = tab;
   }
 
   $scope.getList();

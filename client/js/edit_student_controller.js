@@ -243,6 +243,17 @@ angular.module("beansprouts_app")
     });
   };
 
+  $scope.clickSeat = function(seat) {
+    for (var i = 0; i < $scope.seatList.length; i++) {
+      $scope.seatList[i].clicked = false;
+    }
+    seat.clicked=true;
+    var input = $('#'+seat.id);
+    input.focus();
+    input.val("");
+    input[0].setSelectionRange(0, 0);
+  }
+
 
   $http.get('/api/students/'+$routeParams.id)
   .success(function(student){

@@ -1,49 +1,135 @@
 <div class="input-group has-feedback col-xs-12 ">
-    <input type="text" class="form-control" placeholder="Search" ng-model="searchText" aria-describedby="basic-addon2">
-    <span class="form-control-feedback glyphicon glyphicon-search"></span>
+  <input type="text" class="form-control" placeholder="Search" ng-model="searchText" aria-describedby="basic-addon2">
+  <span class="form-control-feedback glyphicon glyphicon-search"></span>
 </div>
 <br>
+<tabset>
+  <tab heading="Admin"  active="tabs.admin">
 
 
 
-<add-remove type="'classes'"></add-remove>
 
-  <div class="col-md-4 col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">Teachers</div>
-      <div class="panel-body">
-        <form name="new_teacher" novalidate>
-          <div class="has-feedback" ng-class="{'has-error':(new_teacher.username.$error.unique)}">
-            <input type="text" class="form-control" name="username" placeholder="Enter Username" ng-model="teacher.username" unique model="teachers" attribute="username" required>
-            <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_teacher.username.$error.unique"></span>
-          </div>
 
-          <div class="has-feedback" ng-class="{'has-error':(new_teacher.name.$error.unique)}">
-            <input type="text" class="form-control" name="name" placeholder="Enter Name" ng-model="teacher.name" unique model="teachers" attribute="name" required>
-            <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_teacher.name.$error.unique"></span>
-          </div>
-          <div class="input-group">
-            <input type="text" class="form-control" name="password" placeholder="Enter Password" ng-model="teacher.password" minLength=4 required>
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-success" ng-click="addTeacher()" ng-disabled="new_teacher.$invalid">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
-            </span>
-          </div>
-          <span ng-show="new_teacher.username.$error.unique">This username is already taken!</span>
-          <span ng-show="new_teacher.name.$error.unique">This name is already taken!</span>
-          <span ng-show="new_teacher.password.$error.minlength">Password must be at least 4 character long.</span>
+    <add-remove type="'classes'"></add-remove>
 
-        </form>
-        <table class="table">
-          <tr ng-repeat="teacher in teacherData  | filter:searchText">
-            <td>
-              <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.name}} <span ng-show="(teacher.roleMappings.length >= 1) && (teacher.roleMappings[0].roleId == 1)">(admin)</span> </a>
-              <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-hide="((teacher.roleMappings.length >= 1) && (teacher.roleMappings[0].roleId == 1))" ng-click="deleteTeacher(teacher)"> </span> </a>
-            </td>
-          </tr>
-        </table>
+    <div class="col-md-4 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Teachers</div>
+        <div class="panel-body">
+          <form name="new_teacher" novalidate>
+            <div class="has-feedback" ng-class="{'has-error':(new_teacher.username.$error.unique)}">
+              <input type="text" class="form-control" name="username" placeholder="Enter Username" ng-model="teacher.username" unique model="teachers" attribute="username" required>
+              <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_teacher.username.$error.unique"></span>
+            </div>
+
+            <div class="has-feedback" ng-class="{'has-error':(new_teacher.name.$error.unique)}">
+              <input type="text" class="form-control" name="name" placeholder="Enter Name" ng-model="teacher.name" unique model="teachers" attribute="name" required>
+              <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_teacher.name.$error.unique"></span>
+            </div>
+            <div class="input-group">
+              <input type="text" class="form-control" name="password" placeholder="Enter Password" ng-model="teacher.password" minLength=4 required>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-success" ng-click="addTeacher()" ng-disabled="new_teacher.$invalid">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+              </span>
+            </div>
+            <span ng-show="new_teacher.username.$error.unique">This username is already taken!</span>
+            <span ng-show="new_teacher.name.$error.unique">This name is already taken!</span>
+            <span ng-show="new_teacher.password.$error.minlength">Password must be at least 4 character long.</span>
+
+          </form>
+          <table class="table">
+            <tr ng-repeat="teacher in teacherData  | filter:searchText">
+              <td>
+                <a href="/#/admin/teacher/{{teacher.id}}"> {{teacher.name}} <span ng-show="(teacher.roleMappings.length >= 1) && (teacher.roleMappings[0].roleId == 1)">(admin)</span> </a>
+                <a href=""> <span class="glyphicon glyphicon-remove-sign text-danger" ng-hide="((teacher.roleMappings.length >= 1) && (teacher.roleMappings[0].roleId == 1))" ng-click="deleteTeacher(teacher)"> </span> </a>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
+
+
+    <add-remove type="'students'"></add-remove>
+  </tab>
+  <tab heading="Time Blocks" active="tabs.timeBlocks" ng-controller="timeBlocksController as tb">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Time Blocks</div>
+        <div class="panel-body">
+
+          <table class="table">
+            <tr>
+              <th> Name </th>
+              <th> Start Date </th>
+              <th> End Date </th>
+              <!--<th> Week Schedule </th>-->
+            </tr>
+
+            <tr ng-repeat="timeBlock in tb.timeBlocks">
+              <td>
+                {{timeBlock.name}}
+                <a href="">
+                  <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="tb.deleteTimeBlock(timeBlock)"> </span>
+                </a>
+              </td>
+
+              <td>
+                <input class="form-control" ng-model="timeBlock.start_date" ng-change="tb.updateTimeBlock(timeBlock)" type="date"></input>
+              </td>
+
+              <td>
+                <input class="form-control" ng-model="timeBlock.end_date" ng-change="tb.updateTimeBlock(timeBlock)" type="date"></input>
+              </td>
+
+              <!--<td>
+
+              <div class="btn-group">
+              <button class="btn btn-default" ng-model="timeBlock.week_schedule.monday" ng-change="tb.updateTimeBlock(timeBlock)"  btn-checkbox>M</button>
+              <button class="btn btn-default" ng-model="timeBlock.week_schedule.tuesday" ng-change="tb.updateTimeBlock(timeBlock)" btn-checkbox>T</button>
+              <button class="btn btn-default" ng-model="timeBlock.week_schedule.wednesday" ng-change="tb.updateTimeBlock(timeBlock)" btn-checkbox>W</button>
+              <button class="btn btn-default" ng-model="timeBlock.week_schedule.thursday" ng-change="tb.updateTimeBlock(timeBlock)" btn-checkbox>Th</button>
+              <button class="btn btn-default" ng-model="timeBlock.week_schedule.friday" ng-change="tb.updateTimeBlock(timeBlock)" btn-checkbox>F</button>
+            </div>
+          </td>-->
+        </tr>
+        <tr>
+          <form name="new_time_block" novalidate>
+            <td>
+
+              <div class="form-group has-feedback" ng-class="{'has-error':(new_time_block.name.$error.unique)}">
+                <input type="text" class="form-control" name="name" placeholder="Enter Name" ng-model="tb.newTimeBlock.name" unique model="timeblocks" attribute="name" required>
+                <span class="glyphicon glyphicon-warning-sign form-control-feedback" ng-show="new_time_block.name.$error.unique"></span>
+              </div>
+            </td>
+            <td>
+              <input class="form-control" ng-model="tb.newTimeBlock.start_date" type="date"></input>
+            </td>
+            <td>
+              <input class="form-control" ng-model="tb.newTimeBlock.end_date" type="date"></input>
+            </td>
+            <td>
+              <!--  <div class="btn-group">
+              <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.monday" btn-checkbox>M</button>
+              <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.tuesday" btn-checkbox>T</button>
+              <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.wednesday" btn-checkbox>W</button>
+              <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.thursday" btn-checkbox>Th</button>
+              <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.friday" btn-checkbox>F</button>
+              </div>
+
+              -->
+              <button style="position:relative" type="submit" class="btn btn-success" ng-click="tb.addNewTimeBlock()" ng-disabled="new_time_block.$invalid">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+            </td>
+
+          </form>
+        </tr>
+
+      </table>
+    </div>
   </div>
+</div>
 
 
-  <add-remove type="'students'"></add-remove>
+  </tab>
+
+</tabset>
