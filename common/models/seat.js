@@ -22,7 +22,7 @@ module.exports = function(Seat) {
                   for(j =0; j < timeblocks.length ; j++){
                     timeblock = timeblocks[j]
                     console.log(timeblock)
-                    if(timeblock.end_date < today || timeblock.start_date > today){
+                    if(timeblock.end_date > today && timeblock.start_date < today){
                         tempseats.push(seat)
                         break;
                     }
