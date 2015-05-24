@@ -6,6 +6,9 @@ angular.module("beansprouts_app")
   $scope.logList = [];
   $scope.noteList = [];
 
+
+  $scope.timeBlocks = [];
+
   $scope.notes = {};
   $scope.notes.datebox = new Date()
 
@@ -201,7 +204,7 @@ angular.module("beansprouts_app")
       params: {
         filter:{
           where:{studentId:$routeParams.id},
-          include:{relation:'class'}
+          include:[{relation:'class'},{relation:'timeblocks'}]
         }
       }
     })
@@ -209,6 +212,36 @@ angular.module("beansprouts_app")
       $scope.seatList = seatList;
     });
   }
+
+
+  $scope.addTimeBlock = function(seat, timeblock) {
+    $http({
+      url: '/api/seats/'+seat.id+'/timeblocks/rel/'+timeblock.id,
+      method: "PUT",
+    })
+    .success(function(){
+      $scope.getSeatList();
+    });
+  }
+
+  $scope.removeTimeBlock = function(seat, timeblock) {
+    $http({
+      url: '/api/seats/'+seat.id+'/timeblocks/rel/'+timeblock.id,
+      method: "DELETE",
+    })
+    .success(function(){
+      $scope.getSeatList();
+    });
+  }
+
+
+
+  $scope.getTimeBlocks = function() {
+    return $http.get("/api/timeblocks")
+    .then(function(response){
+      $scope.timeBlocks = response.data;
+    });
+  };
 
 
   $http.get('/api/students/'+$routeParams.id)
@@ -220,6 +253,7 @@ angular.module("beansprouts_app")
   $scope.getSeatList();
   $scope.updateLogs();
   $scope.updateNotes();
+  $scope.getTimeBlocks();
 
 
 }]);

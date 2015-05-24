@@ -54,6 +54,21 @@
         <a href="">
           <span class="glyphicon glyphicon-remove-sign text-danger" ng-click="removeStudent(seat.student)"> </span>
         </a>
+        <div class="pull-right">
+          <span ng-repeat="timeBlock in seat.timeblocks">
+            <span class="badge">{{timeBlock.name}}
+              <a href="">
+                <span class="text-muted" ng-click="removeTimeBlock(seat,timeBlock)"> &times;</span>
+              </a>
+            </span>
+          </span>
+          <span class="badge">
+            <input type="text" class="text-primary" ng-show="seat.clicked" typeahead="timeBlock.name for timeBlock in timeBlocks" typeahead-editable=false typeahead-on-select="addTimeBlock(seat, $item)" ng-model="seat.newTimeBlock.name"></input>
+            <a href="">
+              <span ng-click="seat.clicked = true" ng-hide="seat.clicked" class="text-muted"> &plus;</span>
+            </a>
+          </span>
+        </div>
         <div class="btn-group pull-right">
           <button class="btn btn-default" ng-class="{'active':seat.days_of_week.monday}" ng-click="updateSeat(seat, 'monday')"> M </button>
           <button class="btn btn-default" ng-class="{'active':seat.days_of_week.tuesday}" ng-click="updateSeat(seat, 'tuesday')"> T </button>
@@ -61,19 +76,7 @@
           <button class="btn btn-default" ng-class="{'active':seat.days_of_week.thursday}" ng-click="updateSeat(seat, 'thursday')"> Th </button>
           <button class="btn btn-default" ng-class="{'active':seat.days_of_week.friday}" ng-click="updateSeat(seat, 'friday')"> F </button>
         </div>
-        <span ng-repeat="timeBlock in seat.timeblocks">
-          <span class="badge">{{timeBlock.name}}
-            <a href="">
-              <span class="text-muted" ng-click="removeTimeBlock(seat,timeBlock)"> &times;</span>
-            </a>
-          </span>
-        </span>
-        <span class="badge">
-          <input type="text" class="text-primary" ng-show="seat.clicked" typeahead="timeBlock.name for timeBlock in timeBlocks" typeahead-editable=false typeahead-on-select="addTimeBlock(seat, $item)" ng-model="seat.newTimeBlock.name"></input>
-          <a href="">
-            <span ng-click="seat.clicked = true" ng-hide="seat.clicked" class="text-muted"> &plus;</span>
-          </a>
-        </span>
+
 
       </td> </tr>
     </table>

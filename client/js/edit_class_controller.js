@@ -79,13 +79,6 @@ angular.module("beansprouts_app")
     });
   };
 
-  $scope.getTimeBlocks = function() {
-    return $http.get("/api/timeblocks")
-    .then(function(response){
-      $scope.timeBlocks = response.data;
-    });
-  };
-
   $scope.getSeatList = function() {
     //$http.get('/api/classes/'+$routeParams.id+'/students')
     $http({
@@ -122,6 +115,15 @@ angular.module("beansprouts_app")
       $scope.getSeatList();
     });
   }
+
+
+
+  $scope.getTimeBlocks = function() {
+    return $http.get("/api/timeblocks")
+    .then(function(response){
+      $scope.timeBlocks = response.data;
+    });
+  };
 
 
 
