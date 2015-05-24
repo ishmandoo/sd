@@ -70,7 +70,7 @@
             </span>
           </span>
           <span class="badge">
-            <input type="text" id="{{seat.id}}" class="text-primary" ng-show="seat.clicked" typeahead="timeBlock.name for timeBlock in timeBlocks" typeahead-editable=false typeahead-on-select="addTimeBlock(seat, $item)" ng-model="seat.newTimeBlock.name"></input>
+            <input type="text" id="{{seat.id}}" class="text-primary" ng-show="seat.clicked" typeahead="timeBlock.name for timeBlock in timeBlocks | withNew:$viewValue" typeahead-editable=false typeahead-on-select="addTimeBlock(seat, $item)" ng-model="seat.newTimeBlock.name"></input>
             <a href="">
               <span ng-click="clickSeat(seat)" ng-hide="seat.clicked" class="text-muted"> &plus;</span>
             </a>

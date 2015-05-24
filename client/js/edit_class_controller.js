@@ -97,13 +97,17 @@ angular.module("beansprouts_app")
   }
 
   $scope.addTimeBlock = function(seat, timeblock) {
-    $http({
-      url: '/api/seats/'+seat.id+'/timeblocks/rel/'+timeblock.id,
-      method: "PUT",
-    })
-    .success(function(){
-      $scope.getSeatList();
-    });
+    if (timeblock.new) {
+      $location.path("admin/timeblocks");
+    } else {
+      $http({
+        url: '/api/seats/'+seat.id+'/timeblocks/rel/'+timeblock.id,
+        method: "PUT",
+      })
+      .success(function(){
+        $scope.getSeatList();
+      });
+    }
   }
 
   $scope.removeTimeBlock = function(seat, timeblock) {
@@ -122,6 +126,7 @@ angular.module("beansprouts_app")
     return $http.get("/api/timeblocks")
     .then(function(response){
       $scope.timeBlocks = response.data;
+      $scope.timeBlocks.push({name:"Add Time Block", new: true});
     });
   };
 
