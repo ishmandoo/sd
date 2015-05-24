@@ -1,12 +1,12 @@
-<div class="input-group has-feedback col-xs-12 ">
-  <input type="text" class="form-control" placeholder="Search" ng-model="searchText" aria-describedby="basic-addon2">
-  <span class="form-control-feedback glyphicon glyphicon-search"></span>
-</div>
-<br>
-<tabset type="pills">
+
+<tabset>
   <tab heading="Admin"  active="tabs.admin">
 
-
+    <div class="input-group has-feedback col-xs-12 ">
+      <input type="text" class="form-control" placeholder="Search" ng-model="searchText" aria-describedby="basic-addon2">
+      <span class="form-control-feedback glyphicon glyphicon-search"></span>
+    </div>
+    <br>
 
 
 
@@ -53,14 +53,9 @@
     <add-remove type="'students'"></add-remove>
   </tab>
   <tab heading="Time Blocks" active="tabs.timeBlocks" ng-controller="timeBlocksController as tb">
-    <div class="col-xs-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">Time Blocks</div>
-        <div class="panel-body">
-          <ng-include src="'html/timeblocks.html'"> </ng-include>
-        </div>
-      </div>
-    </div>
+
+  <ng-include src="'html/timeblocks.html'"> </ng-include>
+
 
 
   </tab>

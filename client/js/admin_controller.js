@@ -1,5 +1,5 @@
 angular.module("beansprouts_app")
-.controller("adminController", ["$scope", "$http", function($scope, $http){
+.controller("adminController", ["$scope", "$http", "confirmDeletionService", function($scope, $http, confirmDeletionService){
 
   $scope.options = [];
 
@@ -67,23 +67,32 @@ angular.module("beansprouts_app")
   }
 
   $scope.deleteStudent = function(student){
-    $http.delete('/api/students/'+student.id)
-    .success(function(){
-      $scope.getStudentList();
+    confirmDeletionService.confirmDeletion()
+    .then(function () {
+      $http.delete('/api/students/'+student.id)
+      .success(function(){
+        $scope.getStudentList();
+      });
     });
   }
 
   $scope.deleteClass = function(classObj){
-    $http.delete('/api/classes/'+classObj.id)
-    .success(function(){
-      $scope.getClassList();
+    confirmDeletionService.confirmDeletion()
+    .then(function () {
+      $http.delete('/api/classes/'+classObj.id)
+      .success(function(){
+        $scope.getClassList();
+      });
     });
   }
 
   $scope.deleteTeacher = function(teacher){
-    $http.delete('/api/teachers/'+teacher.id)
-    .success(function(){
-      $scope.getTeacherList();
+    confirmDeletionService.confirmDeletion()
+    .then(function () {
+      $http.delete('/api/teachers/'+teacher.id)
+      .success(function(){
+        $scope.getTeacherList();
+      });
     });
   }
 
@@ -103,7 +112,7 @@ angular.module("beansprouts_app")
     },
     templateUrl: '../html/list.html'
   };
-}).controller("listController", ["$scope", "$http", function($scope, $http){
+}).controller("listController", ["$scope", "$http", "confirmDeletionService", function($scope, $http, confirmDeletionService){
 
   $scope.newItemName = "";
   $scope.data = [];
@@ -142,9 +151,12 @@ angular.module("beansprouts_app")
   }
 
   $scope.delete = function(item){
-    $http.delete('/api/'+ $scope.type +'/'+item.id)
-    .success(function(){
-      $scope.getList();
+    confirmDeletionService.confirmDeletion()
+    .then(function () {
+      $http.delete('/api/'+ $scope.type +'/'+item.id)
+      .success(function(){
+        $scope.getList();
+      });
     });
   }
 
