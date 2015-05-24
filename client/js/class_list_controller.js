@@ -15,9 +15,10 @@ angular.module("beansprouts_app")
 
   $scope.getAttendanceFraction = function(classList){
 
+    dateFilter =  dateFilterObjectService.getDateFilterObject()
     for (var i = 0; i < classList.length; i++){
 
-      (function(index){
+    /*  (function(index){
         $http({
           url: '/api/seats/count',
           method: "GET",
@@ -44,7 +45,26 @@ angular.module("beansprouts_app")
         });
 
 
+      })(i) */
+
+
+      (function(index){
+
+        $http({
+          url: '/api/seats/attendancefraction',
+          method: "GET",
+          params: {
+            classId:classList[index].id,
+            dayOfWeekFilterObject: dateFilter
+          }
+        })
+        .success(function(result){
+          classList[index].totalStudents = result.classSize;
+          classList[index].totalCheckedIn = result.tally;
+        });
+
       })(i)
+
     }
   }
 

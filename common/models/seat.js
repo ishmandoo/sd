@@ -2,6 +2,31 @@
 
 module.exports = function(Seat) {
 
+  Seat.attendanceFraction = function(classId, dayOfWeekFilterObject, cb){
+    var cb2 = function(err, seatList, resultmsg){
+      if(err) cb(err)
+      else{
+        if(seatList){
+          incount = 0
+          for(var i =0 ; i < seatList.length; i++){
+            if(seatList[i].checked_in){
+              incount = incount + 1
+            }
+          }
+          cb(null, incount, seatList.length)
+        }
+
+      }
+
+    }
+    Seat.getSeatList(classId, dayOfWeekFilterObject, cb2)
+  }
+
+  Seat.remoteMethod('attendanceFraction',{
+    accepts: [{arg: 'classId', type: 'string'}, {arg: 'dayOfWeekFilterObject', type: 'object'}],
+    returns: [{arg: 'tally', type: 'number'}, {arg: 'classSize', type: 'number'}],
+    http: {path: '/attendancefraction', verb: 'get'}
+  });
 
 
   Seat.getSeatList = function(classId, dayOfWeekFilterObject, cb){
@@ -21,7 +46,7 @@ module.exports = function(Seat) {
                 if(timeblocks.length > 0){
                   for(j =0; j < timeblocks.length ; j++){
                     timeblock = timeblocks[j]
-                    console.log(timeblock)
+                    
                     if(timeblock.end_date > today && timeblock.start_date < today){
                         tempseats.push(seat)
                         break;
