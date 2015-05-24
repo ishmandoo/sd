@@ -113,7 +113,7 @@
             <button class="btn btn-default" ng-class="{'active':seat.days_of_week.friday}" ng-click="updateSeat(seat, 'friday')"> F </button>
           </div>
           <div class="pull-right" style="vertical-align:middle; line-height:40px;">
-            <span ng-repeat="timeBlock in seat.timeblocks">
+            <span ng-repeat="timeBlock in seat.timeblocks"  tooltip-popup-delay='1000' tooltip="{{timeBlock.start_date | date:'mediumDate'}} - {{timeBlock.end_date | date:'mediumDate'}}">
               <span class="badge">{{timeBlock.name}}
                 <a href="">
                   <span class="text-muted" ng-click="removeTimeBlock(seat,timeBlock)"> &times;</span>

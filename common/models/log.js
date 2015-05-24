@@ -1,19 +1,21 @@
 module.exports = function(Log) {
 
 
-  Log.billableStudents = function(date,cb){
+  Log.billableStudents = function(startDate,endDate,cb){
+    /*
     date = new Date(date)
     date.setDate(0)
     date.setHours(0,0,0)
     beginMonth = new Date(date)
     date.setMonth(date.getMonth()+1)
     endMonth = new Date(date)
-
+    */
+    
     Log.find(
       {where:
         {and:[
-          {date:{gt:beginMonth}},
-          {date:{lt:endMonth}}
+          {date:{gt:startDate}},
+          {date:{lt:endDate}}
          ]},
         order: 'studentId DESC'}, function(err,logs){
           if(err) cb(err)
@@ -40,7 +42,7 @@ module.exports = function(Log) {
   }
 
   Log.remoteMethod('billableStudents',{
-    accepts: {arg: 'date', type: 'date'},
+    accepts: [{arg: 'startDate', type: 'date'},{arg: 'endDate', type: 'date'}],
     returns: {arg: 'billableStudents', type: 'number'},
     http: {path: '/billablestudents', verb: 'get'}
   });
