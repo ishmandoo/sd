@@ -89,8 +89,8 @@
         <th>
           Type
         </th>
-        <th colspan=2>
-          Days of Week
+        <th colspan=4>
+          <center>Schedule</center>
         </th>
       </tr>
 
@@ -104,7 +104,7 @@
         <td>
           {{seat.class.class_type}}
         </td>
-        <td colspan=2>
+        <td colspan=4>
           <div class="btn-group pull-right">
             <button class="btn btn-default" ng-class="{'active':seat.days_of_week.monday}" ng-click="updateSeat(seat, 'monday')"> M </button>
             <button class="btn btn-default" ng-class="{'active':seat.days_of_week.tuesday}" ng-click="updateSeat(seat, 'tuesday')"> T </button>
