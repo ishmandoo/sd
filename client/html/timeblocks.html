@@ -49,19 +49,20 @@
       <td>
         <input class="form-control" ng-model="tb.newTimeBlock.end_date" type="date"></input>
       </td>
-      <!--<td>
-        <div class="btn-group">
+      <td>
+        <!--  <div class="btn-group">
           <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.monday" btn-checkbox>M</button>
           <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.tuesday" btn-checkbox>T</button>
           <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.wednesday" btn-checkbox>W</button>
           <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.thursday" btn-checkbox>Th</button>
           <button class="btn btn-default" ng-model="tb.newTimeBlock.week_schedule.friday" btn-checkbox>F</button>
         </div>
-        </td>
+
       -->
+        <button style="position:relative" type="submit" class="btn btn-success" ng-click="tb.addNewTimeBlock()" ng-disabled="new_time_block.$invalid">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
+      </td>
 
     </form>
   </tr>
 
 </table>
-<button style="position:relative" type="submit" class="btn btn-success pull-right" ng-click="tb.addNewTimeBlock()" ng-disabled="new_time_block.$invalid">&nbsp<span class="glyphicon glyphicon-plus-sign"></span>&nbsp</button>
