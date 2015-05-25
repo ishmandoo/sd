@@ -91,6 +91,11 @@ app.config(function($routeProvider){
     templateUrl: 'html/edit_student.html',
     controller: "editStudentController"
   })
+  .when('/admin/billing',{
+    templateUrl: 'html/billing.html',
+    controller: "billingController",
+    controllerAs: "bill"
+  })
   .otherwise({
     templateUrl: 'html/login.html',
     controller: "loginController"

@@ -53,11 +53,10 @@
     <add-remove type="'students'"></add-remove>
   </tab>
   <tab heading="Time Blocks" active="tabs.timeBlocks" ng-controller="timeBlocksController as tb">
-
-  <ng-include src="'html/timeblocks.html'"> </ng-include>
-
-
-
+    <ng-include src="'html/timeblocks.html'"> </ng-include>
+  </tab>
+  <tab heading="Billing" active="tabs.billing" ng-controller="billingController as bill">
+    <ng-include src="'html/billing.html'"> </ng-include>
   </tab>
 
 </tabset>

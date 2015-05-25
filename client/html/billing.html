@@ -1,0 +1,28 @@
+<form class="form-inline">
+  <div class="form-group">
+    <label> Start Date </label>
+    <input class="form-control" ng-model="bill.startDate" ng-change="bill.getBillableStudents()" type="date"></input>
+  </div>
+  &nbsp;
+  <div class="form-group">
+    <label> End Date </label>
+    <input class="form-control" ng-model="bill.endDate" ng-change="bill.getBillableStudents()" type="date"></input>
+  </div>
+</form>
+
+<table class="table">
+  <tr>
+    <th> Start </th>
+    <th> End </th>
+    <th> Active Students </th>
+    <th> Per Student Fee </th>
+    <th> Bill </th>
+  </tr>
+  <tr>
+    <td> {{bill.startDate | date}} </td>
+    <td> {{bill.endDate | date}} </td>
+    <td> {{bill.billableStudents}} </td>
+    <td> $0.25 </td>
+    <td> ${{bill.billableStudents * 0.25}} </td>
+  </tr>
+</table>
