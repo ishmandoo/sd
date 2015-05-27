@@ -96,6 +96,11 @@ app.config(function($routeProvider){
     controller: "billingController",
     controllerAs: "bill"
   })
+  .when('/admin/import',{
+    templateUrl: 'html/import.html',
+    controller: "importController",
+    controllerAs: "import"
+  })
   .otherwise({
     templateUrl: 'html/login.html',
     controller: "loginController"

@@ -14,6 +14,7 @@
         vm.endDate = new Date();
         vm.startDate.setMonth( vm.endDate.getMonth( ) - 1 );
         vm.getBillableStudents = getBillableStudents;
+        vm.invoiceUrl="";
 
         activate();
 
@@ -33,6 +34,22 @@
           .success(function(res){
             vm.billableStudents = res.billableStudents;
           });
+        }
+
+        function getInvoiceUrl() {
+          var params = {
+            from: 'Sheepdog, LLC',
+            to: 'Beansprouts',
+            number: 1,
+            items: [
+              {
+                name: "Gizmo",
+                quantity: 10,
+                unit_cost: 99.99,
+                description: "The best gizmos there are around."
+              }]
+          }
+          vm.invoiceUrl = 'https://invoice-generator.com?' + $.param(params);
         }
     }
 })();
