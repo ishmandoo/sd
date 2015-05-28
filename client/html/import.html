@@ -1,13 +1,38 @@
-<div class="col-xs-6">
-  <textarea class="" rows="4" cols="50" ng-model="import.list" style="resize: none;" placeholder="Enter students here. One per line.">
-  </textarea>
-  <div>
-    <button class="btn" ng-click="import.importStudents()">Import Students</button>
+<div class="panel panel-default">
+  <div class="panel-heading">Import Students</div>
+  <div class="panel-body">
+    <div class="col-xs-6">
+      <textarea class="" rows="4" cols="50" ng-model="import.addStudentList" style="resize: none;" placeholder="Enter students here. One per line.">
+      </textarea>
+      <div>
+        <button class="btn" ng-click="import.importStudents()">Import Students</button>
+      </div>
+    </div>
+    <div class="col-xs-6">
+    <h4> Students to Import </h4>
+      <ul class="list">
+        <li ng-repeat="name in import.addStudentList.split('\n') track by $index">{{name}}</li>
+      </ul>
+    </div>
   </div>
 </div>
-<div class="col-xs-6">
-<h3> Students to Import </h3>
-  <ul class="list">
-    <li ng-repeat="name in import.list.split('\n') track by $index">{{name}}</li>
-  </ul>
+<div class="panel panel-default">
+  <div class="panel-heading">Add Students to Class</div>
+  <div class="panel-body">
+    <div class="col-xs-6">
+      <label> Select a class </label>
+      <select ng-options="class.name for class in import.classList track by class.id" ng-model="import.selectedClass"></select>
+      <textarea class="" rows="4" cols="50" ng-model="import.addStudentToClassList" style="resize: none;" placeholder="Enter students here. One per line.">
+      </textarea>
+      <div>
+        <button class="btn" ng-click="import.addStudentsToClass()">Add Students</button>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <h4> Students to Add to Class</h4>
+      <ul class="list">
+        <li ng-repeat="name in import.addStudentToClassList.split('\n') track by $index">{{name}}</li>
+      </ul>
+    </div>
+  </div>
 </div>
