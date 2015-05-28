@@ -1,11 +1,11 @@
 <div class="panel panel-default">
-  <div class="panel-heading">Import Students</div>
+  <div class="panel-heading">Bulk Import Students</div>
   <div class="panel-body">
     <div class="col-xs-6">
       <textarea class="" rows="6" ng-model="import.addStudentList" style="resize: none; width: 100%; overflow:auto;" placeholder="Enter students here. One per line.">
       </textarea>
       <div>
-        <button class="btn" ng-click="import.importStudents()">Import Students</button>
+        <button class="btn btn-success" ng-click="import.importStudents()">Import Students</button>
       </div>
     </div>
     <div class="col-xs-6">
@@ -17,17 +17,18 @@
   </div>
 </div>
 <div class="panel panel-default">
-  <div class="panel-heading">Add Students to Class</div>
+  <div class="panel-heading">Bulk Add Students to Class</div>
   <div class="panel-body">
     <div class="col-xs-6">
       <div>
         <label> Select a class </label>
-        <select ng-options="class.name for class in import.classList track by class.id" ng-model="import.selectedClass"></select>
+        <select class="form-control form-inline" ng-options="class.name for class in import.classList track by class.id" ng-model="import.selectedClass"></select>
       </div>
+      <br>
       <textarea class="" rows="6" ng-model="import.addStudentToClassList" style="resize: none; width: 100%;" placeholder="Enter students here. One per line.">
       </textarea>
       <div>
-        <button class="btn" ng-click="import.addStudentsToClass()">Add Students</button>
+        <button class="btn btn-success" ng-click="import.addStudentsToClass()">Add Students</button>
       </div>
     </div>
     <div class="col-xs-6">
