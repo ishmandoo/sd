@@ -1,14 +1,4 @@
-<form class="form-inline">
-  <div class="form-group">
-    <label> Start Date </label>
-    <input class="form-control" ng-model="bill.startDate" ng-change="bill.getBillableStudents()" type="date"></input>
-  </div>
-  &nbsp;
-  <div class="form-group">
-    <label> End Date </label>
-    <input class="form-control" ng-model="bill.endDate" ng-change="bill.getBillableStudents()" type="date"></input>
-  </div>
-</form>
+
 
 <table class="table">
   <tr>
@@ -26,5 +16,17 @@
     <td> ${{bill.billableStudents * 0.25}} </td>
   </tr>
 </table>
+
+<form class="form-inline">
+  <div class="form-group">
+    <label> Start Date </label>
+    <input class="form-control" ng-model="bill.startDate" ng-change="bill.getBillableStudents()" type="date"></input>
+  </div>
+  &nbsp;
+  <div class="form-group">
+    <label> End Date </label>
+    <input class="form-control" ng-model="bill.endDate" ng-change="bill.getBillableStudents()" type="date"></input>
+  </div>
+</form>
 
 <!--<a class="btn btn-primary" href="{{bill.invoiceUrl}}">Download</a>-->

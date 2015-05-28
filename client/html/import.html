@@ -2,7 +2,7 @@
   <div class="panel-heading">Import Students</div>
   <div class="panel-body">
     <div class="col-xs-6">
-      <textarea class="" rows="4" cols="50" ng-model="import.addStudentList" style="resize: none;" placeholder="Enter students here. One per line.">
+      <textarea class="" rows="6" ng-model="import.addStudentList" style="resize: none; width: 100%; overflow:auto;" placeholder="Enter students here. One per line.">
       </textarea>
       <div>
         <button class="btn" ng-click="import.importStudents()">Import Students</button>
@@ -20,9 +20,11 @@
   <div class="panel-heading">Add Students to Class</div>
   <div class="panel-body">
     <div class="col-xs-6">
-      <label> Select a class </label>
-      <select ng-options="class.name for class in import.classList track by class.id" ng-model="import.selectedClass"></select>
-      <textarea class="" rows="4" cols="50" ng-model="import.addStudentToClassList" style="resize: none;" placeholder="Enter students here. One per line.">
+      <div>
+        <label> Select a class </label>
+        <select ng-options="class.name for class in import.classList track by class.id" ng-model="import.selectedClass"></select>
+      </div>
+      <textarea class="" rows="6" ng-model="import.addStudentToClassList" style="resize: none; width: 100%;" placeholder="Enter students here. One per line.">
       </textarea>
       <div>
         <button class="btn" ng-click="import.addStudentsToClass()">Add Students</button>
