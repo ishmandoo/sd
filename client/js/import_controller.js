@@ -24,9 +24,17 @@
 
         function importStudents() {
           var list = vm.addStudentList.split('\n');
-          for (var i = 0; i<list.length; i++) {
+
+          var uniqueList = [];
+          $.each(list, function(i, el){
+            if($.inArray(el, uniqueList) === -1) uniqueList.push(el);
+          });
+
+          for (var i = 0; i<uniqueList.length; i++) {
+
 
             (function(name) {
+              console.log(name);
               $http({
                 url: '/api/students',
                 method: "GET",
@@ -41,7 +49,7 @@
                   vm.addStudentList += (name + "\n");
                 }
               });
-            })(list[i])
+            })(uniqueList[i])
 
           }
 
