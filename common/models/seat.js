@@ -29,7 +29,33 @@ module.exports = function(Seat) {
   });
 
 
+
+
+
   Seat.getSeatList = function(classId, dayOfWeekFilterObject, cb){
+
+
+    filterSeatsforTimeblocks = function(seats){
+      tempseats = []
+      for(var i = 0; i < seats.length; i++){
+        seat = seats[i]
+        timeblocks = seat.timeblocks()
+        if(timeblocks.length > 0){
+          for(j =0; j < timeblocks.length ; j++){
+            timeblock = timeblocks[j]
+
+            if(timeblock.end_date > today && timeblock.start_date < today){
+                tempseats.push(seat)
+                break;
+            }
+          }
+        }else{
+          tempseats.push(seat)
+        }
+      }
+      return tempseats
+
+    }
 
       today = new Date();
 
@@ -46,7 +72,7 @@ module.exports = function(Seat) {
                 if(timeblocks.length > 0){
                   for(j =0; j < timeblocks.length ; j++){
                     timeblock = timeblocks[j]
-                    
+
                     if(timeblock.end_date > today && timeblock.start_date < today){
                         tempseats.push(seat)
                         break;
@@ -66,8 +92,11 @@ module.exports = function(Seat) {
                         where: {
                             and: [{studentId:{inq:idList}}, dayOfWeekFilterObject]
                         },
-                        include: ['student', 'class']
+                        include: ['student', 'class','timeblocks']
                     }, function(err, seats){
+
+
+                        seats = filterSeatsforTimeblocks(seats)
 
                         var afterList = [];
                         for (var i = 0; i < seats.length; i++) {
